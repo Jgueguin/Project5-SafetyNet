@@ -30,7 +30,7 @@ public class FireStationsService {
     }
 
     public FireStations saveFirestations(FireStations firestations) {
-        
+
         FireStations savedFirestations = fireStationsRepository.save(firestations);
         return firestations;
     }
