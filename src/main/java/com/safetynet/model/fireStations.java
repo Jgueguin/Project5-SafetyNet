@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "firestations")
 //@JsonFilter("monFiltreDynamique")
-public class FireStations {
+public class fireStations {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

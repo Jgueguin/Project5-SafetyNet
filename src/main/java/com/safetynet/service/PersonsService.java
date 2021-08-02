@@ -1,6 +1,6 @@
 package com.safetynet.service;
 
-import com.safetynet.model.Persons;
+import com.safetynet.model.persons;
 import com.safetynet.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class PersonsService {
     @Autowired
     private PersonsRepository personsRepository;
 
-    public Optional<Persons> getPersons(final Long id) {
+    public Optional<persons> getPersons(final Long id) {
         return personsRepository.findById(id);
 
     }
 
-    public Iterable<Persons> getEmployees() {
+    public Iterable<persons> getEmployees() {
         return personsRepository.findAll();
     }
 
@@ -27,8 +27,8 @@ public class PersonsService {
         personsRepository.deleteById(id);
     }
 
-    public Persons savePersons(Persons persons) {
-        Persons savedPersons = personsRepository.save(persons);
+    public persons savePersons(persons persons) {
+        com.safetynet.model.persons savedPersons = personsRepository.save(persons);
         return savedPersons;
     }
 }

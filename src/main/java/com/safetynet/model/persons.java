@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "persons")
 //@JsonFilter("monFiltreDynamique")
-public class Persons {
+public class persons {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

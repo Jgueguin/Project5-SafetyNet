@@ -1,6 +1,6 @@
 package com.safetynet.service;
 
-import com.safetynet.model.FireStations;
+import com.safetynet.model.fireStations;
 import com.safetynet.repository.FireStationsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +14,12 @@ public class FireStationsService {
     @Autowired
     private FireStationsRepository fireStationsRepository;
 
-    public Optional<FireStations> getPersons(final Long id) {
+    public Optional<fireStations> getPersons(final Long id) {
 
         return fireStationsRepository.findById(id);
     }
 
-    public Iterable<FireStations> getFireStations() {
+    public Iterable<fireStations> getFireStations() {
 
         return fireStationsRepository.findAll();
     }
@@ -29,9 +29,9 @@ public class FireStationsService {
         fireStationsRepository.deleteById(id);
     }
 
-    public FireStations saveFirestations(FireStations firestations) {
+    public fireStations saveFirestations(fireStations firestations) {
 
-        FireStations savedFirestations = fireStationsRepository.save(firestations);
+        fireStations savedFirestations = fireStationsRepository.save(firestations);
         return firestations;
     }
 }

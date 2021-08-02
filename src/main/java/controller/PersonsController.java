@@ -1,6 +1,6 @@
 package controller;
 
-import com.safetynet.model.Persons;
+import com.safetynet.model.persons;
 import com.safetynet.service.PersonsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class PersonsController {
      * @return - An Iterable object of persons full filled
      */
     @GetMapping("/persons")
-    public Iterable<Persons> getPersons() {
+    public Iterable<persons> getPersons() {
         return personsService.getPersons();
 
 
@@ -30,9 +30,9 @@ public class PersonsController {
      * @param id The id of the person
      * @return A person object full filled
      */
-    @GetMapping("/person/{id}")
-    public Persons getPersons(@PathVariable("id") final Long id) {
-        Optional<Persons> persons = personsService.getPersons(id);
+    @GetMapping("/persons/{id}")
+    public persons getPersons(@PathVariable("id") final Long id) {
+        Optional<persons> persons = personsService.getPersons(id);
         if(persons.isPresent()) {
             return persons.get();
         } else {
@@ -56,8 +56,8 @@ public class PersonsController {
      * @param person: An object employee
      * @return The person object saved
      */
-    @PostMapping("/person")
-    public Persons createPersons(@RequestBody Persons persons) {
+    @PostMapping("/persons")
+    public persons createPersons(@RequestBody persons persons) {
         return personsService.savePersons(persons);
     }
 
