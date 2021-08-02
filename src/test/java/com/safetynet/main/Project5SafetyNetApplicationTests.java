@@ -1,4 +1,4 @@
-package com.safetynet.Project5.Project5SafetyNet;
+package com.safetynet.main;
 
 // import org.junit.jupiter.api.Test;
 // import org.springframework.boot.test.context.SpringBootTest;
