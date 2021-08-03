@@ -1,4 +1,4 @@
-package controller;
+package com.safetynet.controller;
 
 import com.safetynet.model.persons;
 import com.safetynet.service.PersonsService;
