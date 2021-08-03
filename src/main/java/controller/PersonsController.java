@@ -7,6 +7,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
+/**
+ * Person Controller
+ */
+
+
 @RestController
 public class PersonsController {
 
@@ -21,8 +26,6 @@ public class PersonsController {
     @GetMapping("/persons")
     public Iterable<persons> getPersons() {
         return personsService.getPersons();
-
-
     }
 
     /**
@@ -47,6 +50,7 @@ public class PersonsController {
      */
     @DeleteMapping("/persons/{id}")
     public void deletePersons(@PathVariable("id") final Long id) {
+
         personsService.deletePersons(id);
     }
 
@@ -58,9 +62,9 @@ public class PersonsController {
      */
     @PostMapping("/persons")
     public persons createPersons(@RequestBody persons persons) {
+
         return personsService.savePersons(persons);
     }
-
 
 }
 

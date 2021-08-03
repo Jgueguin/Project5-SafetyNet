@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Fire Stations Model
+ */
 
 @Data
 @Entity

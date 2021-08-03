@@ -4,6 +4,10 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Persons Model
+ */
+
 @Data
 @Entity
 @Table(name = "persons")

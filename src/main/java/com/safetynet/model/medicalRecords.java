@@ -4,6 +4,9 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * Medical Records Model
+ */
 
 @Data
 @Entity
