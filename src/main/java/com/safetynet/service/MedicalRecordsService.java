@@ -1,6 +1,6 @@
 package com.safetynet.service;
 
-import com.safetynet.model.medicalRecords;
+import com.safetynet.model.MedicalRecords;
 import com.safetynet.repository.MedicalRecordsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class MedicalRecordsService {
      * @param id : parameter to choose a medical record
      * @return: the choosen medical records
      */
-    public Optional<medicalRecords> getMedicalRecords(final Long id) {
+    public Optional<MedicalRecords> getMedicalRecords(final Long id) {
 
         return medicalRecordsRepository.findById(id);
     }
@@ -32,7 +32,7 @@ public class MedicalRecordsService {
      * select all the medical records
      * @return all the medical records
      */
-    public Iterable<medicalRecords> getMedicalRecords() {
+    public Iterable<MedicalRecords> getMedicalRecords() {
 
         return medicalRecordsRepository.findAll();
     }
@@ -50,9 +50,9 @@ public class MedicalRecordsService {
      * @param medicalRecords
      * @return : save the new medical records into Repository
      */
-    public medicalRecords saveMedicalRecords(medicalRecords medicalRecords) {
+    public MedicalRecords saveMedicalRecords(MedicalRecords medicalRecords) {
 
-        com.safetynet.model.medicalRecords savedMedicalRecords = medicalRecordsRepository.save(medicalRecords);
+        MedicalRecords savedMedicalRecords = medicalRecordsRepository.save(medicalRecords);
         return medicalRecords;
     }
 }

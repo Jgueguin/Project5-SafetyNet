@@ -1,6 +1,6 @@
 package com.safetynet.service;
 
-import com.safetynet.model.fireStations;
+import com.safetynet.model.FireStations;
 import com.safetynet.repository.FireStationsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class FireStationsService {
      * @param id : parameter to choose the fire station
      * @return : the information for the choosen fire station
      */
-    public Optional<fireStations> getPersons(final Long id) {
+    public Optional<FireStations> getPersons(final Long id) {
 
         return fireStationsRepository.findById(id);
     }
@@ -32,7 +32,7 @@ public class FireStationsService {
      * Select all the fire stations
      * @return: the informations for all the firestations
      */
-    public Iterable<fireStations> getFireStations() {
+    public Iterable<FireStations> getFireStations() {
 
         return fireStationsRepository.findAll();
     }
@@ -52,9 +52,9 @@ public class FireStationsService {
      * @param firestations
      * @return : save the new fire station into Repository
      */
-    public fireStations saveFirestations(fireStations firestations) {
+    public FireStations saveFirestations(FireStations firestations) {
 
-        fireStations savedFirestations = fireStationsRepository.save(firestations);
+        FireStations savedFirestations = fireStationsRepository.save(firestations);
         return firestations;
     }
 }

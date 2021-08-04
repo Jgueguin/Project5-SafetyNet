@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+
 /**
  * Medical Records Model
  */
@@ -12,7 +13,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "medical_records")
         //@JsonFilter("monFiltreDynamique")
-public class medicalRecords {
+public class MedicalRecords {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,13 +27,13 @@ public class medicalRecords {
 
     private String birthdate;
 
-    //ArrayList<String> medications = new ArrayList<String>();
+    @Embedded
+    private Medications medications;
 
-    //ArrayList<String> allergies = new ArrayList<>();
+    @Embedded
+    private Allergies allergies;
+
+    public MedicalRecords() {}
 
 }
-
-
-
-
 
