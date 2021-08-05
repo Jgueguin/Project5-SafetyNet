@@ -1,9 +1,7 @@
 package com.safetynet.controller;
 
 import com.safetynet.model.FireStations;
-import com.safetynet.model.Persons;
 import com.safetynet.service.FireStationsService;
-import com.safetynet.service.PersonsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +48,7 @@ public class FireStationsController {
             return null;
         }
     }
+
 
     /**
      * Delete - Delete a firestation

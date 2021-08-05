@@ -23,7 +23,7 @@ public class FireStationsService {
      * @param id : parameter to choose the fire station
      * @return : the information for the choosen fire station
      */
-    public Optional<FireStations> getPersons(final Long id) {
+    public Optional<FireStations> getFireStations(final Long id) {
 
         return fireStationsRepository.findById(id);
     }
