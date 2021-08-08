@@ -1,28 +1,21 @@
 package com.safetynet;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.json.JSONParser;
 import org.apache.tomcat.util.json.ParseException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
 
-import javax.persistence.Column;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 
 
@@ -76,7 +69,8 @@ public class App {
 
 	//@Bean
 	public class JsonToDatabase {
-		public static Connection ConnectToDB() throws Exception {
+
+		/*public static Connection ConnectToDB() throws Exception {
 
 			//Registering the Driver
 			DriverManager.registerDriver(new com.mysql.jdbc.Driver());
@@ -87,10 +81,26 @@ public class App {
 			Connection con = DriverManager.getConnection(mysqlUrl, "sa", "password");
 			System.out.println("Connection established......");
 			return con;
+		}*/
+
+		private final Logger logger = LogManager.getLogger("DataBaseConfig");
+
+		public Connection ConnectToDB() throws ClassNotFoundException, SQLException {
+			logger.info("Create DB connection");
+
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			return DriverManager.getConnection(
+					"jdbc:h2:mem:testdb","sa","password");
 		}
 
+
+
+
 		public static void main(String args[]) {
+
 			//Creating a JSONParser object
+
 			JSONParser jsonParser = new JSONParser();
 			try {
 
