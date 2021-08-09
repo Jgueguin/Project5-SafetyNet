@@ -1,7 +1,7 @@
-package com.safetynet.service;
+package com.safetynet.alerts.service;
 
-import com.safetynet.model.FireStations;
-import com.safetynet.repository.FireStationsRepository;
+import com.safetynet.alerts.repository.FireStationsRepository;
+import com.safetynet.alerts.model.FireStations;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,4 +57,19 @@ public class FireStationsService {
         FireStations savedFirestations = fireStationsRepository.save(firestations);
         return firestations;
     }
+
+
+    /**
+     * Save all fire stations.
+     *
+     * @param firestations the firestations
+     * @return list of fire stations saved
+     */
+    public Iterable<FireStations> saveAll(Iterable<FireStations> firestations) {
+        return fireStationsRepository.saveAll(firestations);
+    }
+
+
+
+
 }

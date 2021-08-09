@@ -1,7 +1,7 @@
-package com.safetynet.service;
+package com.safetynet.alerts.service;
 
-import com.safetynet.model.Persons;
-import com.safetynet.repository.PersonsRepository;
+import com.safetynet.alerts.repository.PersonsRepository;
+import com.safetynet.alerts.model.Persons;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,7 +38,7 @@ public class PersonsService {
     }
 
     /**
-     * delete Service
+     * delete a person
      * @param id to choose a person to delete into the repository
      */
     public void deletePersons(final Long id) {
@@ -54,4 +54,19 @@ public class PersonsService {
         Persons savedPersons = personsRepository.save(persons);
         return savedPersons;
     }
+
+
+    /**
+     * Save all persons.
+     *
+     * @param persons the persons
+     * @return list of persons saved
+     */
+    public Iterable<Persons> saveAll(Iterable<Persons> persons) {
+        return personsRepository.saveAll(persons);
+    }
+
+
+
+
 }

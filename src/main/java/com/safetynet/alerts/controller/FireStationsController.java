@@ -1,7 +1,7 @@
-package com.safetynet.controller;
+package com.safetynet.alerts.controller;
 
-import com.safetynet.model.FireStations;
-import com.safetynet.service.FireStationsService;
+import com.safetynet.alerts.model.FireStations;
+import com.safetynet.alerts.service.FireStationsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

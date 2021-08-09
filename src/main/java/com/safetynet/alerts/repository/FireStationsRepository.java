@@ -1,9 +1,9 @@
-package com.safetynet.repository;
+package com.safetynet.alerts.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.safetynet.model.FireStations;
+import com.safetynet.alerts.model.FireStations;
 
 /**
  * Fire Station Repository

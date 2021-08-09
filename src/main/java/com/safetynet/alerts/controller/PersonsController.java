@@ -1,7 +1,7 @@
-package com.safetynet.controller;
+package com.safetynet.alerts.controller;
 
-import com.safetynet.model.Persons;
-import com.safetynet.service.PersonsService;
+import com.safetynet.alerts.service.PersonsService;
+import com.safetynet.alerts.model.Persons;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +21,6 @@ public class PersonsController {
     public PersonsController (PersonsService personsService){
         this.personsService = personsService;
     }
-
 
 
 
@@ -64,7 +63,7 @@ public class PersonsController {
     /**
      * Create - Add a new person
      *
-     * @param person: An object employee
+     * @param persons: An object employee
      * @return The person object saved
      */
     @PostMapping("/persons")

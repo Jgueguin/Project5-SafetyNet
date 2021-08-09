@@ -1,7 +1,7 @@
-package com.safetynet.service;
+package com.safetynet.alerts.service;
 
-import com.safetynet.model.MedicalRecords;
-import com.safetynet.repository.MedicalRecordsRepository;
+import com.safetynet.alerts.model.MedicalRecords;
+import com.safetynet.alerts.repository.MedicalRecordsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,4 +55,21 @@ public class MedicalRecordsService {
         MedicalRecords savedMedicalRecords = medicalRecordsRepository.save(medicalRecords);
         return medicalRecords;
     }
+
+
+    /**
+     * Save all medical records.
+     *
+     * @param medicalRecords the medical records
+     * @return list of medical records saved
+     */
+    public Iterable<MedicalRecords> saveAll(
+            Iterable<MedicalRecords> medicalRecords) {
+        return medicalRecordsRepository.saveAll(medicalRecords);
+
+    }
+
+
+
+
 }
