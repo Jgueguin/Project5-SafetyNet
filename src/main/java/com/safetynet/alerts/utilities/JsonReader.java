@@ -76,7 +76,7 @@ public class JsonReader {
             mapper = new ObjectMapper();
             f = new File("src/main/resources/data.json");
             is = new FileInputStream(f);
-            
+
             ImportData lists = mapper.readValue(is, ImportData.class);
 
             List<Persons> persons = lists.getPersons();
