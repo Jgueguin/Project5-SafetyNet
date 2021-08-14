@@ -26,7 +26,6 @@ public class Persons {
     public Persons() {
     }
 
-
     /**
      * The Id.
      */
@@ -39,7 +38,7 @@ public class Persons {
     /**
      * The First name.
      */
-    // @NotBlank(message = "First name field cannot be empty")
+    @NotBlank(message = "First name field cannot be empty")
     @Column(name = "first_name")
     @JsonProperty("")
     private String firstName;
@@ -47,48 +46,48 @@ public class Persons {
     /**
      * The Last name.
      */
-    // @NotBlank(message = "Last name field cannot be empty")
+    @NotBlank(message = "Last name field cannot be empty")
     @Column(name = "last_name")
     private String lastName;
 
     /**
      * The Address.
      */
-    // @NotBlank(message = "Address field cannot be empty")
+    @NotBlank(message = "Address field cannot be empty")
     @Column(name = "address")
     private String address;
 
     /**
      * The City.
      */
-    //@NotBlank(message = "City field cannot be empty")
+    @NotBlank(message = "City field cannot be empty")
     @Column(name = "city")
     private String city;
 
     /**
      * The Zip.
      */
-    // @NotNull(message = "Zip field cannot be empty")
+    @NotNull(message = "Zip field cannot be empty")
     @Column(name = "zip")
     private Integer zip;
 
     /**
      * The Phone.
      */
-    // @NotBlank(message = "Phone field name cannot be empty")
+    @NotBlank(message = "Phone field name cannot be empty")
     @Column(name = "phone")
     private String phone;
 
     /**
      * The Email.
      */
-    // @NotBlank(message = "Email field cannot be empty")
+    @NotBlank(message = "Email field cannot be empty")
     @Column(name = "email")
     private String email;
 
 
     /**
-     * Instantiates  new Person.
+     * Instantiates  a new Person.
      *
      * @param id        the id
      * @param firstName the first name
@@ -117,8 +116,6 @@ public class Persons {
         this.phone = phone;
         this.email = email;
     }
-
-
 
 
 }

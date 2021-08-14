@@ -15,17 +15,11 @@ import javax.validation.constraints.NotNull;
 @Data
 @Entity
 @Table(name = "firestations")
-//@JsonFilter("monFiltreDynamique")
 public class FireStations {
 
-    /**
-     * Instantiates  new Fire Station.
-     */
-    public FireStations() {
-    }
 
     /**
-     * The Id.
+     * Id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,18 +28,25 @@ public class FireStations {
     private Long id;
 
     /**
-     * The Station.
+     * Station
      */
     @NotNull(message = "Station number cannot be empty")
     @Column(name = "station")
     private Integer station;
 
     /**
-     * The Address.
+     * Address
      */
     @NotBlank(message = "Address field cannot be empty")
     @Column(name = "address")
     private String address;
+
+
+    /**
+     * Instantiates  new Fire Station.
+     */
+    public FireStations() {
+    }
 
     /**
      * Instantiates new Firestation.
@@ -61,8 +62,6 @@ public class FireStations {
         this.station = station;
         this.address = address;
     }
-
-
 
 
 }

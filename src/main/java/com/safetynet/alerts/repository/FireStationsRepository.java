@@ -11,6 +11,5 @@ import com.safetynet.alerts.model.FireStations;
 
 @Repository
 public interface FireStationsRepository extends CrudRepository<FireStations, Long> {
-
 }
 

@@ -20,14 +20,7 @@ import java.util.Date;
 public class MedicalRecords {
 
     /**
-     * instance of a new Medical record
-     */
-    public MedicalRecords() {
-    }
-
-
-    /**
-     * The Id.
+     * Id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,19 +29,19 @@ public class MedicalRecords {
     private Long id;
 
     /**
-     * The First name.
+     * First name
      */
     @Column(name = "first_name")
     private String firstName;
 
     /**
-     * The Last name.
+     * Last name
      */
     @Column(name = "last_name")
     private String lastName;
 
     /**
-     * The Birth date.
+     * Birth date
      */
     @Column(name = "birth_date")
     @JsonProperty("birthdate")
@@ -56,17 +49,44 @@ public class MedicalRecords {
     private Date birthDate;
 
     /**
-     * The Medications.
+     * Medications
      */
     @Column(name = "medications")
     private String[] medications;
 
 
     /**
-     * The Allergies.
+     * Allergies
      */
     @Column(name = "allergies")
     private String[] allergies;
+
+
+    /**
+     * instance of a new Medical record
+     */
+    public MedicalRecords() {
+    }
+
+    /**
+     * Instantiates a new Medical record.
+     *
+     * @param id          the id
+     * @param firstName   the first name
+     * @param lastName    the last name
+     * @param birthDate   the birth date
+     * @param medications the medications
+     * @param allergies   the allergies
+     */
+    public MedicalRecords(Long id, String firstName, String lastName,
+                         Date birthDate, String[] medications, String[] allergies) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.birthDate = birthDate;
+        this.medications = medications;
+        this.allergies = allergies;
+    }
 
 }
 
