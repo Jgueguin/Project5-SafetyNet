@@ -72,4 +72,20 @@ public class FireStationsService {
 
 
 
+    /**
+     * Update a fire station.( Put )
+     *
+     * @param firestations the firestations
+     * @return list of fire stations saved
+     */
+    public FireStations updateFirestations(FireStations firestations) {
+
+        return fireStationsRepository.save(firestations);
+    }
+
+
+
+
+
+
 }

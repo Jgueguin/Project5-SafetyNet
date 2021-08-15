@@ -1,7 +1,7 @@
 package com.safetynet.alerts.service;
 
-import com.safetynet.alerts.repository.PersonsRepository;
 import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -69,7 +69,17 @@ public class PersonsService {
         return personsRepository.saveAll(persons);
     }
 
+    /**
+     * Update a person.( Put )
+     *
+     * @param persons a persons
+     * @return list of fire stations saved
+     */
+    public Persons updatePersons(Persons persons) {
 
+        return personsRepository.save(persons);
+
+    }
 
 
 }

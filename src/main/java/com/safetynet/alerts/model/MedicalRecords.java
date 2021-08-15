@@ -78,8 +78,12 @@ public class MedicalRecords {
      * @param medications the medications
      * @param allergies   the allergies
      */
-    public MedicalRecords(Long id, String firstName, String lastName,
-                         Date birthDate, String[] medications, String[] allergies) {
+    public MedicalRecords(Long id,
+                          String firstName,
+                          String lastName,
+                          Date birthDate,
+                          String[] medications,
+                          String[] allergies) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

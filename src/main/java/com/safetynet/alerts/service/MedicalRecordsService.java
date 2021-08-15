@@ -70,6 +70,20 @@ public class MedicalRecordsService {
     }
 
 
+    /**
+     * Update a Medical Record.( Put )
+     *
+     * @param medicalRecords a medical Record
+     * @return the medical records saved
+     */
+    public MedicalRecords updateMedicalRecords(MedicalRecords medicalRecords) {
+
+        return medicalRecordsRepository.save(medicalRecords);
+
+    }
+
+
+
 
 
 }

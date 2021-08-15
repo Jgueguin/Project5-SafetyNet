@@ -72,6 +72,25 @@ public class FireStationsController {
 
         return fireStationsService.saveFirestations(fireStations);
     }
+
+
+
+    /**
+     * Modify - "Put" a fire station
+     * @param id The id of a fire station
+     * @return A firestation object full filled
+     */
+    @PutMapping("/firestations/{id}")
+    public void putFireStations(@PathVariable("id") final Long id) {
+        Optional<FireStations> fireStations = fireStationsService.modifyFirestations(id);
+
+            // return fireStationsService.saveFirestations(FireStations);
+
+    }
+
+
+
+
 }
 
 
