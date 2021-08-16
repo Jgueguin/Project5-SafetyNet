@@ -11,7 +11,6 @@ import java.util.Optional;
  * Person Controller
  */
 
-
 @RestController
 public class PersonsController {
 
@@ -21,8 +20,6 @@ public class PersonsController {
     public PersonsController (PersonsService personsService){
         this.personsService = personsService;
     }
-
-
 
     /**
      * Read - Get all persons

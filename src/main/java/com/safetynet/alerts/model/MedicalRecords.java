@@ -52,6 +52,7 @@ public class MedicalRecords {
      * Medications
      */
     @Column(name = "medications")
+    @JsonProperty("medications")
     private String[] medications;
 
 
@@ -59,6 +60,7 @@ public class MedicalRecords {
      * Allergies
      */
     @Column(name = "allergies")
+    @JsonProperty("allergies")
     private String[] allergies;
 
 
@@ -84,6 +86,7 @@ public class MedicalRecords {
                           Date birthDate,
                           String[] medications,
                           String[] allergies) {
+
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

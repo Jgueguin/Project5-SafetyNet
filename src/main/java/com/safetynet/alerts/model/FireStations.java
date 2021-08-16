@@ -17,7 +17,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "firestations")
 public class FireStations {
 
-
     /**
      * Id
      */
@@ -41,15 +40,14 @@ public class FireStations {
     @Column(name = "address")
     private String address;
 
-
     /**
-     * Instantiates  new Fire Station.
+     * Instantiates a new Fire Station.
      */
     public FireStations() {
     }
 
     /**
-     * Instantiates new Firestation.
+     * Instantiates a new Firestation.
      *
      * @param id      the id
      * @param station the station

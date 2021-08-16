@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 /**
- * Firestation Controller
+ * Fire Station Controller
  */
 
 
@@ -90,8 +90,6 @@ public class FireStationsController {
            @Valid @RequestBody FireStations fireStationDetails) throws ResourceNotFoundException
     {
 
-        
-        
          FireStations fireStations =fireStationsService.updateFirestations(id, fireStationDetails);
 
          fireStations.setStation(fireStations.getStation());
@@ -100,6 +98,8 @@ public class FireStationsController {
         final FireStations updateFireStation = fireStationsService.saveFirestations(fireStations);
 
         return ResponseEntity.ok(updateFireStation);
+
+
 
     }
 

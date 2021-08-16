@@ -81,7 +81,15 @@ public class JsonReader {
 
             List<Persons> persons = lists.getPersons();
             List<FireStations> fireStations = lists.getFireStations();
+
             List<MedicalRecords> medicalRecords = lists.getMedicalRecords();
+
+            // test
+                System.out.println();
+                System.out.println(medicalRecords);
+                System.out.println();
+            //test
+
 
             personsService.saveAll(persons);
             fireStationsService.saveAll(fireStations);

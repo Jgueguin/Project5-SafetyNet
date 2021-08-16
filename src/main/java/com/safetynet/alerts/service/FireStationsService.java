@@ -72,9 +72,10 @@ public class FireStationsService {
 
 
     /**
-     * Update a fire station.( Put )
+     * * Update a fire station.( Put )
      *
-     * @param firestations the firestations
+     * @param id
+     * @param fireStations the firestations
      * @return update the fire stations
      */
     public FireStations updateFirestations (final Long id, FireStations fireStations) {
