@@ -73,8 +73,8 @@ public class PersonsService {
      * Update a person.( Put )
      *
      * @param persons a persons
-     * @return list of fire stations saved
-     */
+     * @return the person updated
+     * */
     public Persons updatePersons(Persons persons) {
 
         return personsRepository.save(persons);

@@ -89,9 +89,14 @@
 			<version>0.0.20131108.vaadin1</version>
 			<scope>compile</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.github.spotbugs</groupId>
+            <artifactId>spotbugs</artifactId>
+            <version>4.3.0</version>
+        </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

@@ -1,9 +1,8 @@
 package com.safetynet.alerts.repository;
 
+import com.safetynet.alerts.model.FireStations;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-
-import com.safetynet.alerts.model.FireStations;
 
 /**
  * Fire Station Repository
@@ -11,5 +10,6 @@ import com.safetynet.alerts.model.FireStations;
 
 @Repository
 public interface FireStationsRepository extends CrudRepository<FireStations, Long> {
+
 }
 

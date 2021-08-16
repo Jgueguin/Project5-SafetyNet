@@ -44,8 +44,9 @@ public class FireStationsService {
     public void deleteFirestations(final Long id) {
 
         fireStationsRepository.deleteById(id);
-    }
 
+
+    }
 
     /**
      * Save a new fire station
@@ -70,17 +71,17 @@ public class FireStationsService {
     }
 
 
-
-
     /**
      * Update a fire station.( Put )
      *
      * @param firestations the firestations
-     * @return list of fire stations saved
+     * @return update the fire stations
      */
-    public FireStations updateFirestations(FireStations firestations) {
+    public FireStations updateFirestations (final Long id, FireStations fireStations) {
 
-        return fireStationsRepository.save(firestations);
+        fireStationsRepository.findById(id);
+
+        return fireStationsRepository.save(fireStations);
     }
 
 

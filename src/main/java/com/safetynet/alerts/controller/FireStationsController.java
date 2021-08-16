@@ -2,9 +2,12 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.service.FireStationsService;
+import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -80,15 +83,42 @@ public class FireStationsController {
      * @param id The id of a fire station
      * @return A firestation object full filled
      */
-    @PutMapping("/firestations/{id}")
-    public void putFireStations(@PathVariable("id") final Long id) {
-        Optional<FireStations> fireStations = fireStationsService.modifyFirestations(id);
 
-            // return fireStationsService.saveFirestations(FireStations);
+    @PutMapping("/firestations/{id}")
+   public ResponseEntity<FireStations> updateFireStations(
+           @PathVariable(value = "id") final Long id,
+           @Valid @RequestBody FireStations fireStationDetails) throws ResourceNotFoundException
+    {
+
+        
+        
+         FireStations fireStations =fireStationsService.updateFirestations(id, fireStationDetails);
+
+         fireStations.setStation(fireStations.getStation());
+         fireStations.setAddress(fireStations.getAddress());
+
+        final FireStations updateFireStation = fireStationsService.saveFirestations(fireStations);
+
+        return ResponseEntity.ok(updateFireStation);
 
     }
 
 
+
+
+
+   /* public ResponseEntity<FireStations> updateFireStations(
+            @RequestParam(value = "station") final Integer station,
+            @RequestParam(value = "adress") final String adress,
+            @Valid @RequestBody final FireStations fireStations) {
+
+        FireStations fireStationsToUpdate = fireStationsService.updateFirestations(fireStations);
+        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
+                + fireStationsToUpdate.toString());
+        return ResponseEntity.ok(fireStationsToUpdate);
+
+    }
+*/
 
 
 }
