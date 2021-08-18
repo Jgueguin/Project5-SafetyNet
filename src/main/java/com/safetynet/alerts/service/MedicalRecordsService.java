@@ -2,11 +2,14 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.repository.MedicalRecordsRepository;
+import javassist.NotFoundException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 
 /**
@@ -15,6 +18,7 @@ import java.util.Optional;
 @Data
 @Service
 public class MedicalRecordsService {
+
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;
 
@@ -70,17 +74,74 @@ public class MedicalRecordsService {
     }
 
 
-    /**
-     * Update a Medical Record.( Put )
-     *
-     * @param medicalRecords a medical Record
-     * @return the medical records saved
-     */
-    public MedicalRecords updateMedicalRecords(MedicalRecords medicalRecords) {
 
-        return medicalRecordsRepository.save(medicalRecords);
+    /**
+     * Find  medical record by first name and last name.
+     *
+     * @param firstName the first name
+     * @param lastName  the last name
+     * @return the medical record
+     * @throws NotFoundException if no medical record was found
+     */
+    public MedicalRecords findByFirstNameAndLastName(String firstName,
+                                                    String lastName) {
+        try {
+             // LOGGER.debug(
+               //     "MedicalRecordService -> Searching for person " + firstName
+                 //           + " " + lastName + " ...");
+            MedicalRecords medicalRecord = medicalRecordsRepository.findByFirstNameAndLastName(
+                    firstName, lastName);
+            if (medicalRecord == null) {
+
+                // LOGGER.error(
+                   //     "MedicalRecordService -> " + firstName + " " + lastName
+                     //           + " doesn't exist");
+                throw new NotFoundException(
+                        "Person " + firstName + " " + lastName
+                                + " doesn't exist");
+            }
+            LOGGER.info(
+                    "MedicalRecordService -> Medical record for " + firstName
+                            + " " + lastName + " was found");
+            return medicalRecord;
+        } catch (NotFoundException e) {
+            return new MedicalRecords(null, "", "", null, new String[]{""},
+                    new String[]{""});
+        }
 
     }
+
+    /**
+     * Update medical record.
+     *
+     * @param medicalRecordsBody    the medical record body
+     * @param medicalRecordsUpdated the medical record updated
+     * @return the medical record updated
+     */
+    public MedicalRecords updateMedicalRecord(MedicalRecords medicalRecordsBody,
+                                             MedicalRecords medicalRecordsUpdated) {
+
+        medicalRecordsUpdated.setBirthDate(medicalRecordsBody.getBirthDate());
+        medicalRecordsUpdated.setMedications(medicalRecordsBody.getMedications());
+        medicalRecordsUpdated.setAllergies(medicalRecordsBody.getAllergies());
+
+        return medicalRecordsUpdated;
+    }
+
+    /**
+     * Save updated medical record.
+     *
+     * @param medicalRecords the medical record
+     * @return the medical record saved
+     */
+    public MedicalRecords saveUpdated(MedicalRecords medicalRecords) {
+        return medicalRecordsRepository.save(medicalRecords);
+    }
+
+
+
+
+
 
 
 
