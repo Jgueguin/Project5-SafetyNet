@@ -3,12 +3,15 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.service.PersonsService;
 import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Person Controller
@@ -49,16 +52,32 @@ public class PersonsController {
         }
     }
 
+
     /**
-     * Delete - Delete persons
+     * Delete - Delete persons buy its id
      *
      * @param id - The id of the persons to delete
      */
     @DeleteMapping("/persons/{id}")
     public void deletePersons(@PathVariable("id") final Long id) {
-
         personsService.deletePersons(id);
     }
+
+    // 2021-08-19
+// --> A revoir
+    /**
+     * Delete - Delete persons with its firstname and lastname
+     *
+     * @param
+     */
+    @DeleteMapping("/persons/{firstName}/{lastName}")
+    public void deletePersonsByFirstNameAndLastName(
+            @PathVariable("firstName") final String firstName,
+            @PathVariable("lastName") final String lastName)
+    {
+        personsService.deletePersonByFirstNameAndLastName(firstName, lastName);
+    }
+
 
     /**
      * Create - Add a new person
@@ -68,37 +87,70 @@ public class PersonsController {
      */
     @PostMapping("/persons")
     public Persons createPersons(@RequestBody Persons persons) {
-
         return personsService.savePersons(persons);
     }
 
-    @PutMapping("/persons/{id}")
-    public ResponseEntity<Persons> updatePersons(
-            @PathVariable(value = "id") Long id,
-            @Valid @RequestBody Persons personsDetails) throws ResourceNotFoundException {
+    //2021-08-19 update
 
-        Persons personsUpdate = personsService.getPersons(id).orElseThrow(() -> new ResourceNotFoundException("User not found on :: "+ id));
+    /**
+     * Modify a person with its id
+     *
+     * @param id
+     * @param personsDetails
+     * @return
+     * @throws ResourceNotFoundException
+     */
+//    @PutMapping("/persons/{id}")
+  //  public ResponseEntity<Persons> updatePersonsById(
+    //        @PathVariable(value = "id") Long id,
+      //      @Valid @RequestBody Persons personsDetails) throws ResourceNotFoundException {
 
-        personsUpdate.setFirstName(personsDetails.getFirstName());
-        personsUpdate.setLastName(personsDetails.getLastName());
-        personsUpdate.setAddress(personsDetails.getAddress());
-        personsUpdate.setCity(personsDetails.getCity());
-        personsUpdate.setZip(personsDetails.getZip());
-        personsUpdate.setPhone(personsDetails.getPhone());
-        personsUpdate.setEmail(personsDetails.getEmail());
+        // Persons personsToUpdate = personsService.findByFirstNameAndLastName( firstName, lastName);
+        //Persons personUpdated = personsService.updatePerson(persons,
+          //      personsUpdate);
+        //final Persons personsSaved = personsService.saveUpdated(personUpdate);
 
-        final Persons updatedPersons = personsService.savePersons(personsUpdate);
+        // LOGGER.info("PersonController (PUT) -> Successfully updated person: "
+           //     + personUpdated.toString());*//*
 
-        return ResponseEntity.ok(updatedPersons);
+        //return ResponseEntity.ok(personsSaved);
+
+    //}
+
+    /**
+     * Modify a person with its firstname and lastname
+     * @param firstName
+     * @param lastName
+     * @param persons
+     * @return
+     * @throws NotFoundException
+     */
+    @PutMapping("/persons/{firstName}/{lastName}")
+    public ResponseEntity<Persons> updatePersonsByFirstNameLastName(
+            @PathVariable(value = "firstName") String firstName,
+            @PathVariable(value = "lastName") String lastName,
+            @Valid @RequestBody final Persons persons) throws NotFoundException {
+
+        Persons personsUpdate = personsService.findByFirstNameAndLastName(firstName,lastName);
+        Persons personUpdated = personsService.updatePersons(persons, personsUpdate);
+        final Persons personSaved = personsService.saveUpdated(personsUpdate);
+
+        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
+                + personUpdated.toString());
+
+        return ResponseEntity.ok(personSaved);
+
     }
 
 
 
 
 
-
-
-
+//End
 }
+
+
+
+
 
 

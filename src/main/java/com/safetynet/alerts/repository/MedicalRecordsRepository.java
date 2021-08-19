@@ -1,6 +1,7 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.model.MedicalRecords;
+import com.safetynet.alerts.model.Persons;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Repository;
 public interface MedicalRecordsRepository extends CrudRepository<MedicalRecords, Long> {
 
     /**
-     * Find by first name and last name medical record.
+     * Find by first name and last name a medical record
      *
      * @param firstName the first name
      * @param lastName  the last name
@@ -21,15 +22,19 @@ public interface MedicalRecordsRepository extends CrudRepository<MedicalRecords,
     MedicalRecords findByFirstNameAndLastName(String firstName, String lastName);
 
 
-   /* *//**
-     * find by id medical record
-     *
-     * @param id
+    //2021-08-19
+    /**
+     * Delete a medical record by its first name and last name
+
+     * @param firstName
+     * @param lastName
      * @return
-     *//*
-    Optional<MedicalRecords> findById(Long id);
-*/
+     */
+
+    Persons deleteByFirstNameAndLastName(String firstName, String lastName);
 
 
+
+// End
 }
 

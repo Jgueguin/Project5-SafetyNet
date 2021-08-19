@@ -3,12 +3,15 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.service.MedicalRecordsService;
 import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Medical Records Controller
@@ -92,6 +95,33 @@ public class MedicalRecordsController {
 
 
 
-}
+    //2021-08-19
+    /**
+     * Modify a medical Records with its firstname and lastname
+     * @param firstName
+     * @param lastName
+     * @param medicalRecords
+     * @return
+     * @throws NotFoundException
+     */
+    @PutMapping("/medicalrecords/{firstName}/{lastName}")
+    public ResponseEntity<MedicalRecords> updateMedicalRecordsByFirstNameLastName(
+            @PathVariable(value = "firstName") String firstName,
+            @PathVariable(value = "lastName") String lastName,
+            @Valid @RequestBody final MedicalRecords medicalRecords) throws NotFoundException {
+
+        MedicalRecords medicalRecordsUpdate = medicalRecordsService.findByFirstNameAndLastName(firstName,lastName);
+        MedicalRecords medicalRecordsUpdated = medicalRecordsService.updateMedicalRecord(medicalRecords, medicalRecordsUpdate);
+
+        final MedicalRecords medicalRecordsSaved = medicalRecordsService.saveUpdated(medicalRecordsUpdate);
+
+        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
+                + medicalRecordsUpdated.toString());
+
+        return ResponseEntity.ok(medicalRecordsSaved);
+    }
 
 
+
+
+} //END

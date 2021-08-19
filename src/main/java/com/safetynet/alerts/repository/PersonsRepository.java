@@ -21,5 +21,17 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
     Persons findByFirstNameAndLastName(String firstName, String lastName);
 
 
+    //2021-08-19
+
+    /**
+     * Delete a person by its first name and last name
+
+     * @param firstName
+     * @param lastName
+     * @return
+     */
+    Persons deleteByFirstNameAndLastName(String firstName, String lastName);
+
+
 }
 
