@@ -78,47 +78,30 @@ public class FireStationsController {
 
 
 
-    /**
+     /**
      * Modify - "Put" a fire station
      * @param id The id of a fire station
      * @return A firestation object full filled
      */
 
     @PutMapping("/firestations/{id}")
-   public ResponseEntity<FireStations> updateFireStations(
-           @PathVariable(value = "id") final Long id,
-           @Valid @RequestBody FireStations fireStationDetails) throws ResourceNotFoundException
-    {
+    public ResponseEntity<FireStations> updateFireStations(
+            @PathVariable(value = "id") Long id,
+            @Valid @RequestBody FireStations firestationDetails) throws ResourceNotFoundException {
 
-         FireStations fireStations =fireStationsService.updateFirestations(id, fireStationDetails);
+        FireStations fireStationsUpdate = fireStationsService.getFireStations(id).orElseThrow(() -> new ResourceNotFoundException("Firestation not found on :: "+ id));
 
-         fireStations.setStation(fireStations.getStation());
-         fireStations.setAddress(fireStations.getAddress());
+        fireStationsUpdate.setStation(firestationDetails.getStation());
+        fireStationsUpdate.setAddress(firestationDetails.getAddress());
 
-        final FireStations updateFireStation = fireStationsService.saveFirestations(fireStations);
+        final FireStations updatedFireStations = fireStationsService.saveFirestations(fireStationsUpdate);
 
-        return ResponseEntity.ok(updateFireStation);
-
-
-
+        return ResponseEntity.ok(updatedFireStations);
     }
 
 
 
 
-
-   /* public ResponseEntity<FireStations> updateFireStations(
-            @RequestParam(value = "station") final Integer station,
-            @RequestParam(value = "adress") final String adress,
-            @Valid @RequestBody final FireStations fireStations) {
-
-        FireStations fireStationsToUpdate = fireStationsService.updateFirestations(fireStations);
-        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
-                + fireStationsToUpdate.toString());
-        return ResponseEntity.ok(fireStationsToUpdate);
-
-    }
-*/
 
 
 }

@@ -11,5 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FireStationsRepository extends CrudRepository<FireStations, Long> {
 
+
 }
 
