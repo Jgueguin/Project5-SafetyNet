@@ -3,12 +3,15 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.service.FireStationsService;
 import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Fire Station Controller
@@ -100,7 +103,22 @@ public class FireStationsController {
     }
 
 
+    @PutMapping("/firestations/{address}")
+    public ResponseEntity<FireStations> updateFireStationsByAddress(
+            @PathVariable(value = "address") String address,
 
+            @Valid @RequestBody final FireStations fireStations) throws NotFoundException {
+
+        FireStations fireStationsUpdate = fireStationsService.findByAddress(address);
+        FireStations fireStationsUpdated = fireStationsService.updateFireStationsByAddress(fireStations,fireStationsUpdate);
+
+        final FireStations fireStationsSaved = fireStationsService.saveUpdated(fireStationsUpdate);
+
+        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
+                + fireStationsUpdated.toString());
+
+        return ResponseEntity.ok(fireStationsSaved);
+    }
 
 
 

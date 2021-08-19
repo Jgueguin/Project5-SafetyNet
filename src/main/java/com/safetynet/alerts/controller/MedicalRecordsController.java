@@ -77,18 +77,18 @@ public class MedicalRecordsController {
     }
 
     @PutMapping("/medicalrecords/{id}")
-    public ResponseEntity<MedicalRecords> updateMedicalRecords(
+    public ResponseEntity<MedicalRecords> updateMedicalRecordsById(
             @PathVariable(value = "id") Long id,
             @Valid @RequestBody MedicalRecords medicalRecordsDetails) throws ResourceNotFoundException {
-        MedicalRecords medicalrecordsUpdate = medicalRecordsService.getMedicalRecords(id).orElseThrow(() -> new ResourceNotFoundException("User not found on :: "+ id));
+        MedicalRecords medicalRecordsUpdate = medicalRecordsService.getMedicalRecords(id).orElseThrow(() -> new ResourceNotFoundException("User not found on :: "+ id));
 
-        medicalrecordsUpdate.setFirstName(medicalRecordsDetails.getFirstName());
-        medicalrecordsUpdate.setLastName(medicalRecordsDetails.getLastName());
-        medicalrecordsUpdate.setBirthDate(medicalRecordsDetails.getBirthDate());
-        medicalrecordsUpdate.setMedications(medicalRecordsDetails.getMedications());
-        medicalrecordsUpdate.setAllergies(medicalRecordsDetails.getAllergies());
+        medicalRecordsUpdate.setFirstName(medicalRecordsDetails.getFirstName());
+        medicalRecordsUpdate.setLastName(medicalRecordsDetails.getLastName());
+        medicalRecordsUpdate.setBirthDate(medicalRecordsDetails.getBirthDate());
+        medicalRecordsUpdate.setMedications(medicalRecordsDetails.getMedications());
+        medicalRecordsUpdate.setAllergies(medicalRecordsDetails.getAllergies());
 
-        final MedicalRecords updatedMedicalRecords = medicalRecordsService.saveMedicalRecords(medicalrecordsUpdate);
+        final MedicalRecords updatedMedicalRecords = medicalRecordsService.saveMedicalRecords(medicalRecordsUpdate);
 
         return ResponseEntity.ok(updatedMedicalRecords);
     }

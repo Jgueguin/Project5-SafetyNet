@@ -1,12 +1,15 @@
 package com.safetynet.alerts.service;
 
-import com.safetynet.alerts.repository.FireStationsRepository;
 import com.safetynet.alerts.model.FireStations;
+import com.safetynet.alerts.repository.FireStationsRepository;
+import javassist.NotFoundException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Fire Stations Service
@@ -78,7 +81,7 @@ public class FireStationsService {
      * @param fireStations the firestations
      * @return update the fire stations
      */
-    public FireStations updateFirestations (final Long id, FireStations fireStations) {
+    public FireStations updateFirestationsById (final Long id, FireStations fireStations) {
 
         fireStationsRepository.findById(id);
 
@@ -86,8 +89,64 @@ public class FireStationsService {
     }
 
 
+    //2021-08-19 update
+
+    /**
+     *
+     * @param fireStations
+     * @return
+     */
+    public FireStations saveUpdated(FireStations fireStations) {
+        return fireStationsRepository.save(fireStations);
+    }
+
+    /**
+     * Update a firestation ( Put )by its adress
+     *
+     * @param fireStationsBody
+     * @param firesStationsToUpdate
+     * @return
+     */
+    public FireStations updateFireStationsByAddress(FireStations fireStationsBody, FireStations firesStationsToUpdate) {
+                firesStationsToUpdate.setStation(fireStationsBody.getStation());
+                return firesStationsToUpdate;
+    }
+
+    /**
+     * Find a firestation by address
+     *
+     * @param address the first name
+     * @return the firestation
+     * @throws NotFoundException if noone was found
+     */
+    public FireStations findByAddress(String address) throws NotFoundException {
+        LOGGER.info("FireStationsService -> Searching for Firestation @" + address +  " ...");
+        FireStations fireStations = fireStationsRepository.findByAddress(address);
+
+        if (fireStations == null) {
+            LOGGER.info("FiresStationsService -> @" + address    + " doesn't exist");
+
+            throw new NotFoundException(
+                    "FireStation " + address + " doesn't exist");
+        }
+        LOGGER.info("FiresStationService -> FireStation " + address + " was found");
+
+        return fireStations;
+    }
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+//END
 }
