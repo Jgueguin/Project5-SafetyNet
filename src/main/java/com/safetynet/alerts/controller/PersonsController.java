@@ -1,10 +1,13 @@
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.service.PersonsService;
 import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.service.PersonsService;
+import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -68,6 +71,33 @@ public class PersonsController {
 
         return personsService.savePersons(persons);
     }
+
+    @PutMapping("/persons/{id}")
+    public ResponseEntity<Persons> updatePersons(
+            @PathVariable(value = "id") Long id,
+            @Valid @RequestBody Persons personsDetails) throws ResourceNotFoundException {
+
+        Persons personsUpdate = personsService.getPersons(id).orElseThrow(() -> new ResourceNotFoundException("User not found on :: "+ id));
+
+        personsUpdate.setFirstName(personsDetails.getFirstName());
+        personsUpdate.setLastName(personsDetails.getLastName());
+        personsUpdate.setAddress(personsDetails.getAddress());
+        personsUpdate.setCity(personsDetails.getCity());
+        personsUpdate.setZip(personsDetails.getZip());
+        personsUpdate.setPhone(personsDetails.getPhone());
+        personsUpdate.setEmail(personsDetails.getEmail());
+
+        final Persons updatedPersons = personsService.savePersons(personsUpdate);
+
+        return ResponseEntity.ok(updatedPersons);
+    }
+
+
+
+
+
+
+
 
 }
 
