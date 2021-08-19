@@ -4,8 +4,6 @@ import com.safetynet.alerts.model.MedicalRecords;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 /**
  * Medical Records Repository
  */
@@ -23,14 +21,14 @@ public interface MedicalRecordsRepository extends CrudRepository<MedicalRecords,
     MedicalRecords findByFirstNameAndLastName(String firstName, String lastName);
 
 
-    /**
+   /* *//**
      * find by id medical record
      *
      * @param id
      * @return
-     */
+     *//*
     Optional<MedicalRecords> findById(Long id);
-
+*/
 
 
 }

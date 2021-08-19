@@ -2,14 +2,13 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.service.MedicalRecordsService;
+import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Medical Records Controller
@@ -74,40 +73,22 @@ public class MedicalRecordsController {
         return medicalRecordsService.saveMedicalRecords(medicalRecords);
     }
 
-    /**
-     * Modify - a medical records
-     * @param firstName
-     * @param lastName
-     * @param medicalRecords
-     * @return
-     */
-    @PutMapping("/medicalrecords/}")
+    @PutMapping("/medicalrecords/{id}")
     public ResponseEntity<MedicalRecords> updateMedicalRecords(
-            //@PathVariable(value = "id") final Long id,
-            @RequestParam ("firstName") String firstName,
-            @RequestParam ("lastName") String lastName,
-            @Valid @RequestBody final MedicalRecords medicalRecords)
-    {
-        MedicalRecords medicalRecordToUpdate =  medicalRecordsService.findByFirstNameAndLastName(
-                firstName, lastName);
+            @PathVariable(value = "id") Long id,
+            @Valid @RequestBody MedicalRecords medicalRecordsDetails) throws ResourceNotFoundException {
+        MedicalRecords medicalrecordsUpdate = medicalRecordsService.getMedicalRecords(id).orElseThrow(() -> new ResourceNotFoundException("User not found on :: "+ id));
 
-        MedicalRecords medicalRecordUpdated = medicalRecordsService.updateMedicalRecord(
-                medicalRecords, medicalRecordToUpdate);
+        medicalrecordsUpdate.setFirstName(medicalRecordsDetails.getFirstName());
+        medicalrecordsUpdate.setLastName(medicalRecordsDetails.getLastName());
+        medicalrecordsUpdate.setBirthDate(medicalRecordsDetails.getBirthDate());
+        medicalrecordsUpdate.setMedications(medicalRecordsDetails.getMedications());
+        medicalrecordsUpdate.setAllergies(medicalRecordsDetails.getAllergies());
 
-        MedicalRecords medicalRecordSaved = medicalRecordsService.saveUpdated(
-                medicalRecordUpdated);
+        final MedicalRecords updatedMedicalRecords = medicalRecordsService.saveMedicalRecords(medicalrecordsUpdate);
 
-        LOGGER.info("MedicalRecordController (PUT) -> Medical record "
-                + "successfully " + "updated: "
-                + medicalRecordUpdated.toString());
-        return ResponseEntity.ok(medicalRecordSaved);
+        return ResponseEntity.ok(updatedMedicalRecords);
     }
-
-
-
-
-
-
 
 
 
