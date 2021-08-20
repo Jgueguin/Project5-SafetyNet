@@ -70,12 +70,11 @@ public class FireStationsController {
     /**
      * Create - Add a new fire station
      *
-     * @param fireStation: An object employee
+     * @param fireStations: An object employee
      * @return The fire station object saved
      */
     @PostMapping("/firestations")
     public FireStations createFireStations(@RequestBody FireStations fireStations) {
-
         return fireStationsService.saveFirestations(fireStations);
     }
 
@@ -103,22 +102,33 @@ public class FireStationsController {
     }
 
 
-    @PutMapping("/firestations/{address}")
-    public ResponseEntity<FireStations> updateFireStationsByAddress(
-            @PathVariable(value = "address") String address,
-
+    /**
+     * Update firestation.
+     *
+     * @param address     the address
+     * @param fireStations the firestation
+     * @return the response entity
+     */
+    @PutMapping("/firestation/{address}")
+    public ResponseEntity<FireStations> updateFireStation(
+            @RequestParam final String address,
+            //, @RequestParam final int station,
             @Valid @RequestBody final FireStations fireStations) throws NotFoundException {
 
-        FireStations fireStationsUpdate = fireStationsService.findByAddress(address);
-        FireStations fireStationsUpdated = fireStationsService.updateFireStationsByAddress(fireStations,fireStationsUpdate);
+        FireStations fireStationsToUpdate = fireStationsService.findStationByAddress(address);
 
-        final FireStations fireStationsSaved = fireStationsService.saveUpdated(fireStationsUpdate);
+        FireStations fireStationsUpdated = fireStationsService.updateFireStationsByAddress(
+                fireStations, fireStationsToUpdate);
 
-        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
-                + fireStationsUpdated.toString());
+        FireStations fireStationsSaved = fireStationsService.saveUpdated(fireStationsUpdated);
 
+        LOGGER.info("FirestationController (PUT) -> Successfully updated fire "
+                + "station: " + fireStationsUpdated.toString());
         return ResponseEntity.ok(fireStationsSaved);
+
     }
+
+
 
 
 

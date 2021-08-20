@@ -109,39 +109,33 @@ public class FireStationsService {
      */
     public FireStations updateFireStationsByAddress(FireStations fireStationsBody, FireStations firesStationsToUpdate) {
                 firesStationsToUpdate.setStation(fireStationsBody.getStation());
+                firesStationsToUpdate.setAddress(fireStationsBody.getAddress());
                 return firesStationsToUpdate;
     }
 
     /**
-     * Find a firestation by address
+     * Find a fireStation Station by its address
      *
      * @param address the first name
-     * @return the firestation
+     * @return the fireStation
      * @throws NotFoundException if noone was found
      */
-    public FireStations findByAddress(String address) throws NotFoundException {
-        LOGGER.info("FireStationsService -> Searching for Firestation @" + address +  " ...");
-        FireStations fireStations = fireStationsRepository.findByAddress(address);
 
-        if (fireStations == null) {
-            LOGGER.info("FiresStationsService -> @" + address    + " doesn't exist");
+        public FireStations findStationByAddress(String address ) throws NotFoundException {
 
-            throw new NotFoundException(
-                    "FireStation " + address + " doesn't exist");
-        }
-        LOGGER.info("FiresStationService -> FireStation " + address + " was found");
+            LOGGER.info("PersonService -> Searching for person " + address + "...");
 
-        return fireStations;
+            FireStations fireStations = fireStationsRepository.findStationByAddress(address);
+
+            if (fireStations == null) {
+                LOGGER.info("FireStationsService -> " + address + " " + " doesn't exist");
+
+                throw new NotFoundException(
+                        "FireStation " + address + " doesn't exist");
+            }
+            LOGGER.info("FireStationService -> Firestation " + address + " was found");
+            return fireStations;
     }
-
-
-
-
-
-
-
-
-
 
 
 

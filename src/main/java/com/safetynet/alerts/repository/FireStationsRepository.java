@@ -19,7 +19,7 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      * @param address the adress
      * @return the firestations
      */
-    FireStations findByAddress(String address);
+    FireStations findStationByAddress(String address);
 
 
     /**
