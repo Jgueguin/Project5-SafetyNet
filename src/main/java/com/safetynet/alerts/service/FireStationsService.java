@@ -81,7 +81,7 @@ public class FireStationsService {
      * @param fireStations the firestations
      * @return update the fire stations
      */
-    public FireStations updateFirestationsById (final Long id, FireStations fireStations) {
+    public FireStations updateFireStationsById (final Long id, FireStations fireStations) {
 
         fireStationsRepository.findById(id);
 
@@ -121,26 +121,51 @@ public class FireStationsService {
      * @throws NotFoundException if noone was found
      */
 
-        public FireStations findStationByAddress(String address ) throws NotFoundException {
+        public FireStations findFireStationByAddress( String address ) throws NotFoundException {
 
-            LOGGER.info("PersonService -> Searching for person " + address + "...");
+            /* LOGGER.debug(
+                    "FireStationService -> Searching for fire station at + address: " + address + " ...");*/
 
-            FireStations fireStations = fireStationsRepository.findStationByAddress(address);
+            FireStations fireStation = fireStationsRepository.findByAddress(
+                    address );
 
-            if (fireStations == null) {
-                LOGGER.info("FireStationsService -> " + address + " " + " doesn't exist");
-
+            if (fireStation == null) {
+                /*LOGGER.error("FireStationService -> Fire station at address "  + address + " doesn't exist");
                 throw new NotFoundException(
-                        "FireStation " + address + " doesn't exist");
+                        "FireStationService -> Fire station at address: " + address + " doesn't exist");*/
             }
-            LOGGER.info("FireStationService -> Firestation " + address + " was found");
-            return fireStations;
+
+            LOGGER.info("FireStationService -> Fire station at address: " + address + " was found");
+            return fireStation;
+        }
+
+
+//2021-08-25
+
+  /*  *//**
+     * Find station by address list.
+     *
+     * @param address the address
+     * @return list of fire station covered by address
+     * @throws NotFoundException if no fire station was found
+     *//*
+    public List<Integer> findStationByAddress(String address) {
+
+        List<Integer> stationIds = (List<Integer>) FireStationsRepository.findByAddress(address);
+
+        *//*LOGGER.debug(
+                "FirestationService -> Searching for fire station at address"
+                        + address + "...");*//*
+
+        if (stationIds.isEmpty()) {
+            *//*LOGGER.error("No station is existing at address: " + address);
+            throw new NotFoundException(
+                    "No station is existing at address: " + address);*//*
+
+        }
+        return stationIds;
     }
+*/
 
 
-
-
-
-
-//END
-}
+} //END

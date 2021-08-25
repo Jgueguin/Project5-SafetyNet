@@ -5,13 +5,10 @@ import com.safetynet.alerts.service.PersonsService;
 import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Person Controller
@@ -60,6 +57,7 @@ public class PersonsController {
      */
     @DeleteMapping("/persons/{id}")
     public void deletePersons(@PathVariable("id") final Long id) {
+
         personsService.deletePersons(id);
     }
 
@@ -100,8 +98,17 @@ public class PersonsController {
      * @return
      * @throws ResourceNotFoundException
      */
-//    @PutMapping("/persons/{id}")
-  //  public ResponseEntity<Persons> updatePersonsById(
+    @PutMapping("/persons/{id}")
+    public modifyPersonsById(
+            @PathVariable("id") Long id,
+            @Valid @RequestBody Persons personsDetails) {
+
+        // personsService.modifyPersonById(id);
+
+        return personsService.savePersons(personsDetails);
+    }
+
+    // public ResponseEntity<Persons> updatePersonsById(
     //        @PathVariable(value = "id") Long id,
       //      @Valid @RequestBody Persons personsDetails) throws ResourceNotFoundException {
 
@@ -116,17 +123,31 @@ public class PersonsController {
         //return ResponseEntity.ok(personsSaved);
 
     //}
+/*
 
-    /**
+    */
+/**
      * Modify a person with its firstname and lastname
      * @param firstName
      * @param lastName
-     * @param persons
-     * @return
+     *
      * @throws NotFoundException
-     */
+     *//*
+
     @PutMapping("/persons/{firstName}/{lastName}")
-    public ResponseEntity<Persons> updatePersonsByFirstNameLastName(
+
+    public void modifyPersonsByFirstNameAndLastName(
+            @PathVariable("firstName") final String firstName,
+            @PathVariable("lastName") final String lastName)
+    {
+        personsService.modifyPersonByFirstNameAndLastName(firstName, lastName);
+    }
+*/
+
+
+
+
+    /*public ResponseEntity<Persons> updatePersonsByFirstNameLastName(
             @PathVariable(value = "firstName") String firstName,
             @PathVariable(value = "lastName") String lastName,
             @Valid @RequestBody final Persons persons) throws NotFoundException {
@@ -142,12 +163,12 @@ public class PersonsController {
 
     }
 
+*/
 
 
 
 
-//End
-}
+} // END
 
 
 

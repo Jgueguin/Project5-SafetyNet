@@ -2,6 +2,7 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.repository.PersonsRepository;
+import com.safetynet.alerts.service.PersonsService;
 import javassist.NotFoundException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,19 +97,19 @@ public class PersonsService {
      * @param persons
      * @return
      */
-    public Persons saveUpdated(Persons persons) {
+    public static Persons saveUpdated(Persons persons) {
         return personsRepository.save(persons);
     }
     //2021-08-19 update
 
     /**
-     * Update a person.( Put )by its id
+     * Update a person.( Put )
      *
      * @param personsBody
      * @param personsToUpdate
      * @return
      */
-    public Persons updatePersons(Persons personsBody, Persons personsToUpdate) {
+    public static Persons updatePersons(Persons personsBody, Persons personsToUpdate) {
         personsToUpdate.setAddress(personsBody.getAddress());
         personsToUpdate.setCity(personsBody.getCity());
         personsToUpdate.setEmail(personsBody.getEmail());
@@ -117,6 +118,10 @@ public class PersonsService {
 
         return personsToUpdate;
     }
+
+
+
+
 
     /**
      * Find a person by first name and last name.
@@ -128,10 +133,9 @@ public class PersonsService {
      */
     public Persons findByFirstNameAndLastName(String firstName,
                                               String lastName) throws NotFoundException {
-        LOGGER.info("PersonService -> Searching for person " + firstName + " "
-                + lastName + " ...");
-        Persons persons = personsRepository.findByFirstNameAndLastName(firstName,
-                lastName);
+        LOGGER.info("PersonService -> Searching for person " + firstName + " "+ lastName + " ...");
+
+        Persons persons = personsRepository.findByFirstNameAndLastName(firstName, lastName);
 
         if (persons == null) {
             LOGGER.info("PersonService -> " + firstName + " " + lastName
@@ -144,6 +148,84 @@ public class PersonsService {
                 + " was found");
         return persons;
     }
+
+
+    //2021-08-25
+
+
+    public Persons findById(Long id) throws NotFoundException {
+        // LOGGER.info("PersonService -> Searching for person " + firstName + " " + lastName + " ...");
+
+        Persons persons = personsRepository.findById(id);
+
+        Persons personsToUpdate = PersonsService.findById(id);
+
+        Persons personUpdated = PersonsService.updatePersons(persons,personsToUpdate);
+        final Persons personsSaved = PersonsService.saveUpdated(personsToUpdate);
+
+        return persons;
+
+
+      /*  if (persons == null) {
+            LOGGER.info("PersonService -> " + firstName + " " + lastName
+                    + " doesn't exist");
+
+            throw new NotFoundException(
+                    "Person " + firstName + " " + lastName + " doesn't exist");
+        }
+        LOGGER.info("PersonService -> Person " + firstName + " " + lastName
+                + " was found");
+        return persons;*/
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+    *//**
+     * Find persons covered by address and convert theme into a PersonFireDTO list.
+     *
+     * @param address the address
+     * @return PersonFireDTO list
+     *//*
+
+
+    public List<PersonFireDTO> getFireDtoListByStation(String address) {
+        List<PersonFireDTO> personFireDTOList = new ArrayList<>();
+        List<Integer> listOfStations = FireStationsService.  findStationByAddress(address);
+
+        List<MedicalRecord> medicalRecords = new ArrayList<>();
+
+
+        for (Integer integer : listOfStations) {
+            List<Person> personsCovered = findPersonByStation(integer);
+            for (Person person : personsCovered) {
+                MedicalRecord medicalRecord = medicalRecordService.findByFirstNameAndLastName(
+                        person.getFirstName(), person.getLastName());
+                if (medicalRecord != null)
+                    medicalRecords.add(medicalRecord);
+            }
+            List<PersonFireDTO> personFireDTOListToAdd = mapping.convertPersonListToPersonFireList(
+                    personsCovered, integer, medicalRecords);
+            personFireDTOList.addAll(personFireDTOListToAdd);
+
+        }
+        return personFireDTOList;
+    }*/
+
+
+
+
 
 
 }

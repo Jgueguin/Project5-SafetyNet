@@ -81,7 +81,7 @@ public class FireStationsController {
 
 
      /**
-     * Modify - "Put" a fire station
+     * Modify  "Put" - a fire station
      * @param id The id of a fire station
      * @return A firestation object full filled
      */
@@ -115,7 +115,7 @@ public class FireStationsController {
             //, @RequestParam final int station,
             @Valid @RequestBody final FireStations fireStations) throws NotFoundException {
 
-        FireStations fireStationsToUpdate = fireStationsService.findStationByAddress(address);
+        FireStations fireStationsToUpdate = fireStationsService.findFireStationByAddress(address);
 
         FireStations fireStationsUpdated = fireStationsService.updateFireStationsByAddress(
                 fireStations, fireStationsToUpdate);
@@ -124,6 +124,7 @@ public class FireStationsController {
 
         LOGGER.info("FirestationController (PUT) -> Successfully updated fire "
                 + "station: " + fireStationsUpdated.toString());
+
         return ResponseEntity.ok(fireStationsSaved);
 
     }

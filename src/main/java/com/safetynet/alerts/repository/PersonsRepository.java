@@ -11,6 +11,18 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PersonsRepository extends CrudRepository<Persons, Long> {
 
+
+    /**
+     * Find a person by its id
+     *
+     * @param id
+     * @return the person
+     */
+    Persons findById(Long id);
+
+
+
+
     /**
      * Find by first name and last name a person
      *
@@ -19,6 +31,12 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
      * @return the person
      */
     Persons findByFirstNameAndLastName(String firstName, String lastName);
+
+
+
+
+
+
 
 
     //2021-08-19
