@@ -34,6 +34,7 @@ public class FireStationsController {
         return fireStationsService.getFireStations();
     }
 
+
     /**
      * Read - Get a fire station
      * @param id The id of a fire station
@@ -58,10 +59,23 @@ public class FireStationsController {
      */
     @DeleteMapping("/firestations/{id}")
     public void deleteFireStations(@PathVariable("id") final Long id) {
-
-        fireStationsService.deleteFireStations(id);
-
+        fireStationsService.deleteFireStationsById(id);
     }
+
+    //2021-08-27
+
+    /**
+     * delete a person by its first name and last name
+     * @param id
+     */
+    /*@DeleteMapping("/firestations/{firstName}/{lastName}")
+    public void deleteFireStationsByFirstNameAndLastName(
+            @PathVariable("firstName") String firstName,
+            @PathVariable("lastName") String lastName) {
+            fireStationsService.deleteFireStationsByFirstNameAndLastName(firstName,lastName);
+    }*/
+
+
 
     /**
      * Create - Add a new fire station
@@ -77,7 +91,6 @@ public class FireStationsController {
 
 
     // update 2021-08-26
-
      /**
      * Modify  "Put" - a fire station
      * @param id The id of a fire station
@@ -111,6 +124,23 @@ public class FireStationsController {
 
 
 
+    /**
+     * Read - Get a fire station
+     * @param id The id of a fire station
+     * @return A firestation object full filled
+     */
+    @GetMapping("/firestations/{stationNumber}")
+    public FireStations getFireStations(
+            @PathVariable("stationNumber") Long stationNumber) {
+
+        Optional<FireStations> fireStations = fireStationsService.getFireStations(id);
+
+        if(fireStations.isPresent()) {
+            return fireStations.get();
+        } else {
+            return null;
+        }
+    }
 
 
 }

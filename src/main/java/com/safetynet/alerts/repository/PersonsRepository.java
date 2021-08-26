@@ -37,13 +37,10 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
 
 
 
-
-
     //2021-08-19
 
     /**
      * Delete a person by its first name and last name
-
      * @param firstName
      * @param lastName
      * @return

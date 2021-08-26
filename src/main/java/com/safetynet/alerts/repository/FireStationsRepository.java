@@ -1,7 +1,6 @@
 package com.safetynet.alerts.repository;
 
 import com.safetynet.alerts.model.FireStations;
-import com.safetynet.alerts.model.Persons;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -38,7 +37,15 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      * @param address
      * @return
      */
-    Persons deleteByAddress(String address);
+    FireStations deleteByAddress(String address);
+
+
+
+
+
+
+
+
 
 
 

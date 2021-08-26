@@ -82,11 +82,11 @@ public class PersonsController {
      *
      * @param persons: An object employee
      * @return The person object saved
-     *//*
+     */
     @PostMapping("/persons")
-    public Persons createPersons(@RequestBody Persons persons) {
-        return personsService.savePersons(persons);
-    }*/
+    public Persons createPersons(@RequestBody Persons personsDetails) {
+        return personsService.savePersons(personsDetails);
+    }
 
     //2021-08-19 update
 

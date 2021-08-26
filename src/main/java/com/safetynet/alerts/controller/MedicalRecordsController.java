@@ -55,8 +55,30 @@ public class MedicalRecordsController {
     @DeleteMapping("/medicalrecords/{id}")
     public void deleteMedicalRecords(@PathVariable("id") final Long id) {
 
-        medicalRecordsService.deleteMedicalRecords(id);
+        medicalRecordsService.deleteMedicalRecordsById(id);
     }
+
+    //2021-08-27
+
+    /**
+     * Delete - Delete a medical record with firstname and lastname
+     * @param firstName
+     * @param lastName
+     */
+
+    @DeleteMapping("/medicalrecords/{firstName}/{lastName}")
+    public void deleteMedicalRecords(
+            @PathVariable("firstName") String firstName,
+            @PathVariable("lastName") String lastName    ) {
+
+        medicalRecordsService.deleteMedicalRecordsByFirstNameAndLastName(firstName, lastName);
+    }
+
+
+
+
+
+
 
 
     /**

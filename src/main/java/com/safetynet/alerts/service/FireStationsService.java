@@ -46,10 +46,17 @@ public class FireStationsService {
      *
      * @param id : parameter to choose the fire station to delete
      */
-    public void deleteFireStations(final Long id) {
-
+    public void deleteFireStationsById(final Long id) {
         fireStationsRepository.deleteById(id);
     }
+
+
+//2021-08-27
+
+  /*  public void deleteFireStationsByFirstNameAndLastName(String firstName, String lastName) {
+        fireStationsRepository.deleteByFirstNameAndLastName(firstName, lastName);
+    }*/
+
 
     /**
      * Save a new fire station
@@ -87,7 +94,7 @@ public class FireStationsService {
 
     public FireStations updateFireStationsById(
             final Long id,
-            FireStations fireStations) {
+            FireStations fireStationsDetails) {
 
         try {
             Optional<FireStations> optionalFireStations = fireStationsRepository.findById(id);
@@ -96,8 +103,8 @@ public class FireStationsService {
 
                 FireStations fireStationsToSave = optionalFireStations.get();
 
-                fireStationsToSave.setStation(fireStationsToSave.getStation());
-                fireStationsToSave.setAddress(fireStationsToSave.getAddress());
+                fireStationsToSave.setStation(fireStationsDetails.getStation());
+                fireStationsToSave.setAddress(fireStationsDetails.getAddress());
 
                 // vérifier qu'il ne soit pas nuls
 
@@ -132,7 +139,7 @@ public class FireStationsService {
      *
      * @param address the first name
      * @return the fireStation
-     * @throws NotFoundException if noone was found
+     * @throws NotFoundException if none was found
      */
 
     public FireStations updateFireStationsByAddress(
@@ -142,13 +149,11 @@ public class FireStationsService {
         try {
             FireStations fireStations = fireStationsRepository.findByAddress(address);
 
-                FireStations fireStationsToSave = new FireStations();
-
-                fireStationsToSave.setStation(fireStationsDetails.getStation());
+                fireStations.setStation(fireStationsDetails.getStation());
 
                 // vérifier qu'il ne soit pas nuls
 
-                return fireStationsRepository.save(fireStationsToSave);
+                return fireStationsRepository.save(fireStations);
 
         }
         catch (Exception e) {

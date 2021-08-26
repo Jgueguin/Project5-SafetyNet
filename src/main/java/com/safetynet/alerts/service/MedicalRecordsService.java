@@ -40,13 +40,26 @@ public class MedicalRecordsService {
         return medicalRecordsRepository.findAll();
     }
 
-    /** delete a choosen medical records
+    /** delete a choosen medical records with an id
      * @param id : parameter to choose the medical record to delete
      */
-    public void deleteMedicalRecords(final Long id) {
+    public void deleteMedicalRecordsById(final Long id) {
 
         medicalRecordsRepository.deleteById(id);
     }
+
+    /**
+     * Delete a medical record by a firstname and a lastname
+     * @param firstName
+     * @param lastName
+     */
+    public void deleteMedicalRecordsByFirstNameAndLastName(String firstName, String lastName) {
+
+        medicalRecordsRepository.deleteByFirstNameAndLastName(firstName, lastName);
+    }
+
+
+
 
     /**
      * Save a new medical record
@@ -117,25 +130,16 @@ public class MedicalRecordsService {
         try {
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(firstName,lastName);
 
-            System.out.println(medicalRecords);
-
-            // if (medicalRecords.isPresent()) {
-
-                //MedicalRecords medicalRecordsToSave = medicalRecords;
-            MedicalRecords medicalRecordsToSave = new MedicalRecords();
                 // pas de get ?
 
-                medicalRecordsToSave.setFirstName(medicalRecordsDetails.getFirstName());
-                medicalRecordsToSave.setLastName(medicalRecordsDetails.getLastName());
-                medicalRecordsToSave.setBirthDate(medicalRecordsDetails.getBirthDate());
-                medicalRecordsToSave.setMedications(medicalRecordsDetails.getMedications());
-                medicalRecordsToSave.setAllergies(medicalRecordsDetails.getAllergies());
+
+                medicalRecords.setBirthDate(medicalRecordsDetails.getBirthDate());
+                medicalRecords.setMedications(medicalRecordsDetails.getMedications());
+                medicalRecords.setAllergies(medicalRecordsDetails.getAllergies());
 
                 // et vérifier qu'il ne soit pas nuls et Try Catch
 
-            System.out.println(medicalRecordsToSave);
-
-                return medicalRecordsRepository.save(medicalRecordsToSave);
+                return medicalRecordsRepository.save(medicalRecords);
             //}
 
         } catch(Exception e){
