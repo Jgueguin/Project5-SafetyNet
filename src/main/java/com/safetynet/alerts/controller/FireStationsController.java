@@ -2,16 +2,11 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.service.FireStationsService;
-import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Fire Station Controller
@@ -46,6 +41,7 @@ public class FireStationsController {
      */
     @GetMapping("/firestations/{id}")
     public FireStations getFireStations(@PathVariable("id") final Long id) {
+
         Optional<FireStations> fireStations = fireStationsService.getFireStations(id);
 
         if(fireStations.isPresent()) {
@@ -63,7 +59,7 @@ public class FireStationsController {
     @DeleteMapping("/firestations/{id}")
     public void deleteFireStations(@PathVariable("id") final Long id) {
 
-        fireStationsService.deleteFirestations(id);
+        fireStationsService.deleteFireStations(id);
 
     }
 
@@ -80,6 +76,8 @@ public class FireStationsController {
 
 
 
+    // update 2021-08-26
+
      /**
      * Modify  "Put" - a fire station
      * @param id The id of a fire station
@@ -87,46 +85,28 @@ public class FireStationsController {
      */
 
     @PutMapping("/firestations/{id}")
-    public ResponseEntity<FireStations> updateFireStations(
+    public FireStations updateFireStationsById(
             @PathVariable(value = "id") Long id,
-            @Valid @RequestBody FireStations firestationDetails) throws ResourceNotFoundException {
+            @Valid @RequestBody FireStations firestationDetails)  {
 
-        FireStations fireStationsUpdate = fireStationsService.getFireStations(id).orElseThrow(() -> new ResourceNotFoundException("Firestation not found on :: "+ id));
+        return fireStationsService.updateFireStationsById(id, firestationDetails);
 
-        fireStationsUpdate.setStation(firestationDetails.getStation());
-        fireStationsUpdate.setAddress(firestationDetails.getAddress());
-
-        final FireStations updatedFireStations = fireStationsService.saveFirestations(fireStationsUpdate);
-
-        return ResponseEntity.ok(updatedFireStations);
     }
 
-
+    // update 2021-08-26
     /**
-     * Update firestation.
+     * Update a firestation by its address
      *
-     * @param address     the address
-     * @param fireStations the firestation
-     * @return the response entity
+     * @param address
+     * @param fireStationsDetails
+     * @return
      */
     @PutMapping("/firestation/{address}")
-    public ResponseEntity<FireStations> updateFireStation(
-            @RequestParam final String address,
-            //, @RequestParam final int station,
-            @Valid @RequestBody final FireStations fireStations) throws NotFoundException {
-
-        FireStations fireStationsToUpdate = fireStationsService.findFireStationByAddress(address);
-
-        FireStations fireStationsUpdated = fireStationsService.updateFireStationsByAddress(
-                fireStations, fireStationsToUpdate);
-
-        FireStations fireStationsSaved = fireStationsService.saveUpdated(fireStationsUpdated);
-
-        LOGGER.info("FirestationController (PUT) -> Successfully updated fire "
-                + "station: " + fireStationsUpdated.toString());
-
-        return ResponseEntity.ok(fireStationsSaved);
-
+    public FireStations updateFireStationByAddress(
+            @PathVariable(value = "address") String address,
+            @Valid @RequestBody FireStations fireStationsDetails
+    ){
+            return fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);
     }
 
 

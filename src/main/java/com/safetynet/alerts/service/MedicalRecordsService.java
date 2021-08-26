@@ -7,9 +7,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 
 /**
@@ -60,7 +59,6 @@ public class MedicalRecordsService {
         return medicalRecords;
     }
 
-
     /**
      * Save all medical records.
      *
@@ -70,8 +68,84 @@ public class MedicalRecordsService {
     public Iterable<MedicalRecords> saveAll(
             Iterable<MedicalRecords> medicalRecords) {
         return medicalRecordsRepository.saveAll(medicalRecords);
-
     }
+
+//2021-08-26
+
+    /**
+     * modify a Medical record by its id
+     * @param id
+     * @param medicalRecords
+     * @return
+     */
+    public MedicalRecords updateMedicalRecordById(Long id,
+                                              MedicalRecords medicalRecords) {
+        try {
+        Optional<MedicalRecords> optionalMedicalRecords = medicalRecordsRepository.findById(id);
+
+        if (optionalMedicalRecords.isPresent()) {
+
+            MedicalRecords medicalRecordsToSave = optionalMedicalRecords.get();
+
+            medicalRecordsToSave.setFirstName(medicalRecords.getFirstName());
+            medicalRecordsToSave.setLastName(medicalRecords.getLastName());
+            medicalRecordsToSave.setBirthDate(medicalRecords.getBirthDate());
+            medicalRecordsToSave.setMedications(medicalRecords.getMedications());
+            medicalRecordsToSave.setAllergies(medicalRecords.getAllergies());
+
+            // et vérifier qu'il ne soit pas nuls et Try Catch
+
+            return medicalRecordsRepository.save(medicalRecordsToSave);
+        }
+
+    } catch(Exception e){
+        System.out.println(e);
+    }
+            return null;
+}
+
+
+    /**
+     * modify a medical Record by firstname and LastName
+     * @param firstName
+     * @param lastName
+     * @param medicalRecordsDetails
+     * @return
+     */
+    public MedicalRecords updateMedicalRecordByFirstNameAndLastName(String firstName, String lastName,
+                                                  @Valid MedicalRecords medicalRecordsDetails) {
+        try {
+            MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(firstName,lastName);
+
+            System.out.println(medicalRecords);
+
+            // if (medicalRecords.isPresent()) {
+
+                //MedicalRecords medicalRecordsToSave = medicalRecords;
+            MedicalRecords medicalRecordsToSave = new MedicalRecords();
+                // pas de get ?
+
+                medicalRecordsToSave.setFirstName(medicalRecordsDetails.getFirstName());
+                medicalRecordsToSave.setLastName(medicalRecordsDetails.getLastName());
+                medicalRecordsToSave.setBirthDate(medicalRecordsDetails.getBirthDate());
+                medicalRecordsToSave.setMedications(medicalRecordsDetails.getMedications());
+                medicalRecordsToSave.setAllergies(medicalRecordsDetails.getAllergies());
+
+                // et vérifier qu'il ne soit pas nuls et Try Catch
+
+            System.out.println(medicalRecordsToSave);
+
+                return medicalRecordsRepository.save(medicalRecordsToSave);
+            //}
+
+        } catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
+
+
+
 
 
 
@@ -83,7 +157,7 @@ public class MedicalRecordsService {
      * @return the medical record
      * @throws NotFoundException if no medical record was found
      */
-    public MedicalRecords findByFirstNameAndLastName(String firstName,
+    /*public MedicalRecords findByFirstNameAndLastName(String firstName,
                                                     String lastName) {
         try {
              // LOGGER.debug(
@@ -110,23 +184,17 @@ public class MedicalRecordsService {
         }
 
     }
+*/
 
-    /**
-     * Update medical record.
-     *
-     * @param medicalRecordsBody    the medical record body
-     * @param medicalRecordsUpdated the medical record updated
-     * @return the medical record updated
-     */
-    public MedicalRecords updateMedicalRecord(MedicalRecords medicalRecordsBody,
-                                             MedicalRecords medicalRecordsUpdated) {
 
-        medicalRecordsUpdated.setBirthDate(medicalRecordsBody.getBirthDate());
-        medicalRecordsUpdated.setMedications(medicalRecordsBody.getMedications());
-        medicalRecordsUpdated.setAllergies(medicalRecordsBody.getAllergies());
 
-        return medicalRecordsUpdated;
-    }
+
+
+
+
+
+
+
 
     /**
      * Save updated medical record.

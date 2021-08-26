@@ -2,16 +2,11 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.service.MedicalRecordsService;
-import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
-import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Medical Records Controller
@@ -76,23 +71,21 @@ public class MedicalRecordsController {
         return medicalRecordsService.saveMedicalRecords(medicalRecords);
     }
 
+
+    //2021-08-26
+    /**
+     * modify a medical recoird by its id
+     * @param id
+     * @param medicalRecordsDetails
+     * @return
+     */
     @PutMapping("/medicalrecords/{id}")
-    public ResponseEntity<MedicalRecords> updateMedicalRecordsById(
+    public MedicalRecords updateMedicalRecordsById(
             @PathVariable(value = "id") Long id,
-            @Valid @RequestBody MedicalRecords medicalRecordsDetails) throws ResourceNotFoundException {
-        MedicalRecords medicalRecordsUpdate = medicalRecordsService.getMedicalRecords(id).orElseThrow(() -> new ResourceNotFoundException("User not found on :: "+ id));
+            @Valid @RequestBody MedicalRecords medicalRecordsDetails)  {
 
-        medicalRecordsUpdate.setFirstName(medicalRecordsDetails.getFirstName());
-        medicalRecordsUpdate.setLastName(medicalRecordsDetails.getLastName());
-        medicalRecordsUpdate.setBirthDate(medicalRecordsDetails.getBirthDate());
-        medicalRecordsUpdate.setMedications(medicalRecordsDetails.getMedications());
-        medicalRecordsUpdate.setAllergies(medicalRecordsDetails.getAllergies());
-
-        final MedicalRecords updatedMedicalRecords = medicalRecordsService.saveMedicalRecords(medicalRecordsUpdate);
-
-        return ResponseEntity.ok(updatedMedicalRecords);
+        return medicalRecordsService.updateMedicalRecordById(id, medicalRecordsDetails);
     }
-
 
 
     //2021-08-19
@@ -100,25 +93,17 @@ public class MedicalRecordsController {
      * Modify a medical Records with its firstname and lastname
      * @param firstName
      * @param lastName
-     * @param medicalRecords
-     * @return
-     * @throws NotFoundException
+     * @return medicalRecords
      */
-    @PutMapping("/medicalrecords/{firstName}/{lastName}")
-    public ResponseEntity<MedicalRecords> updateMedicalRecordsByFirstNameLastName(
-            @PathVariable(value = "firstName") String firstName,
-            @PathVariable(value = "lastName") String lastName,
-            @Valid @RequestBody final MedicalRecords medicalRecords) throws NotFoundException {
+   @PutMapping("/medicalrecords/{firstName}/{lastName}")
+    public MedicalRecords updateMedicalRecordsByFirstNameAndLastName(
 
-        MedicalRecords medicalRecordsUpdate = medicalRecordsService.findByFirstNameAndLastName(firstName,lastName);
-        MedicalRecords medicalRecordsUpdated = medicalRecordsService.updateMedicalRecord(medicalRecords, medicalRecordsUpdate);
+           @PathVariable(value = "firstName") String firstName,
+           @PathVariable(value = "lastName") String lastName,
+           @Valid @RequestBody MedicalRecords medicalRecordsDetails)  {
 
-        final MedicalRecords medicalRecordsSaved = medicalRecordsService.saveUpdated(medicalRecordsUpdate);
+           return medicalRecordsService.updateMedicalRecordByFirstNameAndLastName(firstName,lastName,medicalRecordsDetails);
 
-        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
-                + medicalRecordsUpdated.toString());
-
-        return ResponseEntity.ok(medicalRecordsSaved);
     }
 
 

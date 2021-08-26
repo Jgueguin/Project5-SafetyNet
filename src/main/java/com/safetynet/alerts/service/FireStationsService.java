@@ -7,9 +7,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 /**
  * Fire Stations Service
@@ -23,6 +22,7 @@ public class FireStationsService {
 
     /**
      * Select a choosen Fire Station between all
+     *
      * @param id : parameter to choose the fire station
      * @return : the information for the choosen fire station
      */
@@ -33,6 +33,7 @@ public class FireStationsService {
 
     /**
      * Select all the fire stations
+     *
      * @return: the informations for all the firestations
      */
     public Iterable<FireStations> getFireStations() {
@@ -42,17 +43,17 @@ public class FireStationsService {
 
     /**
      * delete a choosen firestation
+     *
      * @param id : parameter to choose the fire station to delete
      */
-    public void deleteFirestations(final Long id) {
+    public void deleteFireStations(final Long id) {
 
         fireStationsRepository.deleteById(id);
-
-
     }
 
     /**
      * Save a new fire station
+     *
      * @param firestations
      * @return : save the new fire station into Repository
      */
@@ -74,44 +75,57 @@ public class FireStationsService {
     }
 
 
+    //2021-08-26
+
     /**
-     * * Update a fire station.( Put )
+     * * Update a fire station.( Put ) by its id
      *
      * @param id
      * @param fireStations the firestations
      * @return update the fire stations
      */
-    public FireStations updateFireStationsById (final Long id, FireStations fireStations) {
 
-        fireStationsRepository.findById(id);
+    public FireStations updateFireStationsById(
+            final Long id,
+            FireStations fireStations) {
 
-        return fireStationsRepository.save(fireStations);
-    }
+        try {
+            Optional<FireStations> optionalFireStations = fireStationsRepository.findById(id);
+
+            if (optionalFireStations.isPresent()) {
+
+                FireStations fireStationsToSave = optionalFireStations.get();
+
+                fireStationsToSave.setStation(fireStationsToSave.getStation());
+                fireStationsToSave.setAddress(fireStationsToSave.getAddress());
+
+                // vérifier qu'il ne soit pas nuls
+
+                return fireStationsRepository.save(fireStationsToSave);
+            }
+        }
+        catch (Exception e) {
+
+            System.out.println(e);
+        }
+        return null;
+
+        }
 
 
-    //2021-08-19 update
-
-    /**
-     *
-     * @param fireStations
-     * @return
-     */
+        //2021-08-19 update
+        /*
+         *//**
+         *
+         * @param fireStations
+         * @return
+         *//*
     public FireStations saveUpdated(FireStations fireStations) {
         return fireStationsRepository.save(fireStations);
-    }
+    }*/
 
-    /**
-     * Update a firestation ( Put )by its adress
-     *
-     * @param fireStationsBody
-     * @param firesStationsToUpdate
-     * @return
-     */
-    public FireStations updateFireStationsByAddress(FireStations fireStationsBody, FireStations firesStationsToUpdate) {
-                firesStationsToUpdate.setStation(fireStationsBody.getStation());
-                firesStationsToUpdate.setAddress(fireStationsBody.getAddress());
-                return firesStationsToUpdate;
-    }
+
+    //2021-08-26
 
     /**
      * Find a fireStation Station by its address
@@ -121,46 +135,55 @@ public class FireStationsService {
      * @throws NotFoundException if noone was found
      */
 
-        public FireStations findFireStationByAddress( String address ) throws NotFoundException {
+    public FireStations updateFireStationsByAddress(
+            String address,
+            @Valid FireStations fireStationsDetails) {
 
-            /* LOGGER.debug(
-                    "FireStationService -> Searching for fire station at + address: " + address + " ...");*/
+        try {
+            FireStations fireStations = fireStationsRepository.findByAddress(address);
 
-            FireStations fireStation = fireStationsRepository.findByAddress(
-                    address );
+                FireStations fireStationsToSave = new FireStations();
 
-            if (fireStation == null) {
-                /*LOGGER.error("FireStationService -> Fire station at address "  + address + " doesn't exist");
-                throw new NotFoundException(
-                        "FireStationService -> Fire station at address: " + address + " doesn't exist");*/
-            }
+                fireStationsToSave.setStation(fireStationsDetails.getStation());
 
-            LOGGER.info("FireStationService -> Fire station at address: " + address + " was found");
-            return fireStation;
+                // vérifier qu'il ne soit pas nuls
+
+                return fireStationsRepository.save(fireStationsToSave);
+
         }
+        catch (Exception e) {
 
+            System.out.println(e);
+        }
+        return null;
+
+    }
 
 //2021-08-25
 
-  /*  *//**
-     * Find station by address list.
-     *
-     * @param address the address
-     * @return list of fire station covered by address
-     * @throws NotFoundException if no fire station was found
-     *//*
+/*
+
+        */
+/**
+         * Find station by address list.
+         *
+         * @param address the address
+         * @return list of fire station covered by address
+         * @throws NotFoundException if no fire station was found
+         *//*
+
     public List<Integer> findStationByAddress(String address) {
 
         List<Integer> stationIds = (List<Integer>) FireStationsRepository.findByAddress(address);
 
-        *//*LOGGER.debug(
+        *LOGGER.debug(
                 "FirestationService -> Searching for fire station at address"
-                        + address + "...");*//*
+                        + address + "...");
 
         if (stationIds.isEmpty()) {
-            *//*LOGGER.error("No station is existing at address: " + address);
+            LOGGER.error("No station is existing at address: " + address);
             throw new NotFoundException(
-                    "No station is existing at address: " + address);*//*
+                    "No station is existing at address: " + address);
 
         }
         return stationIds;
@@ -168,4 +191,7 @@ public class FireStationsService {
 */
 
 
-} //END
+
+     //END
+}
+

@@ -2,15 +2,12 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.repository.PersonsRepository;
-import com.safetynet.alerts.service.PersonsService;
 import javassist.NotFoundException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 
 /**
@@ -65,18 +62,96 @@ public class PersonsService {
         personsRepository.deleteByFirstNameAndLastName(firstName, lastName);
     }
 
-
-    /**
+    /* /**
      * Save a person in the Repository
      *
      * @param persons : all of a person's informations
      * @return all the informations into the Repository
-     */
+     *//*
     public Persons savePersons(Persons persons) {
 
-        Persons savedPersons = personsRepository.save(persons);
+            personToSave.setLastName(persons.getLastName());
+            // faire la même chose pour les reste des attributs
+            // et vérifier qu'il ne soit pas nuls
 
-        return savedPersons;
+            return personsRepository.save(personToSave);
+
+        }
+
+        return null;
+
+    }*/
+
+
+    //2021-08-26
+
+    /**
+     * update a person by its id
+     *
+     * @param id
+     * @param persons
+     * @return persons
+     */
+    public Persons updatePersonsById(Long id, Persons persons) {
+        try {
+            Optional<Persons> optionalPerson = personsRepository.findById(id);
+
+            if (optionalPerson.isPresent()) {
+
+                Persons personToSave = optionalPerson.get();
+
+                personToSave.setLastName(persons.getLastName());
+                personToSave.setFirstName(persons.getFirstName());
+                personToSave.setAddress(persons.getAddress());
+                personToSave.setZip(persons.getZip());
+                personToSave.setCity(persons.getCity());
+                personToSave.setEmail(persons.getEmail());
+                personToSave.setPhone(persons.getPhone());
+
+                // et vérifier qu'il ne soit pas nuls et Try Catch
+
+                return personsRepository.save(personToSave);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return null;
+
+    }
+
+
+    //2021-08-26
+
+    /**
+     * modify a person by its firstname and lastname
+     *
+     * @param firstName
+     * @param lastName
+     */
+    public Persons updatePersonsByFirstNameAndLastName(String firstName, String lastName, Persons personsDetails) {
+        try {
+
+            Persons person = personsRepository.findByFirstNameAndLastName(firstName, lastName);
+
+            Persons personToSave = new Persons();
+
+            personToSave.setLastName(personsDetails.getLastName());
+            personToSave.setFirstName(personsDetails.getFirstName());
+            personToSave.setAddress(personsDetails.getAddress());
+            personToSave.setZip(personsDetails.getZip());
+            personToSave.setCity(personsDetails.getCity());
+            personToSave.setEmail(personsDetails.getEmail());
+            personToSave.setPhone(personsDetails.getPhone());
+
+            // et vérifier qu'il ne soit pas nuls
+
+            return personsRepository.save(personToSave);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -93,34 +168,15 @@ public class PersonsService {
 
 
     /**
-     *
      * @param persons
      * @return
      */
-    public static Persons saveUpdated(Persons persons) {
+/*    public static Persons saveUpdated(Persons persons) {
         return personsRepository.save(persons);
     }
+    */
+
     //2021-08-19 update
-
-    /**
-     * Update a person.( Put )
-     *
-     * @param personsBody
-     * @param personsToUpdate
-     * @return
-     */
-    public static Persons updatePersons(Persons personsBody, Persons personsToUpdate) {
-        personsToUpdate.setAddress(personsBody.getAddress());
-        personsToUpdate.setCity(personsBody.getCity());
-        personsToUpdate.setEmail(personsBody.getEmail());
-        personsToUpdate.setPhone(personsBody.getPhone());
-        personsToUpdate.setZip(personsBody.getZip());
-
-        return personsToUpdate;
-    }
-
-
-
 
 
     /**
@@ -131,40 +187,40 @@ public class PersonsService {
      * @return the person
      * @throws NotFoundException if noone was found
      */
-    public Persons findByFirstNameAndLastName(String firstName,
-                                              String lastName) throws NotFoundException {
-        LOGGER.info("PersonService -> Searching for person " + firstName + " "+ lastName + " ...");
+       /* public Persons findByFirstNameAndLastName (String firstName,
+                String lastName) throws NotFoundException {
+            LOGGER.info("PersonService -> Searching for person " + firstName + " " + lastName + " ...");
 
-        Persons persons = personsRepository.findByFirstNameAndLastName(firstName, lastName);
+            Persons persons = personsRepository.findByFirstNameAndLastName(firstName, lastName);
 
-        if (persons == null) {
-            LOGGER.info("PersonService -> " + firstName + " " + lastName
-                    + " doesn't exist");
+            if (persons == null) {
+                LOGGER.info("PersonService -> " + firstName + " " + lastName
+                        + " doesn't exist");
 
-            throw new NotFoundException(
-                    "Person " + firstName + " " + lastName + " doesn't exist");
-        }
-        LOGGER.info("PersonService -> Person " + firstName + " " + lastName
-                + " was found");
-        return persons;
-    }
+                throw new NotFoundException(
+                        "Person " + firstName + " " + lastName + " doesn't exist");
+            }
+            LOGGER.info("PersonService -> Person " + firstName + " " + lastName
+                    + " was found");
+            return persons;
+        }*/
 
 
     //2021-08-25
 
 
-    public Persons findById(Long id) throws NotFoundException {
+   /* public Persons findById(Long id) throws NotFoundException {
         // LOGGER.info("PersonService -> Searching for person " + firstName + " " + lastName + " ...");
 
         Persons persons = personsRepository.findById(id);
 
         Persons personsToUpdate = PersonsService.findById(id);
 
-        Persons personUpdated = PersonsService.updatePersons(persons,personsToUpdate);
+        Persons personUpdated = PersonsService.updatePersons(persons, personsToUpdate);
         final Persons personsSaved = PersonsService.saveUpdated(personsToUpdate);
 
         return persons;
-
+*/
 
       /*  if (persons == null) {
             LOGGER.info("PersonService -> " + firstName + " " + lastName
@@ -175,24 +231,13 @@ public class PersonsService {
         }
         LOGGER.info("PersonService -> Person " + firstName + " " + lastName
                 + " was found");
-        return persons;*/
-    }
+        return persons;
+    } */
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-/*
-    *//**
+    /*
+     *//**
      * Find persons covered by address and convert theme into a PersonFireDTO list.
      *
      * @param address the address
@@ -222,10 +267,6 @@ public class PersonsService {
         }
         return personFireDTOList;
     }*/
-
-
-
-
 
 
 }

@@ -76,17 +76,17 @@ public class PersonsController {
         personsService.deletePersonByFirstNameAndLastName(firstName, lastName);
     }
 
-
-    /**
+/*
+    *//**
      * Create - Add a new person
      *
      * @param persons: An object employee
      * @return The person object saved
-     */
+     *//*
     @PostMapping("/persons")
     public Persons createPersons(@RequestBody Persons persons) {
         return personsService.savePersons(persons);
-    }
+    }*/
 
     //2021-08-19 update
 
@@ -99,50 +99,32 @@ public class PersonsController {
      * @throws ResourceNotFoundException
      */
     @PutMapping("/persons/{id}")
-    public modifyPersonsById(
+    public Persons updatePersonsById(
             @PathVariable("id") Long id,
             @Valid @RequestBody Persons personsDetails) {
 
-        // personsService.modifyPersonById(id);
-
-        return personsService.savePersons(personsDetails);
+        return personsService.updatePersonsById(id, personsDetails);
     }
 
-    // public ResponseEntity<Persons> updatePersonsById(
-    //        @PathVariable(value = "id") Long id,
-      //      @Valid @RequestBody Persons personsDetails) throws ResourceNotFoundException {
 
-        // Persons personsToUpdate = personsService.findByFirstNameAndLastName( firstName, lastName);
-        //Persons personUpdated = personsService.updatePerson(persons,
-          //      personsUpdate);
-        //final Persons personsSaved = personsService.saveUpdated(personUpdate);
-
-        // LOGGER.info("PersonController (PUT) -> Successfully updated person: "
-           //     + personUpdated.toString());*//*
-
-        //return ResponseEntity.ok(personsSaved);
-
-    //}
-/*
-
-    */
 /**
      * Modify a person with its firstname and lastname
      * @param firstName
      * @param lastName
      *
      * @throws NotFoundException
-     *//*
+     */
 
     @PutMapping("/persons/{firstName}/{lastName}")
 
-    public void modifyPersonsByFirstNameAndLastName(
-            @PathVariable("firstName") final String firstName,
-            @PathVariable("lastName") final String lastName)
-    {
-        personsService.modifyPersonByFirstNameAndLastName(firstName, lastName);
+    public Persons modifyPersonsByFirstNameAndLastName(
+            @PathVariable(value = "firstName") String firstName,
+            @PathVariable(value = "lastName") String lastName,
+            @Valid @RequestBody Persons personsDetails ){
+
+        return personsService.updatePersonsByFirstNameAndLastName(firstName, lastName,personsDetails);
     }
-*/
+
 
 
 

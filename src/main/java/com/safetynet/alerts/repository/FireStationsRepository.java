@@ -5,6 +5,8 @@ import com.safetynet.alerts.model.Persons;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Fire Station Repository
  */
@@ -12,15 +14,23 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FireStationsRepository extends CrudRepository<FireStations, Long> {
 
-    //2021-08-19
 
+
+    // 2021-08-26
     /**
+     * Find a fire Station by its id
+     * @param id the id
+     * @return the firestations
+     */
+    Optional<FireStations> findById(Long id);
+
+    // 2021-08-26
+     /**
      * Find a fire Station by its adress
      * @param address the adress
      * @return the firestations
      */
     FireStations findByAddress(String address);
-
 
 
     /**

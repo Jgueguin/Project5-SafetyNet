@@ -4,6 +4,8 @@ import com.safetynet.alerts.model.Persons;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 /**
  * Persons Repository
  */
@@ -18,11 +20,10 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
      * @param id
      * @return the person
      */
-    Persons findById(Long id);
+    Optional<Persons> findById(Long id);
 
 
-
-
+// 2021-08-26
     /**
      * Find by first name and last name a person
      *
@@ -32,8 +33,7 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
      */
     Persons findByFirstNameAndLastName(String firstName, String lastName);
 
-
-
+    // -> pas d'optionnal ici ?????
 
 
 
