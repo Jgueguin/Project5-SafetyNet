@@ -30,8 +30,9 @@ public class FireStationsController {
      * @return - An Iterable object of fire station full filled
      */
     @GetMapping("/firestations")
-    public Iterable<FireStations> getFireStations() {
-        return fireStationsService.getFireStations();
+    public Iterable<FireStations> getFireStationsAll() {
+
+        return fireStationsService.getFireStationsAll();
     }
 
 
@@ -41,15 +42,17 @@ public class FireStationsController {
      * @return A firestation object full filled
      */
     @GetMapping("/firestations/{id}")
-    public FireStations getFireStations(@PathVariable("id") final Long id) {
+    public Optional<FireStations> getFireStationsById(
+            @PathVariable("id") final Long id) {
 
-        Optional<FireStations> fireStations = fireStationsService.getFireStations(id);
+        return fireStationsService.getFireStationsById(id);
 
-        if(fireStations.isPresent()) {
+
+       /* if(fireStations.isPresent()) {
             return fireStations.get();
         } else {
             return null;
-        }
+        }*/
     }
 
 
@@ -65,15 +68,15 @@ public class FireStationsController {
     //2021-08-27
 
     /**
-     * delete a person by its first name and last name
-     * @param id
+     * delete a person by its address
+     * @param address
      */
-    /*@DeleteMapping("/firestations/{firstName}/{lastName}")
-    public void deleteFireStationsByFirstNameAndLastName(
-            @PathVariable("firstName") String firstName,
-            @PathVariable("lastName") String lastName) {
-            fireStationsService.deleteFireStationsByFirstNameAndLastName(firstName,lastName);
-    }*/
+    @DeleteMapping("/firestations/del/{address}")
+    public void deleteFireStationsByAddress(
+            @PathVariable("address") String address
+            ) {
+            fireStationsService.deleteFireStationsByAddress(address);
+    }
 
 
 
@@ -124,16 +127,20 @@ public class FireStationsController {
 
 
 
+
+    // URLS
+    //http://localhost:8080/firestation?stationNumber=<station_number>
     /**
      * Read - Get a fire station
      * @param id The id of a fire station
      * @return A firestation object full filled
      */
+/*
     @GetMapping("/firestations/{stationNumber}")
     public FireStations getFireStations(
             @PathVariable("stationNumber") Long stationNumber) {
 
-        Optional<FireStations> fireStations = fireStationsService.getFireStations(id);
+        Optional<FireStations> fireStations = fireStationsService.getFireStationsById(id);
 
         if(fireStations.isPresent()) {
             return fireStations.get();
@@ -141,6 +148,7 @@ public class FireStationsController {
             return null;
         }
     }
+*/
 
 
 }

@@ -26,9 +26,16 @@ public class FireStationsService {
      * @param id : parameter to choose the fire station
      * @return : the information for the choosen fire station
      */
-    public Optional<FireStations> getFireStations(final Long id) {
+    public Optional<FireStations> getFireStationsById(final Long id) {
 
-        return fireStationsRepository.findById(id);
+        Optional<FireStations> optionalFireStations = fireStationsRepository.findById(id);
+
+        if (optionalFireStations.isPresent()) {
+            optionalFireStations.get();
+
+            return fireStationsRepository.findById(id);
+        }
+        return null;
     }
 
     /**
@@ -36,7 +43,7 @@ public class FireStationsService {
      *
      * @return: the informations for all the firestations
      */
-    public Iterable<FireStations> getFireStations() {
+    public Iterable<FireStations> getFireStationsAll() {
 
         return fireStationsRepository.findAll();
     }
@@ -47,15 +54,17 @@ public class FireStationsService {
      * @param id : parameter to choose the fire station to delete
      */
     public void deleteFireStationsById(final Long id) {
+
         fireStationsRepository.deleteById(id);
     }
 
 
 //2021-08-27
 
-  /*  public void deleteFireStationsByFirstNameAndLastName(String firstName, String lastName) {
-        fireStationsRepository.deleteByFirstNameAndLastName(firstName, lastName);
-    }*/
+    public void deleteFireStationsByAddress(String address) {
+
+        fireStationsRepository.deleteByAddress(address);
+    }
 
 
     /**
