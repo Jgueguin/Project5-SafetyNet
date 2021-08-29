@@ -3,8 +3,7 @@ package com.safetynet.alerts.model.dto;
 import lombok.Data;
 
 /**
- * Person fire dto.
- *
+ * Person fire dto
  */
 @Data
 public class PersonFireDTO {
@@ -23,22 +22,19 @@ public class PersonFireDTO {
      * @param lastName      the last name
      * @param phone         the phone
      * @param age           the age
+     * @param address       the address
      * // @param allergies     the allergies
      * // @param medications   the medications
      */
     public PersonFireDTO(Integer stationNumber, String firstName,
-                         String lastName, String phone, int age
-    /*                    , String[] allergies,
-                         String[] medications*/
-
+                         String lastName, String phone, int age, String address
     ) {
         this.stationNumber = stationNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
         this.age = age;
-        // this.allergies = allergies;
-        // this.medications = medications;
+        this.address = address;
     }
 
     /**
@@ -57,27 +53,15 @@ public class PersonFireDTO {
      * The Phone.
      */
     private String phone;
+
     /**
      * The Age.
      */
     private int age;
 
+    /**
+     * The address
+     */
+    private String address;
 
-
-/*
-    */
-/**
-     * The Allergies.
-     *//*
-
-    private String[] allergies;
-    */
-/**
-     * The Medications.
-     *//*
-
-    private String[] medications;
-*/
-
-
-}
+} //END

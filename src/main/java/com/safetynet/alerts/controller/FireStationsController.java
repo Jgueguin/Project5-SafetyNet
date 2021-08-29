@@ -130,6 +130,7 @@ public class FireStationsController {
 
     // URLS
     //http://localhost:8080/firestation?stationNumber=<station_number>
+
     /**
      * Read - Get a fire station
      * @param id The id of a fire station

@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface FireStationsRepository extends CrudRepository<FireStations, Long> {
 
-
     // 2021-08-26
     /**
      * Find a fire Station by its id
@@ -30,7 +29,6 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      */
     FireStations findByAddress(String address);
 
-
     /**
      * Delete a firestation by an adress
      * @param address
@@ -38,10 +36,9 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      */
     FireStations deleteByAddress(String address);
 
-
 // 2021-08-25
 
-/*    *//**
+    /*    *//**
      * Find station by address iterable.
      *
      * @param address the address

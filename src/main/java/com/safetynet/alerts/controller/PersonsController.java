@@ -76,12 +76,10 @@ public class PersonsController {
         personsService.deletePersonByFirstNameAndLastName(firstName, lastName);
     }
 
-/*
-    *//**
+    /**
      * Create - Add a new person
-     *
-     * @param persons: An object employee
-     * @return The person object saved
+     * @param personsDetails : an abject person
+     * @return the person object saved
      */
     @PostMapping("/persons")
     public Persons createPersons(@RequestBody Persons personsDetails) {

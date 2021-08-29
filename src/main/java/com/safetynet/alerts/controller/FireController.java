@@ -29,6 +29,7 @@ public class FireController {
      * @param personsService the person service
      */
     public FireController(PersonsService personsService) {
+
         this.personsService = personsService;
     }
 
