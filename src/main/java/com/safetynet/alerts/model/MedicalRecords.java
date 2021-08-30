@@ -20,7 +20,7 @@ import java.util.Date;
 public class MedicalRecords {
 
     /**
-     * Id
+     * The Id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,19 +29,19 @@ public class MedicalRecords {
     private Long id;
 
     /**
-     * First name
+     * The First name
      */
     @Column(name = "first_name")
     private String firstName;
 
     /**
-     * Last name
+     * The Last name
      */
     @Column(name = "last_name")
     private String lastName;
 
     /**
-     * Birth date
+     * The Birth date
      */
     @Column(name = "birth_date")
     @JsonProperty("birthdate")
@@ -49,7 +49,7 @@ public class MedicalRecords {
     private Date birthDate;
 
     /**
-     * Medications
+     * The Medications
      */
     @Column(name = "medications")
     @JsonProperty("medications")
@@ -57,7 +57,7 @@ public class MedicalRecords {
 
 
     /**
-     * Allergies
+     * The Allergies
      */
     @Column(name = "allergies")
     @JsonProperty("allergies")

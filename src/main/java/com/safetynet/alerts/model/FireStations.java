@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 public class FireStations {
 
     /**
-     * Id
+     * The Id
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,14 +27,14 @@ public class FireStations {
     private Long id;
 
     /**
-     * Station
+     * The Station
      */
     @NotNull(message = "Station number cannot be empty")
     @Column(name = "station")
     private Integer station;
 
     /**
-     * Address
+     * The Address
      */
     @NotBlank(message = "Address field cannot be empty")
     @Column(name = "address")

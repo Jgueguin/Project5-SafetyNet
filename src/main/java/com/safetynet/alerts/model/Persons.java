@@ -20,11 +20,15 @@ import javax.validation.constraints.NotNull;
 
 public class Persons {
 
-    /**
-     * Instantiates a new Person.
-     */
-    public Persons() {
-    }
+
+
+
+
+
+
+
+
+
 
     /**
      * The Id.
@@ -85,6 +89,12 @@ public class Persons {
     @Column(name = "email")
     private String email;
 
+    /**
+     * Instantiates a new Person.
+     */
+    public Persons() {
+    }
+
 
     /**
      * Instantiates  a new Person.
@@ -116,7 +126,6 @@ public class Persons {
         this.phone = phone;
         this.email = email;
     }
-
 
 }
 
