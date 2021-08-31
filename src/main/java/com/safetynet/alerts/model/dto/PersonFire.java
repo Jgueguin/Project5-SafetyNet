@@ -17,7 +17,7 @@ import lombok.Data;
     */
 
 @Data
-public class PersonFireDTO {
+public class PersonFire {
 
     /**
      * The Station number.
@@ -50,7 +50,7 @@ public class PersonFireDTO {
     /**
      * Instantiates a new Person fire dto.
      */
-    public PersonFireDTO() {
+    public PersonFire() {
     }
 
     /**
@@ -63,8 +63,8 @@ public class PersonFireDTO {
      * @param age           the age
      * @param address       the address
      */
-    public PersonFireDTO(Integer stationNumber, String firstName,
-                         String lastName, String phone, int age, String address
+    public PersonFire(Integer stationNumber, String firstName,
+                      String lastName, String phone, int age, String address
     ) {
         this.stationNumber = stationNumber;
         this.firstName = firstName;

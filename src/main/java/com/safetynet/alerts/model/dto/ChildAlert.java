@@ -6,7 +6,7 @@ import lombok.Data;
  * ChildAlertDTO class.
  */
 @Data
-public class ChildAlertDTO {
+public class ChildAlert {
 
 /*
     http://localhost:8080/childAlert?address=<address>
@@ -42,8 +42,7 @@ public class ChildAlertDTO {
     /**
      * Instantiates a new Child Alert.
      */
-
-    public ChildAlertDTO() {
+    public ChildAlert() {
 
     }
 
@@ -55,10 +54,10 @@ public class ChildAlertDTO {
      * @param personFirstName
      * @param personLastName
      */
-    public ChildAlertDTO(final String personsAddress,
-                         final int personsAge,
-                         final String personFirstName,
-                         final String personLastName) {
+    public ChildAlert(final String personsAddress,
+                      final int personsAge,
+                      final String personFirstName,
+                      final String personLastName) {
         this.address = personsAddress;
         this.age = personsAge;
         this.firstName = personFirstName;
@@ -66,4 +65,4 @@ public class ChildAlertDTO {
     }
 
 
-}
+} // END
