@@ -1,13 +1,19 @@
 package com.safetynet.alerts.service;
 
+import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.model.dto.PersonFire;
 import com.safetynet.alerts.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+
+import static org.yaml.snakeyaml.nodes.NodeId.mapping;
 
 
 /**
@@ -19,6 +25,7 @@ import java.util.Optional;
 public class PersonsService {
     @Autowired
     private PersonsRepository personsRepository;
+
 
     /**
      * Choose a person in the Repository
@@ -68,7 +75,7 @@ public class PersonsService {
     /**
      * Save a person in the Repository
      *
-     * @param persons : all of a person's informations
+     * @param personsDetails : all of a person's informations
      * @return all the informations into the Repository
      */
 
@@ -88,7 +95,6 @@ public class PersonsService {
             // et vérifier qu'il ne soit pas nuls
 
             return personsRepository.save(personsToSave);
-
         }
 
 
@@ -174,7 +180,34 @@ public class PersonsService {
     }
 
 
+// 2021-08-31
 
+
+
+    public List<PersonFire> getFireDtoListByStation (String address) {
+
+        List<PersonFire> personFireDTO = new ArrayList<>();
+
+        List<Integer> listOfStations = firestationService.findStationByAddress(
+                address);
+        List<MedicalRecords> medicalRecords = new ArrayList<>();
+
+        for (Integer integer : listOfStations) {
+            List<Person> personsCovered = findPersonByStation(integer);
+            for (Person person : personsCovered) {
+                MedicalRecord medicalRecord = medicalRecordService.findByFirstNameAndLastName(
+                        person.getFirstName(), person.getLastName());
+                if (medicalRecord != null)
+                    medicalRecords.add(medicalRecord);
+            }
+
+
+        }
+
+        return personFireList;
+    }
+
+    }
 
 
 
