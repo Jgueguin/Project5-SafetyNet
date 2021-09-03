@@ -33,9 +33,6 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
      */
     Persons findByFirstNameAndLastName(String firstName, String lastName);
 
-    // -> pas d'optionnal ici ?????
-
-
 
     //2021-08-19
 

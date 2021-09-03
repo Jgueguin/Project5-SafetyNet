@@ -95,7 +95,6 @@ public class Persons {
     public Persons() {
     }
 
-
     /**
      * Instantiates  a new Person.
      *
@@ -126,7 +125,6 @@ public class Persons {
         this.phone = phone;
         this.email = email;
     }
-
 }
 
 

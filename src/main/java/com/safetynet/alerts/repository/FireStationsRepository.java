@@ -43,9 +43,9 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      *
      * @param address the address
      * @return the list of fire station number covered at address
-     *//*
-    @Query("SELECT f.station FROM firestations f WHERE f.address = :address")
-     Iterable<Integer> findStationByAddress(String address)*/
+     */
+
+    Iterable<Integer> findStationByAddress(String address);
 
 
 } // END

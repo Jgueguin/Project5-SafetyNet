@@ -1,7 +1,7 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.PersonFire;
+import com.safetynet.alerts.model.dto.PersonCoveredByFireStation;
 import com.safetynet.alerts.service.PersonsService;
 import org.apache.logging.log4j.Logger;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,12 +45,11 @@ public class FireController {
      * @return the list
      */
    @GetMapping("/fire")
-    public List<PersonFire> fireController(@RequestParam String address) {
+    public List<PersonCoveredByFireStation> fireController(@RequestParam String address) {
 
-        return personsService.getFireDtoListByStation(address);
+        return personsService.getPersonListByStation(address);
     }
 
-    */
 
 
 } //END

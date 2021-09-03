@@ -2,7 +2,8 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
-import com.safetynet.alerts.model.dto.PersonFire;
+import com.safetynet.alerts.model.dto.PersonCoveredByFireStation;
+import com.safetynet.alerts.repository.FireStationsRepository;
 import com.safetynet.alerts.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +13,6 @@ import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.yaml.snakeyaml.nodes.NodeId.mapping;
 
 
 /**
@@ -145,7 +144,10 @@ public class PersonsService {
      * @param firstName
      * @param lastName
      */
-    public Persons updatePersonsByFirstNameAndLastName(String firstName, String lastName,@Valid Persons personsDetails) {
+    public Persons updatePersonsByFirstNameAndLastName(
+            String firstName,
+            String lastName,
+            @Valid Persons personsDetails) {
         try {
 
             Persons person = personsRepository.findByFirstNameAndLastName(firstName, lastName);
@@ -183,24 +185,32 @@ public class PersonsService {
 // 2021-08-31
 
 
+    public List<PersonCoveredByFireStation> getPersonListByStation (String address) {
 
-    public List<PersonFire> getFireDtoListByStation (String address) {
+        List<PersonCoveredByFireStation> personFireList = new ArrayList<>();
 
-        List<PersonFire> personFireDTO = new ArrayList<>();
 
-        List<Integer> listOfStations = firestationService.findStationByAddress(
-                address);
+
+
+
+        List<Integer> listOfStations =  FireStationsRepository.findStationByAdrress(address);
+
         List<MedicalRecords> medicalRecords = new ArrayList<>();
 
-        for (Integer integer : listOfStations) {
-            List<Person> personsCovered = findPersonByStation(integer);
-            for (Person person : personsCovered) {
-                MedicalRecord medicalRecord = medicalRecordService.findByFirstNameAndLastName(
-                        person.getFirstName(), person.getLastName());
-                if (medicalRecord != null)
-                    medicalRecords.add(medicalRecord);
-            }
+        for (Integer numberOfStation : listOfStations) {
 
+
+
+            List<Persons> personsCovered = findPersonByStation(numberOfStation);
+
+            for (Persons persons : personsCovered) {
+                MedicalRecords medicalRecordsCov = MedicalRecordsService.findByFirstNameAndLastName(
+                        persons.getFirstName(),
+                        persons.getLastName());
+                if (medicalRecords != null)
+
+                    medicalRecords.add(medicalRecordsCov);
+            }
 
         }
 

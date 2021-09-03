@@ -3,10 +3,10 @@ package com.safetynet.alerts.model.dto;
 import lombok.Data;
 
 /**
- * FireAddress class.
+ * List of Persons living at an address and specific fire station
  */
 @Data
-public class FireAddress {
+public class ListPersonsFireStationAddress {
 
 /*
 http://localhost:8080/fire?address=<address>
@@ -56,17 +56,17 @@ médicaux (médicaments, posologie et allergies) de chaque personne.
     /**
      * Instantiates a new Fire Address.
      */
-    public FireAddress() {
+    public ListPersonsFireStationAddress() {
 
     }
 
-    public FireAddress(final Long fireStation,
-                       final String firstName,
-                       final String lastName,
-                       final String phone,
-                       final int age,
-                       String[] medications,
-                       String[] allergies
+    public ListPersonsFireStationAddress(final Long fireStation,
+                                         final String firstName,
+                                         final String lastName,
+                                         final String phone,
+                                         final int age,
+                                         String[] medications,
+                                         String[] allergies
     ) {
         this.fireStation = fireStation;
         this.firstName = firstName;
