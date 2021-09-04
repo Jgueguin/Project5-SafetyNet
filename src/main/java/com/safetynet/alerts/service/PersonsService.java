@@ -1,17 +1,12 @@
 package com.safetynet.alerts.service;
 
-import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
-import com.safetynet.alerts.model.dto.PersonCoveredByFireStation;
-import com.safetynet.alerts.repository.FireStationsRepository;
 import com.safetynet.alerts.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -56,8 +51,7 @@ public class PersonsService {
         personsRepository.deleteById(id);
     }
 
-    // 2021-08-19
-
+    // 2021-09-04
     /**
      * delete a person by its firstname and lastname
      *
@@ -66,7 +60,9 @@ public class PersonsService {
      */
     public void deletePersonByFirstNameAndLastName(String firstName, String lastName) {
 
-        personsRepository.deleteByFirstNameAndLastName(firstName, lastName);
+        Persons personToDelete = personsRepository.findByFirstNameAndLastName(firstName, lastName);
+        personsRepository.deleteById(personToDelete.getId());
+
     }
 
 
@@ -185,15 +181,13 @@ public class PersonsService {
 // 2021-08-31
 
 
-    public List<PersonCoveredByFireStation> getPersonListByStation (String address) {
+  /*  public List<PersonCoveredByFireStation> getPersonListByStation (Long stationNumber) {
 
         List<PersonCoveredByFireStation> personFireList = new ArrayList<>();
 
+        List<Integer> listOfStations =  FireStationsRepository.
 
-
-
-
-        List<Integer> listOfStations =  FireStationsRepository.findStationByAdrress(address);
+                findStationByAdrress(address);
 
         List<MedicalRecords> medicalRecords = new ArrayList<>();
 
@@ -214,10 +208,11 @@ public class PersonsService {
 
         }
 
-        return personFireList;
-    }
 
-    }
+        return personFireList;
+    }*/
+
+
 
 
 

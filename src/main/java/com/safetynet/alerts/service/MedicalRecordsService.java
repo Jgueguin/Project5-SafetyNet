@@ -48,6 +48,8 @@ public class MedicalRecordsService {
         medicalRecordsRepository.deleteById(id);
     }
 
+
+    //2021-09-04
     /**
      * Delete a medical record by a firstname and a lastname
      * @param firstName
@@ -55,10 +57,9 @@ public class MedicalRecordsService {
      */
     public void deleteMedicalRecordsByFirstNameAndLastName(String firstName, String lastName) {
 
-        medicalRecordsRepository.deleteByFirstNameAndLastName(firstName, lastName);
+        MedicalRecords medicalRecordsToDelete = medicalRecordsRepository.findByFirstNameAndLastName(firstName, lastName);
+        medicalRecordsRepository.deleteById(medicalRecordsToDelete.getId());
     }
-
-
 
 
     /**

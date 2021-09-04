@@ -124,9 +124,6 @@ public class PersonsController {
     }
 
 
-
-
-
     /*public ResponseEntity<Persons> updatePersonsByFirstNameLastName(
             @PathVariable(value = "firstName") String firstName,
             @PathVariable(value = "lastName") String lastName,
@@ -140,7 +137,6 @@ public class PersonsController {
                 + personUpdated.toString());
 
         return ResponseEntity.ok(personSaved);
-
     }
 
 */

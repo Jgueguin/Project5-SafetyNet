@@ -13,7 +13,6 @@ import java.util.Optional;
 @Repository
 public interface PersonsRepository extends CrudRepository<Persons, Long> {
 
-
     /**
      * Find a person by its id
      *
