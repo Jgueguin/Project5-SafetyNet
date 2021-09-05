@@ -110,14 +110,21 @@ public class FireStationsService {
 
             if (optionalFireStations.isPresent()) {
 
-                FireStations fireStationsToSave = optionalFireStations.get();
+                FireStations fireStationsToUpdate = optionalFireStations.get();
 
-                fireStationsToSave.setStation(fireStationsDetails.getStation());
-                fireStationsToSave.setAddress(fireStationsDetails.getAddress());
+                Integer stationNumber = fireStationsDetails.getStation();
+                if (stationNumber!=null) {
+                    fireStationsToUpdate.setStation(stationNumber);
+                }
 
-                // vérifier qu'il ne soit pas nuls
+                String address = fireStationsDetails.getAddress();
+                if (address!=null) {
+                    fireStationsToUpdate.setAddress(address);
+                }
 
-                return fireStationsRepository.save(fireStationsToSave);
+                fireStationsToUpdate.setAddress(fireStationsDetails.getAddress());
+
+                return fireStationsRepository.save(fireStationsToUpdate);
             }
         }
         catch (Exception e) {
@@ -129,18 +136,6 @@ public class FireStationsService {
         }
 
 
-        //2021-08-19 update
-        /*
-         *//**
-         *
-         * @param fireStations
-         * @return
-         *//*
-    public FireStations saveUpdated(FireStations fireStations) {
-        return fireStationsRepository.save(fireStations);
-    }*/
-
-
     //2021-08-26
 
     /**
@@ -148,7 +143,6 @@ public class FireStationsService {
      *
      * @param address the first name
      * @return the fireStation
-     * @throws NotFoundException if none was found
      */
 
     public FireStations updateFireStationsByAddress(
@@ -156,28 +150,26 @@ public class FireStationsService {
             @Valid FireStations fireStationsDetails) {
 
         try {
-            FireStations fireStations = fireStationsRepository.findByAddress(address);
 
-                fireStations.setStation(fireStationsDetails.getStation());
+            FireStations fireStationsNumberUpdate = fireStationsRepository.findByAddress(address);
 
-                // vérifier qu'il ne soit pas nuls
+            Integer stationNumber = fireStationsDetails.getStation();
 
-                return fireStationsRepository.save(fireStations);
+            if (stationNumber != null) {
+                fireStationsNumberUpdate.setStation(stationNumber);
+            }
 
-        }
-        catch (Exception e) {
+            return fireStationsRepository.save(fireStationsNumberUpdate);
 
-            System.out.println(e);
+        } catch(Exception e){
+
         }
         return null;
-
     }
 
 //2021-08-25
 
-/*
 
-        */
 /**
          * Find station by address list.
          *

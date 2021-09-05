@@ -5,7 +5,6 @@ import com.safetynet.alerts.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -44,6 +43,7 @@ public class PersonsService {
 
     /**
      * delete a person by its id
+     *
      * @param id to choose a person to delete into the repository
      */
     public void deletePersons(final Long id) {
@@ -52,6 +52,7 @@ public class PersonsService {
     }
 
     // 2021-09-04
+
     /**
      * delete a person by its firstname and lastname
      *
@@ -62,11 +63,11 @@ public class PersonsService {
 
         Persons personToDelete = personsRepository.findByFirstNameAndLastName(firstName, lastName);
         personsRepository.deleteById(personToDelete.getId());
-
     }
 
 
     // 2021-08-27
+
     /**
      * Save a person in the Repository
      *
@@ -76,21 +77,45 @@ public class PersonsService {
 
     public Persons savePersons(Persons personsDetails) {
 
-        Persons personsToSave = new Persons();
+        Persons personToSave = new Persons();
 
-        personsToSave.setFirstName(personsDetails.getFirstName());
-        personsToSave.setLastName(personsDetails.getLastName());
-        personsToSave.setAddress(personsDetails.getAddress());
-        personsToSave.setCity(personsDetails.getCity());
-        personsToSave.setZip(personsDetails.getZip());
-        personsToSave.setPhone(personsDetails.getPhone());
-        personsToSave.setEmail(personsDetails.getEmail());
-
-            // faire la même chose pour les reste des attributs
-            // et vérifier qu'il ne soit pas nuls
-
-            return personsRepository.save(personsToSave);
+        String firstName = personsDetails.getFirstName();
+        if (firstName != null) {
+            personToSave.setFirstName(firstName);
         }
+
+        String lastName = personsDetails.getLastName();
+        if (lastName != null) {
+            personToSave.setLastName(lastName);
+        }
+
+        String address = personsDetails.getAddress();
+        if (address != null) {
+            personToSave.setAddress(address);
+        }
+
+        Integer zip = personsDetails.getZip();
+        if (zip != null) {
+            personToSave.setZip(zip);
+        }
+
+        String city = personsDetails.getCity();
+        if (city != null) {
+            personToSave.setCity(city);
+        }
+
+        String email = personsDetails.getEmail();
+        if (email != null) {
+            personToSave.setEmail(email);
+        }
+
+        String phone = personsDetails.getPhone();
+        if (phone != null) {
+            personToSave.setPhone(phone);
+        }
+
+        return personsRepository.save(personToSave);
+    }
 
 
     //2021-08-26
@@ -108,19 +133,44 @@ public class PersonsService {
 
             if (optionalPerson.isPresent()) {
 
-                Persons personToSave = optionalPerson.get();
+                Persons personToUpdate = optionalPerson.get();
 
-                personToSave.setLastName(personsDetails.getLastName());
-                personToSave.setFirstName(personsDetails.getFirstName());
-                personToSave.setAddress(personsDetails.getAddress());
-                personToSave.setZip(personsDetails.getZip());
-                personToSave.setCity(personsDetails.getCity());
-                personToSave.setEmail(personsDetails.getEmail());
-                personToSave.setPhone(personsDetails.getPhone());
+                String firstName = personsDetails.getFirstName();
+                if (firstName != null) {
+                    personToUpdate.setFirstName(firstName);
+                }
 
-                // et vérifier qu'il ne soit pas nuls et Try Catch
+                String lastName = personsDetails.getLastName();
+                if (lastName != null) {
+                    personToUpdate.setLastName(lastName);
+                }
 
-                return personsRepository.save(personToSave);
+                String address = personsDetails.getAddress();
+                if (address != null) {
+                    personToUpdate.setAddress(address);
+                }
+
+                Integer zip = personsDetails.getZip();
+                if (zip != null) {
+                    personToUpdate.setZip(zip);
+                }
+
+                String city = personsDetails.getCity();
+                if (city != null) {
+                    personToUpdate.setCity(city);
+                }
+
+                String email = personsDetails.getEmail();
+                if (email != null) {
+                    personToUpdate.setEmail(email);
+                }
+
+                String phone = personsDetails.getPhone();
+                if (phone != null) {
+                    personToUpdate.setPhone(phone);
+                }
+
+                return personsRepository.save(personToUpdate);
             }
 
         } catch (Exception e) {
@@ -128,7 +178,6 @@ public class PersonsService {
         }
 
         return null;
-
     }
 
 
@@ -146,17 +195,34 @@ public class PersonsService {
             @Valid Persons personsDetails) {
         try {
 
-            Persons person = personsRepository.findByFirstNameAndLastName(firstName, lastName);
+            Persons personToUpdate = personsRepository.findByFirstNameAndLastName(firstName, lastName);
 
-            person.setAddress(personsDetails.getAddress());
-            person.setZip(personsDetails.getZip());
-            person.setCity(personsDetails.getCity());
-            person.setEmail(personsDetails.getEmail());
-            person.setPhone(personsDetails.getPhone());
+            String address = personsDetails.getAddress();
+            if (address != null) {
+                personToUpdate.setAddress(address);
+            }
 
-            // et vérifier qu'il ne soit pas nuls
+            Integer zip = personsDetails.getZip();
+            if (zip != null) {
+                personToUpdate.setZip(zip);
+            }
 
-            return personsRepository.save(person);
+            String city = personsDetails.getCity();
+            if (city != null) {
+                personToUpdate.setCity(city);
+            }
+
+            String email = personsDetails.getEmail();
+            if (email != null) {
+                personToUpdate.setEmail(email);
+            }
+
+            String phone = personsDetails.getPhone();
+            if (phone != null) {
+                personToUpdate.setPhone(phone);
+            }
+
+            return personsRepository.save(personToUpdate);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -211,11 +277,6 @@ public class PersonsService {
 
         return personFireList;
     }*/
-
-
-
-
-
 
 
 }

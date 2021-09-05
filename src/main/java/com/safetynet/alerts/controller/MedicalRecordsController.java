@@ -24,7 +24,6 @@ public class MedicalRecordsController {
 
     /**
      * Read - Get all medical Records
-     *
      * @return - An Iterable object of medical records full filled
      */
     @GetMapping("/medicalrecords")
@@ -46,6 +45,20 @@ public class MedicalRecordsController {
             return null;
         }
     }
+
+    @GetMapping("/medicalrecords/{firstName}/{lastName}")
+    public MedicalRecords getMedicalRecords(
+            @PathVariable("firstName") final String firstName,
+            @PathVariable("lastName") final String lastName)
+
+    {
+
+        return medicalRecordsService.findByFirstNameAndLastName(firstName, lastName);
+    }
+
+
+
+
 
     /**
      * Delete - Delete a medical record
@@ -73,10 +86,6 @@ public class MedicalRecordsController {
 
         medicalRecordsService.deleteMedicalRecordsByFirstNameAndLastName(firstName, lastName);
     }
-
-
-
-
 
 
 

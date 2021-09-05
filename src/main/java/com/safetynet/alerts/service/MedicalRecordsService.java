@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -23,6 +24,7 @@ public class MedicalRecordsService {
 
     /**
      * Select one medical record between all
+     *
      * @param id : parameter to choose a medical record
      * @return: the choosen medical records
      */
@@ -33,6 +35,7 @@ public class MedicalRecordsService {
 
     /**
      * select all the medical records
+     *
      * @return all the medical records
      */
     public Iterable<MedicalRecords> getMedicalRecords() {
@@ -40,7 +43,9 @@ public class MedicalRecordsService {
         return medicalRecordsRepository.findAll();
     }
 
-    /** delete a choosen medical records with an id
+    /**
+     * delete a choosen medical records with an id
+     *
      * @param id : parameter to choose the medical record to delete
      */
     public void deleteMedicalRecordsById(final Long id) {
@@ -50,8 +55,10 @@ public class MedicalRecordsService {
 
 
     //2021-09-04
+
     /**
      * Delete a medical record by a firstname and a lastname
+     *
      * @param firstName
      * @param lastName
      */
@@ -64,6 +71,7 @@ public class MedicalRecordsService {
 
     /**
      * Save a new medical record
+     *
      * @param medicalRecords
      * @return : save the new medical records into Repository
      */
@@ -88,70 +96,89 @@ public class MedicalRecordsService {
 
     /**
      * modify a Medical record by its id
+     *
      * @param id
      * @param medicalRecords
      * @return
      */
     public MedicalRecords updateMedicalRecordById(Long id,
-                                              MedicalRecords medicalRecords) {
+                                                  MedicalRecords medicalRecordsDetails) {
         try {
-        Optional<MedicalRecords> optionalMedicalRecords = medicalRecordsRepository.findById(id);
+            Optional<MedicalRecords> optionalMedicalRecords = medicalRecordsRepository.findById(id);
 
-        if (optionalMedicalRecords.isPresent()) {
+            if (optionalMedicalRecords.isPresent()) {
 
-            MedicalRecords medicalRecordsToSave = optionalMedicalRecords.get();
+                MedicalRecords medicalRecordsToUpdate = optionalMedicalRecords.get();
 
-            medicalRecordsToSave.setFirstName(medicalRecords.getFirstName());
-            medicalRecordsToSave.setLastName(medicalRecords.getLastName());
-            medicalRecordsToSave.setBirthDate(medicalRecords.getBirthDate());
-            medicalRecordsToSave.setMedications(medicalRecords.getMedications());
-            medicalRecordsToSave.setAllergies(medicalRecords.getAllergies());
+                String firstName = medicalRecordsDetails.getFirstName();
+                if (firstName != null) {
+                    medicalRecordsToUpdate.setFirstName(firstName);
+                }
 
-            // et vérifier qu'il ne soit pas nuls et Try Catch
+                String lastName = medicalRecordsDetails.getLastName();
+                if (lastName != null) {
+                    medicalRecordsToUpdate.setLastName(lastName);
+                }
 
-            return medicalRecordsRepository.save(medicalRecordsToSave);
-        }
+                Date birthDate = medicalRecordsDetails.getBirthDate();
+                if (birthDate != null) {
+                    medicalRecordsToUpdate.setBirthDate(birthDate);
+                }
 
-    } catch(Exception e){
-        System.out.println(e);
-    }
-            return null;
-}
+                String[] medications = medicalRecordsDetails.getMedications();
+                if (medications != null) {
+                    medicalRecordsToUpdate.setMedications(medications);
+                }
 
+                String[] allergies = medicalRecordsDetails.getAllergies();
+                if (allergies != null) {
+                    medicalRecordsToUpdate.setAllergies(allergies);
+                }
 
-    /**
-     * modify a medical Record by firstname and LastName
-     * @param firstName
-     * @param lastName
-     * @param medicalRecordsDetails
-     * @return
-     */
-    public MedicalRecords updateMedicalRecordByFirstNameAndLastName(String firstName, String lastName,
-                                                  @Valid MedicalRecords medicalRecordsDetails) {
-        try {
-            MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(firstName,lastName);
+                return medicalRecordsRepository.save(medicalRecordsToUpdate);
+            }
 
-                // pas de get ?
-
-
-                medicalRecords.setBirthDate(medicalRecordsDetails.getBirthDate());
-                medicalRecords.setMedications(medicalRecordsDetails.getMedications());
-                medicalRecords.setAllergies(medicalRecordsDetails.getAllergies());
-
-                // et vérifier qu'il ne soit pas nuls et Try Catch
-
-                return medicalRecordsRepository.save(medicalRecords);
-            //}
-
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         return null;
     }
 
 
+    /**
+     * modify a medical Record by firstname and LastName
+     *
+     * @param firstName
+     * @param lastName
+     * @param medicalRecordsDetails
+     * @return
+     */
+    public MedicalRecords updateMedicalRecordByFirstNameAndLastName(String firstName, String lastName,
+                                                                    @Valid MedicalRecords medicalRecordsDetails) {
+        try {
+            MedicalRecords medicalRecordsToUpdate = medicalRecordsRepository.findByFirstNameAndLastName(firstName, lastName);
 
+            Date birthDate = medicalRecordsDetails.getBirthDate();
+            if (birthDate != null) {
+                medicalRecordsToUpdate.setBirthDate(birthDate);
+            }
 
+            String[] medications = medicalRecordsDetails.getMedications();
+            if (medications != null) {
+                medicalRecordsToUpdate.setMedications(medications);
+            }
+
+            String[] allergies = medicalRecordsDetails.getAllergies();
+            if (allergies != null) {
+                medicalRecordsToUpdate.setAllergies(allergies);
+            }
+            return medicalRecordsRepository.save(medicalRecordsToUpdate);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
 
     /**
@@ -162,56 +189,15 @@ public class MedicalRecordsService {
      * @return the medical record
      * @throws NotFoundException if no medical record was found
      */
-    /*public MedicalRecords findByFirstNameAndLastName(String firstName,
-                                                    String lastName) {
-        try {
-             // LOGGER.debug(
-               //     "MedicalRecordService -> Searching for person " + firstName
-                 //           + " " + lastName + " ...");
-            MedicalRecords medicalRecord = medicalRecordsRepository.findByFirstNameAndLastName(
-                    firstName, lastName);
-            if (medicalRecord == null) {
+    public MedicalRecords findByFirstNameAndLastName(String firstName,
+                                                     String lastName) {
 
-                // LOGGER.error(
-                   //     "MedicalRecordService -> " + firstName + " " + lastName
-                     //           + " doesn't exist");
-                throw new NotFoundException(
-                        "Person " + firstName + " " + lastName
-                                + " doesn't exist");
-            }
-            LOGGER.info(
-                    "MedicalRecordService -> Medical record for " + firstName
-                            + " " + lastName + " was found");
-            return medicalRecord;
-        } catch (NotFoundException e) {
-            return new MedicalRecords(null, "", "", null, new String[]{""},
-                    new String[]{""});
-        }
+        MedicalRecords medicalRecordToFind = medicalRecordsRepository.findByFirstNameAndLastName(firstName, lastName);
 
-    }
-*/
+        return medicalRecordToFind;
 
 
-
-
-
-
-
-
-
-
-
-    /**
-     * Save updated medical record.
-     *
-     * @param medicalRecords the medical record
-     * @return the medical record saved
-     */
-    public MedicalRecords saveUpdated(MedicalRecords medicalRecords) {
-        return medicalRecordsRepository.save(medicalRecords);
     }
 
 
-
-//END
-}
+} //End

@@ -5,6 +5,7 @@ import com.safetynet.alerts.service.PersonsService;
 import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -113,8 +114,7 @@ public class PersonsController {
      * @throws NotFoundException
      */
 
-    @PutMapping("/persons/{firstName}/{lastName}")
-
+    /*@PutMapping("/persons/{firstName}/{lastName}")
     public Persons modifyPersonsByFirstNameAndLastName(
             @PathVariable(value = "firstName") String firstName,
             @PathVariable(value = "lastName") String lastName,
@@ -122,6 +122,23 @@ public class PersonsController {
 
         return personsService.updatePersonsByFirstNameAndLastName(firstName, lastName,personsDetails);
     }
+*/
+
+    @PutMapping("/persons/{firstName}/{lastName}")
+    public ResponseEntity<Persons> modifyPersonsByFirstNameAndLastName(
+            @PathVariable(value = "firstName") String firstName,
+            @PathVariable(value = "lastName") String lastName,
+            @Valid @RequestBody Persons personsDetails ){
+
+            personsService.updatePersonsByFirstNameAndLastName(firstName, lastName, personsDetails);
+
+            return ResponseEntity.ok(personsDetails);
+
+    }
+
+
+
+
 
 
     /*public ResponseEntity<Persons> updatePersonsByFirstNameLastName(
