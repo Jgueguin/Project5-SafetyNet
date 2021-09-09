@@ -3,6 +3,7 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.service.MedicalRecordsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -27,8 +28,9 @@ public class MedicalRecordsController {
      * @return - An Iterable object of medical records full filled
      */
     @GetMapping("/medicalrecords")
-    public Iterable<MedicalRecords> getMedicalRecords() {
-        return medicalRecordsService.getMedicalRecords();
+    public ResponseEntity<Iterable<MedicalRecords>> getMedicalRecords() {
+
+        return ResponseEntity.ok(medicalRecordsService.getMedicalRecords());
     }
 
     /**
@@ -37,36 +39,33 @@ public class MedicalRecordsController {
      * @return A medical record object full filled
      */
     @GetMapping("/medicalrecords/{id}")
-    public MedicalRecords getMedicalRecords(@PathVariable("id") final Long id) {
+    public ResponseEntity<MedicalRecords> getMedicalRecords(@PathVariable("id") final Long id) {
         Optional<MedicalRecords> medicalRecords = (medicalRecordsService.getMedicalRecords(id));
         if(medicalRecords.isPresent()) {
-            return medicalRecords.get();
+            // return medicalRecords.get();
+            return ResponseEntity.ok(medicalRecords.get());
+
         } else {
             return null;
         }
     }
 
     @GetMapping("/medicalrecords/{firstName}/{lastName}")
-    public MedicalRecords getMedicalRecords(
+    public ResponseEntity<MedicalRecords> getMedicalRecords(
             @PathVariable("firstName") final String firstName,
             @PathVariable("lastName") final String lastName)
-
     {
 
-        return medicalRecordsService.findByFirstNameAndLastName(firstName, lastName);
+        return ResponseEntity.ok(medicalRecordsService.findByFirstNameAndLastName(firstName, lastName));
     }
-
-
-
-
 
     /**
      * Delete - Delete a medical record
-     *
      * @param id - The id of the medical record to delete
      */
     @DeleteMapping("/medicalrecords/{id}")
-    public void deleteMedicalRecords(@PathVariable("id") final Long id) {
+    public void deleteMedicalRecords(
+            @PathVariable("id") final Long id) {
 
         medicalRecordsService.deleteMedicalRecordsById(id);
     }
@@ -87,39 +86,41 @@ public class MedicalRecordsController {
         medicalRecordsService.deleteMedicalRecordsByFirstNameAndLastName(firstName, lastName);
     }
 
-
-
-
+//2021-09-10
     /**
      * Create - Add a new medical record
      *
-     * @param medicalRecords: An object medical record
+     * @param medicalRecordsDetails: An object medical record
      * @return The medical record object saved
      */
     @PostMapping("/medicalrecords")
-    public MedicalRecords createMedicalRecords(@RequestBody MedicalRecords medicalRecords) {
+    public ResponseEntity<MedicalRecords> createMedicalRecords(
+            @RequestBody MedicalRecords medicalRecordsDetails) {
 
-        return medicalRecordsService.saveMedicalRecords(medicalRecords);
+        medicalRecordsService.saveMedicalRecords(medicalRecordsDetails);
+
+        return ResponseEntity.ok(medicalRecordsDetails);
     }
 
-
-    //2021-08-26
+    //2021-09-10
     /**
-     * modify a medical recoird by its id
+     * modify a medical record by its id
      * @param id
      * @param medicalRecordsDetails
      * @return
      */
     @PutMapping("/medicalrecords/{id}")
-    public MedicalRecords updateMedicalRecordsById(
+    public ResponseEntity<MedicalRecords> updateMedicalRecordsById(
             @PathVariable(value = "id") Long id,
             @Valid @RequestBody MedicalRecords medicalRecordsDetails)  {
 
-        return medicalRecordsService.updateMedicalRecordById(id, medicalRecordsDetails);
+        medicalRecordsService.updateMedicalRecordById(id, medicalRecordsDetails);
+
+        return ResponseEntity.ok(medicalRecordsDetails);
     }
 
 
-    //2021-08-19
+    //2021-09-10
     /**
      * Modify a medical Records with its firstname and lastname
      * @param firstName
@@ -127,17 +128,15 @@ public class MedicalRecordsController {
      * @return medicalRecords
      */
    @PutMapping("/medicalrecords/{firstName}/{lastName}")
-    public MedicalRecords updateMedicalRecordsByFirstNameAndLastName(
-
+    public ResponseEntity<MedicalRecords> updateMedicalRecordsByFirstNameAndLastName(
            @PathVariable(value = "firstName") String firstName,
            @PathVariable(value = "lastName") String lastName,
            @Valid @RequestBody MedicalRecords medicalRecordsDetails)  {
 
-           return medicalRecordsService.updateMedicalRecordByFirstNameAndLastName(firstName,lastName,medicalRecordsDetails);
+           medicalRecordsService.updateMedicalRecordByFirstNameAndLastName(firstName,lastName,medicalRecordsDetails);
 
+           return  ResponseEntity.ok(medicalRecordsDetails);
     }
-
-
 
 
 } //END
