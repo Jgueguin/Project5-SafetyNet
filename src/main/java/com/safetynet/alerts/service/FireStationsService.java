@@ -145,21 +145,24 @@ public class FireStationsService {
      * @return the fireStation
      */
 
-    public FireStations updateFireStationsByAddress(
+    public Iterable<Integer> updateFireStationsByAddress(
             String address,
             @Valid FireStations fireStationsDetails) {
 
         try {
 
-            FireStations fireStationsNumberUpdate = fireStationsRepository.findByAddress(address);
+            Iterable<Integer> fireStationsNumberUpdate = fireStationsRepository.findStationByAddress(address);
+                    // .  findByAddress(address);
 
             Integer stationNumber = fireStationsDetails.getStation();
 
-            if (stationNumber != null) {
+            /*if (stationNumber != null) {
                 fireStationsNumberUpdate.setStation(stationNumber);
-            }
+            }*/
 
-            return fireStationsRepository.save(fireStationsNumberUpdate);
+            // return fireStationsRepository.save(fireStationsNumberUpdate);
+
+            return null;
 
         } catch(Exception e){
 

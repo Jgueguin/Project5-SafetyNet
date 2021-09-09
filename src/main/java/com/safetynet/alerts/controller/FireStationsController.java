@@ -117,10 +117,10 @@ public class FireStationsController {
      * @param fireStationsDetails
      * @return
      */
-    @PutMapping("/firestation/{address}/")
-    public FireStations updateFireStationByAddress(
-            @PathVariable(value = "address") String address,
-            @Valid @RequestBody FireStations fireStationsDetails
+    @PutMapping("/firestation/fire")
+    public Iterable<Integer> updateFireStationByAddress(
+            @PathVariable ("address") String address,
+            @RequestBody FireStations fireStationsDetails
     ){
 
         return fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);

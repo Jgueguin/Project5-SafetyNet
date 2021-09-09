@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -22,6 +21,7 @@ public class PersonsController {
     private PersonsService personsService;
 
     public PersonsController (PersonsService personsService){
+
         this.personsService = personsService;
     }
 
@@ -32,7 +32,8 @@ public class PersonsController {
      */
     @GetMapping("/persons")
     public Iterable<Persons> getPersons() {
-        return personsService.getPersons();
+
+       return personsService.getPersons();
     }
 
     /**
@@ -63,7 +64,7 @@ public class PersonsController {
     }
 
     // 2021-08-19
-// --> A revoir
+
     /**
      * Delete - Delete persons with its firstname and lastname
      *
@@ -83,8 +84,12 @@ public class PersonsController {
      * @return the person object saved
      */
     @PostMapping("/persons")
-    public Persons createPersons(@RequestBody Persons personsDetails) {
-        return personsService.savePersons(personsDetails);
+    public ResponseEntity<Persons> createPersons(
+            @RequestBody Persons personsDetails) {
+
+        personsService.savePersons(personsDetails);
+
+        return ResponseEntity.ok(personsDetails);
     }
 
     //2021-08-19 update
@@ -98,11 +103,13 @@ public class PersonsController {
      * @throws ResourceNotFoundException
      */
     @PutMapping("/persons/{id}")
-    public Persons updatePersonsById(
+    public ResponseEntity<Persons> updatePersonsById(
             @PathVariable("id") Long id,
-            @Valid @RequestBody Persons personsDetails) {
+            @RequestBody Persons personsDetails) {
 
-        return personsService.updatePersonsById(id, personsDetails);
+            personsService.updatePersonsById(id, personsDetails);
+
+            return ResponseEntity.ok(personsDetails);
     }
 
 
@@ -113,53 +120,16 @@ public class PersonsController {
      *
      * @throws NotFoundException
      */
-
-    /*@PutMapping("/persons/{firstName}/{lastName}")
-    public Persons modifyPersonsByFirstNameAndLastName(
-            @PathVariable(value = "firstName") String firstName,
-            @PathVariable(value = "lastName") String lastName,
-            @Valid @RequestBody Persons personsDetails ){
-
-        return personsService.updatePersonsByFirstNameAndLastName(firstName, lastName,personsDetails);
-    }
-*/
-
     @PutMapping("/persons/{firstName}/{lastName}")
     public ResponseEntity<Persons> modifyPersonsByFirstNameAndLastName(
             @PathVariable(value = "firstName") String firstName,
             @PathVariable(value = "lastName") String lastName,
-            @Valid @RequestBody Persons personsDetails ){
+            @RequestBody Persons personsDetails ){
 
             personsService.updatePersonsByFirstNameAndLastName(firstName, lastName, personsDetails);
 
             return ResponseEntity.ok(personsDetails);
-
     }
-
-
-
-
-
-
-    /*public ResponseEntity<Persons> updatePersonsByFirstNameLastName(
-            @PathVariable(value = "firstName") String firstName,
-            @PathVariable(value = "lastName") String lastName,
-            @Valid @RequestBody final Persons persons) throws NotFoundException {
-
-        Persons personsUpdate = personsService.findByFirstNameAndLastName(firstName,lastName);
-        Persons personUpdated = personsService.updatePersons(persons, personsUpdate);
-        final Persons personSaved = personsService.saveUpdated(personsUpdate);
-
-        LOGGER.info("PersonController (PUT) -> Successfully updated person: "
-                + personUpdated.toString());
-
-        return ResponseEntity.ok(personSaved);
-    }
-
-*/
-
-
-
 
 } // END
 

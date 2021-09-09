@@ -5,7 +5,7 @@ import com.safetynet.alerts.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import javax.validation.Valid;
+
 import java.util.Optional;
 
 
@@ -192,7 +192,7 @@ public class PersonsService {
     public Persons updatePersonsByFirstNameAndLastName(
             String firstName,
             String lastName,
-            @Valid Persons personsDetails) {
+            Persons personsDetails) {
         try {
 
             Persons personToUpdate = personsRepository.findByFirstNameAndLastName(firstName, lastName);
