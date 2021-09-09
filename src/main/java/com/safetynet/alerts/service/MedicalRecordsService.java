@@ -98,7 +98,7 @@ public class MedicalRecordsService {
      * modify a Medical record by its id
      *
      * @param id
-     * @param medicalRecords
+     * @param MedicalRecords
      * @return
      */
     public MedicalRecords updateMedicalRecordById(Long id,
@@ -147,7 +147,6 @@ public class MedicalRecordsService {
 
     /**
      * modify a medical Record by firstname and LastName
-     *
      * @param firstName
      * @param lastName
      * @param medicalRecordsDetails

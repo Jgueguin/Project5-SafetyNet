@@ -138,5 +138,4 @@ public class MedicalRecordsController {
            return  ResponseEntity.ok(medicalRecordsDetails);
     }
 
-
 } //END

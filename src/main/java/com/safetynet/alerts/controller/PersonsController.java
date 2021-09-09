@@ -27,13 +27,12 @@ public class PersonsController {
 
     /**
      * Read - Get all persons
-     *
      * @return - An Iterable object of persons full filled
      */
     @GetMapping("/persons")
-    public Iterable<Persons> getPersons() {
+    public ResponseEntity<Iterable<Persons>> getPersons() {
 
-       return personsService.getPersons();
+       return ResponseEntity.ok(personsService.getPersons());
     }
 
     /**
@@ -42,10 +41,11 @@ public class PersonsController {
      * @return A person object full filled
      */
     @GetMapping("/persons/{id}")
-    public Persons getPersons(@PathVariable("id") final Long id) {
+    public ResponseEntity<Persons> getPersons(@PathVariable("id") final Long id) {
         Optional<Persons> persons = personsService.getPersons(id);
+
         if(persons.isPresent()) {
-            return persons.get();
+            return ResponseEntity.ok(persons.get());
         } else {
             return null;
         }
@@ -132,9 +132,3 @@ public class PersonsController {
     }
 
 } // END
-
-
-
-
-
-
