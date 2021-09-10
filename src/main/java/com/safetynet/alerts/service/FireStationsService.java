@@ -7,7 +7,6 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.Optional;
 
 /**
@@ -136,43 +135,39 @@ public class FireStationsService {
         }
 
 
-    //2021-08-26
-
+    //2021-09-10
     /**
      * Find a fireStation Station by its address
-     *
      * @param address the first name
      * @return the fireStation
      */
 
-    public Iterable<Integer> updateFireStationsByAddress(
+    public FireStations updateFireStationsByAddress(
             String address,
-            @Valid FireStations fireStationsDetails) {
+            FireStations fireStationsDetails) {
 
         try {
 
-            Iterable<Integer> fireStationsNumberUpdate = fireStationsRepository.findStationByAddress(address);
-                    // .  findByAddress(address);
+           FireStations fireStationsToUpdate = fireStationsRepository.findByAddress(address);
 
             Integer stationNumber = fireStationsDetails.getStation();
+            if (stationNumber != null) {
+                fireStationsToUpdate.setStation(stationNumber);
+            }
 
-            /*if (stationNumber != null) {
-                fireStationsNumberUpdate.setStation(stationNumber);
-            }*/
+            return fireStationsRepository.save(fireStationsToUpdate);
 
-            // return fireStationsRepository.save(fireStationsNumberUpdate);
 
-            return null;
-
-        } catch(Exception e){
-
+        } catch(Exception exception){
+            exception.printStackTrace();
         }
+        System.out.println("Return null");
         return null;
     }
 
+
+
 //2021-08-25
-
-
 /**
          * Find station by address list.
          *

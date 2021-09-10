@@ -123,7 +123,7 @@ public class FireStationsController {
      * @param fireStationsDetails
      * @return
      */
-    @PutMapping("/firestation/fire")
+    @PutMapping("/firestations/fire")
     public ResponseEntity<FireStations> updateFireStationByAddress(
             @PathVariable ("address") String address,
             @RequestBody FireStations fireStationsDetails)
