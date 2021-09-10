@@ -3,6 +3,7 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.service.FireStationsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,16 +24,15 @@ public class FireStationsController {
         this.fireStationsService = fireStationsService;
     }
 
-
     /**
      * Read - Get all fire stations
      *
      * @return - An Iterable object of fire station full filled
      */
     @GetMapping("/firestations")
-    public Iterable<FireStations> getFireStationsAll() {
+    public ResponseEntity<Iterable<FireStations>> getFireStationsAll() {
 
-        return fireStationsService.getFireStationsAll();
+        return ResponseEntity.ok(fireStationsService.getFireStationsAll());
     }
 
 
@@ -42,17 +42,18 @@ public class FireStationsController {
      * @return A firestation object full filled
      */
     @GetMapping("/firestations/{id}")
-    public Optional<FireStations> getFireStationsById(
-            @PathVariable("id") final Long id) {
+    public ResponseEntity<FireStations> getFireStationsById(
+            @PathVariable("id") final Long id)
+    {
+        Optional<FireStations> fireStationsDetails = (fireStationsService.getFireStationsById(id));
 
-        return fireStationsService.getFireStationsById(id);
+        if(fireStationsDetails.isPresent()) {
 
+            return ResponseEntity.ok(fireStationsDetails.get());
 
-       /* if(fireStations.isPresent()) {
-            return fireStations.get();
         } else {
             return null;
-        }*/
+        }
     }
 
 
@@ -61,7 +62,8 @@ public class FireStationsController {
      * @param id - The id of the fire station to delete
      */
     @DeleteMapping("/firestations/{id}")
-    public void deleteFireStations(@PathVariable("id") final Long id) {
+    public void deleteFireStations(@PathVariable("id") final Long id)
+    {
         fireStationsService.deleteFireStationsById(id);
     }
 
@@ -73,8 +75,8 @@ public class FireStationsController {
      */
     @DeleteMapping("/firestations/del/{address}")
     public void deleteFireStationsByAddress(
-            @PathVariable("address") String address
-            ) {
+            @PathVariable("address") String address)
+    {
             fireStationsService.deleteFireStationsByAddress(address);
     }
 
@@ -87,10 +89,13 @@ public class FireStationsController {
      * @return The fire station object saved
      */
     @PostMapping("/firestations")
-    public FireStations createFireStations(@RequestBody FireStations fireStations) {
-        return fireStationsService.saveFirestations(fireStations);
-    }
+    public ResponseEntity<FireStations> createFireStations(
+            @RequestBody FireStations fireStationsDetails) {
+        fireStationsService.saveFirestations(fireStationsDetails);
 
+        return ResponseEntity.ok(fireStationsDetails);
+
+    }
 
 
     // update 2021-08-26
@@ -101,12 +106,13 @@ public class FireStationsController {
      */
 
     @PutMapping("/firestations/{id}")
-    public FireStations updateFireStationsById(
+    public ResponseEntity<FireStations> updateFireStationsById(
             @PathVariable(value = "id") Long id,
             @Valid @RequestBody FireStations firestationDetails)  {
 
-        return fireStationsService.updateFireStationsById(id, firestationDetails);
+        fireStationsService.updateFireStationsById(id, firestationDetails);
 
+        return ResponseEntity.ok(firestationDetails);
     }
 
     // update 2021-08-26
@@ -118,12 +124,14 @@ public class FireStationsController {
      * @return
      */
     @PutMapping("/firestation/fire")
-    public Iterable<Integer> updateFireStationByAddress(
+    public ResponseEntity<FireStations> updateFireStationByAddress(
             @PathVariable ("address") String address,
-            @RequestBody FireStations fireStationsDetails
-    ){
+            @RequestBody FireStations fireStationsDetails)
+    {
 
-        return fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);
+        fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);
+
+        return ResponseEntity.ok(fireStationsDetails);
 
     }
 

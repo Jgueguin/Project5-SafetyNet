@@ -42,6 +42,7 @@ public class PersonsController {
      */
     @GetMapping("/persons/{id}")
     public ResponseEntity<Persons> getPersons(@PathVariable("id") final Long id) {
+
         Optional<Persons> persons = personsService.getPersons(id);
 
         if(persons.isPresent()) {

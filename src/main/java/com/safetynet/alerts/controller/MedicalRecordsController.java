@@ -40,9 +40,11 @@ public class MedicalRecordsController {
      */
     @GetMapping("/medicalrecords/{id}")
     public ResponseEntity<MedicalRecords> getMedicalRecords(@PathVariable("id") final Long id) {
+
         Optional<MedicalRecords> medicalRecords = (medicalRecordsService.getMedicalRecords(id));
+
         if(medicalRecords.isPresent()) {
-            // return medicalRecords.get();
+
             return ResponseEntity.ok(medicalRecords.get());
 
         } else {
