@@ -123,17 +123,27 @@ public class FireStationsController {
      * @param fireStationsDetails
      * @return
      */
+    /*@PutMapping("/firestations/fire/{address}")
+    public ResponseEntity<FireStations> updateFireStationByAddress(
+            @PathVariable (value = "address") String address,
+            @RequestBody FireStations fireStationsDetails)
+    {
+        fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);
+
+        return ResponseEntity.ok(fireStationsDetails);
+    }*/
+
     @PutMapping("/firestations/fire")
     public ResponseEntity<FireStations> updateFireStationByAddress(
             @PathVariable ("address") String address,
             @RequestBody FireStations fireStationsDetails)
     {
-
         fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);
 
         return ResponseEntity.ok(fireStationsDetails);
-
     }
+
+
 
 
 
@@ -147,7 +157,7 @@ public class FireStationsController {
      * @return A firestation object full filled
      */
 /*
-    @GetMapping("/firestations/{stationNumber}")
+    @GetMapping("/firestations")
     public FireStations getFireStations(
             @PathVariable("stationNumber") Long stationNumber) {
 
