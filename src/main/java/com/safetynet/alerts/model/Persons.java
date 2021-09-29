@@ -21,15 +21,6 @@ import javax.validation.constraints.NotNull;
 public class Persons {
 
 
-
-
-
-
-
-
-
-
-
     /**
      * The Id.
      */

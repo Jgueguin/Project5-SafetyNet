@@ -4,6 +4,7 @@ import com.safetynet.alerts.model.Persons;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -44,5 +45,23 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
     Persons deleteByFirstNameAndLastName(String firstName, String lastName);
 
 
-}
+
+
+//2021-09-16
+    // DTO
+
+    /**
+     * Find person by station address iterable.
+     *
+     * @param address of the station
+     * @return list of person covered by station number
+     */
+   List<Persons> findPersonByAddressDTO(String address);
+
+
+} //END
+
+
+
+
 

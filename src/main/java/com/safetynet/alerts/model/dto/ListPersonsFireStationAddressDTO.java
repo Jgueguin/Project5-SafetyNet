@@ -6,7 +6,7 @@ import lombok.Data;
  * List of Persons living at an address and specific fire station
  */
 @Data
-public class ListPersonsFireStationAddress {
+public class ListPersonsFireStationAddressDTO {
 
 /*
 http://localhost:8080/fire?address=<address>
@@ -56,17 +56,17 @@ médicaux (médicaments, posologie et allergies) de chaque personne.
     /**
      * Instantiates a new Fire Address.
      */
-    public ListPersonsFireStationAddress() {
+    public ListPersonsFireStationAddressDTO() {
 
     }
 
-    public ListPersonsFireStationAddress(final Long fireStation,
-                                         final String firstName,
-                                         final String lastName,
-                                         final String phone,
-                                         final int age,
-                                         String[] medications,
-                                         String[] allergies
+    public ListPersonsFireStationAddressDTO(final Long fireStation,
+                                            final String firstName,
+                                            final String lastName,
+                                            final String phone,
+                                            final int age,
+                                            String[] medications,
+                                            String[] allergies
     ) {
         this.fireStation = fireStation;
         this.firstName = firstName;

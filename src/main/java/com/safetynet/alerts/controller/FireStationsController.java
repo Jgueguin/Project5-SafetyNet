@@ -73,7 +73,7 @@ public class FireStationsController {
      * delete a person by its address
      * @param address
      */
-    @DeleteMapping("/firestations/del/{address}")
+    @DeleteMapping("/firestations/fire/{address}")
     public void deleteFireStationsByAddress(
             @PathVariable("address") String address)
     {
@@ -81,11 +81,10 @@ public class FireStationsController {
     }
 
 
-
     /**
      * Create - Add a new fire station
      *
-     * @param fireStations: An object employee
+     * @param fireStationsDetails: An object employee
      * @return The fire station object saved
      */
     @PostMapping("/firestations")
@@ -115,6 +114,7 @@ public class FireStationsController {
         return ResponseEntity.ok(firestationDetails);
     }
 
+
     // update 2021-08-26
     /**
      * Update a firestation by its address
@@ -123,7 +123,7 @@ public class FireStationsController {
      * @param fireStationsDetails
      * @return
      */
-    /*@PutMapping("/firestations/fire/{address}")
+/*    @PutMapping("/firestations/fire/{address}")
     public ResponseEntity<FireStations> updateFireStationByAddress(
             @PathVariable (value = "address") String address,
             @RequestBody FireStations fireStationsDetails)
@@ -133,7 +133,7 @@ public class FireStationsController {
         return ResponseEntity.ok(fireStationsDetails);
     }*/
 
-    @PutMapping("/firestations/fire")
+    @PutMapping("/firestations")
     public ResponseEntity<FireStations> updateFireStationByAddress(
             @PathVariable ("address") String address,
             @RequestBody FireStations fireStationsDetails)

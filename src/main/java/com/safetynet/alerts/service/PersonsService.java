@@ -1,11 +1,17 @@
 package com.safetynet.alerts.service;
 
+import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
+import com.safetynet.alerts.repository.FireStationsRepository;
+import com.safetynet.alerts.repository.MedicalRecordsRepository;
 import com.safetynet.alerts.repository.PersonsRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -18,7 +24,10 @@ import java.util.Optional;
 public class PersonsService {
     @Autowired
     private PersonsRepository personsRepository;
-
+    @Autowired
+    private FireStationsRepository fireStationsRepository;
+    @Autowired
+    private MedicalRecordsRepository medicalRecordsRepository;
 
     /**
      * Choose a person in the Repository
@@ -232,7 +241,6 @@ public class PersonsService {
         return null;
     }
 
-
     /**
      * Save all persons.
      *
@@ -245,39 +253,84 @@ public class PersonsService {
     }
 
 
-// 2021-08-31
+// 2021-09-16
+
+// DTO
+
+    /**
+     * Find person by station.
+     *
+     * @param stationNumber the station
+     * @return list of persons covered by station number
+     */
+    /*public List<PersonCoveredByFireStationDTO> findPersonByStationDTO(Long stationNumber) {
+
+        // pointer sur la caserne qui porte le numéro demandé
+        FireStations fireStation1 = fireStationsRepository.findByStationNumber(stationNumber);
+
+        // récupérer l'adresse correspondant au numéro de la caserne.
+        String addressFireStation= fireStation1.getAddress();
+
+        // chercher les personnes qui ont cette adresse
+        Iterable<Persons> persons = personsRepository.findPersonByAddressDTO(addressFireStation);
+
+        return findPersonByStationDTO(stationNumber);
+    }*/
 
 
-  /*  public List<PersonCoveredByFireStation> getPersonListByStation (Long stationNumber) {
+    /**
+     * Find person by station.
+     *
+     * @param stationNumber the number of the station
+     * @return list of persons covered by station number
+     */
+   public List<PersonCoveredByFireStationDTO2> findPersonByStationDTO(Long stationNumber) {
 
-        List<PersonCoveredByFireStation> personFireList = new ArrayList<>();
+        // pointer sur la caserne qui porte le numéro demandé
+        FireStations fireStation1 = fireStationsRepository.findByStationNumber(stationNumber);
 
-        List<Integer> listOfStations =  FireStationsRepository.
+        // récupérer l'adresse correspondant au numéro de la caserne.
+        String addressFireStation= fireStation1.getAddress();
 
-                findStationByAdrress(address);
+        // chercher les personnes qui ont cette adresse
+        PersonCoveredByFireStationDTO2 personCovered = new PersonCoveredByFireStationDTO2();
 
-        List<MedicalRecords> medicalRecords = new ArrayList<>();
+        //personCovered.setPersons(personsRepository.findPersonByAddressDTO(addressFireStation));
 
-        for (Integer numberOfStation : listOfStations) {
+        int count_child=0;
+        int count_adult=0;
 
+        Date date = new Date();
+        int actualYear = date.getYear();
 
+        for (Persons p : personCovered.getPersons() ) {
 
-            List<Persons> personsCovered = findPersonByStation(numberOfStation);
+            if (
+                actualYear - medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(),p.getLastName()).getBirthDate().getYear() <= 18)
 
-            for (Persons persons : personsCovered) {
-                MedicalRecords medicalRecordsCov = MedicalRecordsService.findByFirstNameAndLastName(
-                        persons.getFirstName(),
-                        persons.getLastName());
-                if (medicalRecords != null)
-
-                    medicalRecords.add(medicalRecordsCov);
+            {
+                count_child++;
             }
-
+            else {
+                count_adult++;
+            }
         }
 
+       System.out.println(count_adult);
+        System.out.println(count_child);
 
-        return personFireList;
-    }*/
+       // return findPersonByStationDTO(stationNumber);
+
+        // renvoyer la liste personCovered avec le nombre d'enfants et d'adultes
+
+
+
+         return (List<PersonCoveredByFireStationDTO2>) personCovered;
+
+
+    }
+
+
 
 
 }

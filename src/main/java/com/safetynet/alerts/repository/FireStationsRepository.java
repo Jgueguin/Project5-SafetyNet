@@ -23,8 +23,8 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
 
     // 2021-08-26
      /**
-     * Find a fire Station by its adress
-     * @param address the adress
+     * Find a fire Station by its address
+     * @param address the address
      * @return the firestations
      */
     FireStations findByAddress(String address);
@@ -36,16 +36,19 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      */
     FireStations deleteByAddress(String address);
 
-// 2021-08-25
 
-    /*    *//**
-     * Find station by address iterable.
-     *
-     * @param address the address
-     * @return the list of fire station number covered at address
+
+
+    // 2021-09-16
+    // pour DTO
+
+    /**
+     * find a fire Station by its number
+     * @param stationNumber
+     * @return
      */
+    FireStations findByStationNumber(Long stationNumber);
 
-    Iterable<Integer> findStationByAddress(String address);
 
 
 } // END

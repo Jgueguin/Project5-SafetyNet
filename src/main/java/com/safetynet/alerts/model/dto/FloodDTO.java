@@ -6,7 +6,7 @@ import lombok.Data;
  * Phone Alert class.
  */
 @Data
-public class Flood {
+public class FloodDTO {
 
 /*
 http://localhost:8080/flood/stations?stations=<a list of station_numbers>
@@ -62,18 +62,18 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
     /**
      * Instantiates a new Flood.
      */
-    public Flood() {
+    public FloodDTO() {
 
     }
 
 
-    public Flood(final Long fireStation,
-                 final String firstName,
-                 final String lastName,
-                 final String phone,
-                 final int age,
-                 final String[] medications,
-                 final String[] allergies
+    public FloodDTO(final Long fireStation,
+                    final String firstName,
+                    final String lastName,
+                    final String phone,
+                    final int age,
+                    final String[] medications,
+                    final String[] allergies
     ) {
         this.fireStation = fireStation;
         this.firstName = firstName;

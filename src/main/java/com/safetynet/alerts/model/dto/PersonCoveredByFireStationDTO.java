@@ -17,7 +17,7 @@ import lombok.Data;
     */
 
 @Data
-public class PersonCoveredByFireStation {
+public class PersonCoveredByFireStationDTO {
 
     /**
      * The Station number.
@@ -50,7 +50,7 @@ public class PersonCoveredByFireStation {
     /**
      * Instantiates a new Person fire dto.
      */
-    public PersonCoveredByFireStation() {
+    public PersonCoveredByFireStationDTO() {
     }
 
     /**
@@ -63,8 +63,8 @@ public class PersonCoveredByFireStation {
      * @param age           the age
      * @param address       the address
      */
-    public PersonCoveredByFireStation(Integer stationNumber, String firstName,
-                                      String lastName, String phone, int age, String address
+    public PersonCoveredByFireStationDTO(Integer stationNumber, String firstName,
+                                         String lastName, String phone, int age, String address
     ) {
         this.stationNumber = stationNumber;
         this.firstName = firstName;
@@ -73,6 +73,5 @@ public class PersonCoveredByFireStation {
         this.age = age;
         this.address = address;
     }
-
 
 } //END

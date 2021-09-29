@@ -6,7 +6,7 @@ import lombok.Data;
  * Phone Alert class.
  */
 @Data
-public class PhoneAlert {
+public class PhoneAlertDTO {
 
 /*
   http://localhost:8080/phoneAlert?firestation=<firestation_number>
@@ -30,7 +30,7 @@ pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des fo
     /**
      * Instantiates a new Phone Alert.
      */
-    public PhoneAlert() {
+    public PhoneAlertDTO() {
 
     }
 
@@ -39,8 +39,8 @@ pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des fo
      * @param fireStation
      * @param phone
      */
-    public PhoneAlert(final Long fireStation,
-                      final String phone) {
+    public PhoneAlertDTO(final Long fireStation,
+                         final String phone) {
         this.fireStation = fireStation;
         this.phone = phone;
     }

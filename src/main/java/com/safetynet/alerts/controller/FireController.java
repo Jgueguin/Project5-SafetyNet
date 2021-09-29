@@ -1,9 +1,15 @@
 
 package com.safetynet.alerts.controller;
 
+import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
 import com.safetynet.alerts.service.PersonsService;
 import org.apache.logging.log4j.Logger;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * Fire controller.
@@ -33,19 +39,21 @@ public class FireController {
         this.personsService = personsService;
     }
 
+
+
+    // http://localhost:9090/fire?stationNumber=<station_number>
+
     /**
      * Fire controller list.
      *
-     * @param address the address
+     * @param stationNumber the address
      * @return the list
      */
-   /*@GetMapping("/fire")
-    public List<PersonCoveredByFireStation> fireController(@RequestParam Long stationNumber) {
+  @GetMapping("/fire")
+    public ResponseEntity<List<PersonCoveredByFireStationDTO2>> fireControllerDTO (@RequestParam Long stationNumber) {
 
-        return personsService.getPersonListByStation(stationNumber);
+        return ResponseEntity.ok(personsService.findPersonByStationDTO(stationNumber));
     }
-*/
-
 
 } //END
 

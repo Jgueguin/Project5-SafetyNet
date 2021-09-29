@@ -62,7 +62,9 @@ public class FireStationsService {
 
     public void deleteFireStationsByAddress(String address) {
 
-        fireStationsRepository.deleteByAddress(address);
+        FireStations fireStationsToDelete = fireStationsRepository.findByAddress(address);
+        fireStationsRepository.deleteById(fireStationsToDelete.getId());
+
     }
 
 
@@ -156,7 +158,6 @@ public class FireStationsService {
             }
 
             return fireStationsRepository.save(fireStationsToUpdate);
-
 
         } catch(Exception exception){
             exception.printStackTrace();
