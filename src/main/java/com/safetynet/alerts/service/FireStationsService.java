@@ -2,7 +2,6 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.repository.FireStationsRepository;
-import javassist.NotFoundException;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,8 +61,8 @@ public class FireStationsService {
 
     public void deleteFireStationsByAddress(String address) {
 
-        FireStations fireStationsToDelete = fireStationsRepository.findByAddress(address);
-        fireStationsRepository.deleteById(fireStationsToDelete.getId());
+    /*    FireStations fireStationsToDelete = fireStationsRepository.findByAddress(address);
+        fireStationsRepository.deleteById(fireStationsToDelete.getId());*/
 
     }
 
@@ -98,7 +97,7 @@ public class FireStationsService {
      * * Update a fire station.( Put ) by its id
      *
      * @param id
-     * @param fireStations the firestations
+     * @param fireStationsDetails the firestations
      * @return update the fire stations
      */
 
@@ -165,37 +164,6 @@ public class FireStationsService {
         System.out.println("Return null");
         return null;
     }
-
-
-
-//2021-08-25
-/**
-         * Find station by address list.
-         *
-         * @param address the address
-         * @return list of fire station covered by address
-         * @throws NotFoundException if no fire station was found
-         *//*
-
-    public List<Integer> findStationByAddress(String address) {
-
-        List<Integer> stationIds = (List<Integer>) FireStationsRepository.findByAddress(address);
-
-        *LOGGER.debug(
-                "FirestationService -> Searching for fire station at address"
-                        + address + "...");
-
-        if (stationIds.isEmpty()) {
-            LOGGER.error("No station is existing at address: " + address);
-            throw new NotFoundException(
-                    "No station is existing at address: " + address);
-
-        }
-        return stationIds;
-    }
-*/
-
-
 
      //END
 }
