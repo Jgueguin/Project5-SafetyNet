@@ -56,8 +56,7 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
      * @param address of the station
      * @return list of person covered by station number
      */
-   List<Persons> findPersonByAddressDTO(String address);
-
+    List<Persons> findPersonByAddress(String address);
 
 } //END
 

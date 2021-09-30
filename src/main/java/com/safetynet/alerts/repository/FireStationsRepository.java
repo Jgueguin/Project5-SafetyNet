@@ -4,6 +4,7 @@ import com.safetynet.alerts.model.FireStations;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -21,15 +22,19 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      */
     Optional<FireStations> findById(Long id);
 
+
     // 2021-08-26
-     /**
+
+/**
      * Find a fire Station by its address
      * @param address the address
      * @return the firestations
      */
+
     FireStations findByAddress(String address);
 
-    /**
+
+/**
      * Delete a firestation by an adress
      * @param address
      * @return
@@ -42,12 +47,12 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
     // 2021-09-16
     // pour DTO
 
-    /**
+/**
      * find a fire Station by its number
-     * @param stationNumber
+     * @param station
      * @return
      */
-    FireStations findByStationNumber(Long stationNumber);
+     List<FireStations> findByStation(Integer station);
 
 
 

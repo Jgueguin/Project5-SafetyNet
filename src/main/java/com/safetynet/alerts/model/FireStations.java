@@ -61,7 +61,6 @@ public class FireStations {
         this.address = address;
     }
 
-
 }
 
 

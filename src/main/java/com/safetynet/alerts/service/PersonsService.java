@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -260,42 +259,20 @@ public class PersonsService {
     /**
      * Find person by station.
      *
-     * @param stationNumber the station
+     * @param station the number of the station
      * @return list of persons covered by station number
      */
-    /*public List<PersonCoveredByFireStationDTO> findPersonByStationDTO(Long stationNumber) {
+   public PersonCoveredByFireStationDTO2 findPersonByStationDTO(Integer station) {
 
         // pointer sur la caserne qui porte le numéro demandé
-        FireStations fireStation1 = fireStationsRepository.findByStationNumber(stationNumber);
-
-        // récupérer l'adresse correspondant au numéro de la caserne.
-        String addressFireStation= fireStation1.getAddress();
-
-        // chercher les personnes qui ont cette adresse
-        Iterable<Persons> persons = personsRepository.findPersonByAddressDTO(addressFireStation);
-
-        return findPersonByStationDTO(stationNumber);
-    }*/
-
-
-    /**
-     * Find person by station.
-     *
-     * @param stationNumber the number of the station
-     * @return list of persons covered by station number
-     */
-   public List<PersonCoveredByFireStationDTO2> findPersonByStationDTO(Long stationNumber) {
-
-        // pointer sur la caserne qui porte le numéro demandé
-        FireStations fireStation1 = fireStationsRepository.findByStationNumber(stationNumber);
+         FireStations fireStation1 = fireStationsRepository.findByStation(station).get(0);
 
         // récupérer l'adresse correspondant au numéro de la caserne.
         String addressFireStation= fireStation1.getAddress();
 
         // chercher les personnes qui ont cette adresse
         PersonCoveredByFireStationDTO2 personCovered = new PersonCoveredByFireStationDTO2();
-
-        //personCovered.setPersons(personsRepository.findPersonByAddressDTO(addressFireStation));
+        personCovered.setPersons(personsRepository.findPersonByAddress(addressFireStation));
 
         int count_child=0;
         int count_adult=0;
@@ -316,21 +293,14 @@ public class PersonsService {
             }
         }
 
-       System.out.println(count_adult);
-        System.out.println(count_child);
-
-       // return findPersonByStationDTO(stationNumber);
+        personCovered.setCount_adult(count_adult);
+        personCovered.setCount_child(count_child);
 
         // renvoyer la liste personCovered avec le nombre d'enfants et d'adultes
 
-
-
-         return (List<PersonCoveredByFireStationDTO2>) personCovered;
-
+         return personCovered;
 
     }
-
-
 
 
 }

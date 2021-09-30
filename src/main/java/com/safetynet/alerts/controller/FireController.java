@@ -3,13 +3,10 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
 import com.safetynet.alerts.service.PersonsService;
-import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * Fire controller.
@@ -17,11 +14,6 @@ import java.util.List;
 @RestController
 public class FireController {
 
-    /**
-     * @see Logger
-     */
-    /*private static final Logger LOGGER = LogManager.getLogger(
-            FloodController.class);*/
 
     /**
      * @see PersonsService
@@ -46,11 +38,11 @@ public class FireController {
     /**
      * Fire controller list.
      *
-     * @param stationNumber the address
+     * @param stationNumber:  the station number
      * @return the list
      */
   @GetMapping("/fire")
-    public ResponseEntity<List<PersonCoveredByFireStationDTO2>> fireControllerDTO (@RequestParam Long stationNumber) {
+    public ResponseEntity<PersonCoveredByFireStationDTO2> fireControllerDTO (@RequestParam Integer stationNumber) {
 
         return ResponseEntity.ok(personsService.findPersonByStationDTO(stationNumber));
     }
