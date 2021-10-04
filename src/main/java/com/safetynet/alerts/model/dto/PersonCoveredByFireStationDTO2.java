@@ -27,12 +27,10 @@ public class PersonCoveredByFireStationDTO2 {
  int count_child;
  int count_adult;
 
- public PersonCoveredByFireStationDTO2()
-                       {
+ public PersonCoveredByFireStationDTO2(){
   this.count_adult = count_adult;
   this.count_child = count_child;
   this.persons = persons;
-
  }
 
 

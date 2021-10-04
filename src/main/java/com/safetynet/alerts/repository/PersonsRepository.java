@@ -46,7 +46,6 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
 
 
 
-
 //2021-09-16
     // DTO
 
@@ -57,6 +56,16 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
      * @return list of person covered by station number
      */
     List<Persons> findPersonByAddress(String address);
+
+
+    /**
+     * Find email by a given city
+     *
+     * @param city of the station
+     * @return list of person covered by station number
+     */
+    List<Persons> findEmailByCity(String city);
+
 
 } //END
 
