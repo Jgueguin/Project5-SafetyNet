@@ -4,9 +4,8 @@ import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.EmailCoveredByCityDTO;
 import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
-import com.safetynet.alerts.repository.FireStationsRepository;
-import com.safetynet.alerts.repository.MedicalRecordsRepository;
-import com.safetynet.alerts.repository.PersonsRepository;
+import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameDTO;
+import com.safetynet.alerts.repository.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +27,14 @@ public class PersonsService {
     private FireStationsRepository fireStationsRepository;
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;
+
+    @Autowired
+    private DtoPersonsRepository dtoPersonsRepository;
+    @Autowired
+    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
+    @Autowired
+    private DtoFireStationsRepository dtoFireStationsRepository;
+
 
     /**
      * Choose a person in the Repository
@@ -53,7 +60,8 @@ public class PersonsService {
     /**
      * Choose a person in the Repository by its first and lastname
      *
-     * @param id : parameter to choose a person
+     * @param firstName : parameter to choose a person
+     *                  @param lastName : parameter to choose a person
      * @return the information for a person
      */
     public Persons getPersonsFirstLastName(final String firstName, final String lastName) {
@@ -282,14 +290,14 @@ public class PersonsService {
    public PersonCoveredByFireStationDTO2 findPersonByStationDTO(Integer station) {
 
         // pointer sur la caserne qui porte le numéro demandé
-         FireStations fireStation1 = fireStationsRepository.findByStation(station).get(0);
+         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
 
         // récupérer l'adresse correspondant au numéro de la caserne.
         String addressFireStation= fireStation1.getAddress();
 
         // chercher les personnes qui ont cette adresse
         PersonCoveredByFireStationDTO2 personCovered = new PersonCoveredByFireStationDTO2();
-        personCovered.setPersons(personsRepository.findPersonByAddress(addressFireStation));
+        personCovered.setPersons(dtoPersonsRepository.findPersonByAddress(addressFireStation));
 
         int count_child=0;
         int count_adult=0;
@@ -329,10 +337,30 @@ public class PersonsService {
 
         // récupérer tous les emails des personnes vivant dans une ville donnée
         EmailCoveredByCityDTO emailCity = new EmailCoveredByCityDTO();
-        emailCity.setPersons(personsRepository.findEmailByCity(city));
+        emailCity.setPersons(dtoPersonsRepository.findEmailByCity(city));
 
         return emailCity;
     }
+
+    /**
+     * Find PersonInfo from given firstName and Lastname
+     * @param firstName
+     * @param lastName
+     * @return personInfo
+     */
+    public PersonInfoByFirstNameAndLastNameDTO findfirstNameAndLastNameDTO(String firstName, String lastName) {
+
+        // récupérer les données personnelles des personnes ainsi que les données médicales à partir du firstName et du lastName
+        PersonInfoByFirstNameAndLastNameDTO personInfo = new PersonInfoByFirstNameAndLastNameDTO();
+
+        personInfo.setPersons(dtoPersonsRepository.findPersonInfoByFirstNameAndLastName(firstName, lastName));
+        personInfo.setMedicalRecords(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName, lastName));
+
+        return personInfo;
+    }
+
+
+
 
 
 

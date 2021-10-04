@@ -47,8 +47,6 @@ public interface MedicalRecordsRepository extends CrudRepository<MedicalRecords,
 
     Persons deleteByFirstNameAndLastName(String firstName, String lastName);
 
-
-
 // End
 }
 

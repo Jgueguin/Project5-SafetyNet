@@ -67,12 +67,6 @@ public class PersonsController {
         return ResponseEntity.ok(personsFirstLastName);
     }
 
-
-
-
-
-
-
     /**
      * Delete - Delete persons buy its id
      *
@@ -151,8 +145,6 @@ public class PersonsController {
 
             return ResponseEntity.ok(personsDetails);
     }
-
-
 
 
 

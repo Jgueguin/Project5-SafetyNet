@@ -4,7 +4,6 @@ import com.safetynet.alerts.model.FireStations;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -40,20 +39,6 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
      * @return
      */
     FireStations deleteByAddress(String address);
-
-
-
-
-    // 2021-09-16
-    // pour DTO
-
-/**
-     * find a fire Station by its number
-     * @param station
-     * @return
-     */
-     List<FireStations> findByStation(Integer station);
-
 
 
 } // END
