@@ -2,6 +2,7 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.model.dto.EmailCoveredByCityDTO;
 import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
 import com.safetynet.alerts.repository.FireStationsRepository;
 import com.safetynet.alerts.repository.MedicalRecordsRepository;
@@ -47,6 +48,22 @@ public class PersonsService {
     public Iterable<Persons> getPersons() {
         return personsRepository.findAll();
     }
+
+
+    /**
+     * Choose a person in the Repository by its first and lastname
+     *
+     * @param id : parameter to choose a person
+     * @return the information for a person
+     */
+    public Persons getPersonsFirstLastName(final String firstName, final String lastName) {
+        return personsRepository.findByFirstNameAndLastName(firstName, lastName);
+
+    }
+
+
+
+
 
 
     /**
@@ -301,6 +318,22 @@ public class PersonsService {
          return personCovered;
 
     }
+
+
+    /**
+     * find email for persons living in a given city
+     * @param city
+     * @return
+     */
+    public EmailCoveredByCityDTO findEmailByCityDTO(String city) {
+
+        // récupérer tous les emails des personnes vivant dans une ville donnée
+        EmailCoveredByCityDTO emailCity = new EmailCoveredByCityDTO();
+        emailCity.setPersons(personsRepository.findEmailByCity(city));
+
+        return emailCity;
+    }
+
 
 
 }

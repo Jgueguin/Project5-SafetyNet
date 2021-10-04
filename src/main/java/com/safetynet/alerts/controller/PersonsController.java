@@ -52,6 +52,26 @@ public class PersonsController {
         }
     }
 
+    /**
+     *
+     * @param firstname
+     * @param lastname
+     * @return
+     */
+    @GetMapping("/pers/{firstname}/{lastname}")
+    public ResponseEntity<Persons> getFireStationsById(
+            @PathVariable("firstname") final String firstname,
+            @PathVariable("lastname") final String lastname) {
+        Persons personsFirstLastName = (personsService.getPersonsFirstLastName(firstname, lastname));
+
+        return ResponseEntity.ok(personsFirstLastName);
+    }
+
+
+
+
+
+
 
     /**
      * Delete - Delete persons buy its id
@@ -131,5 +151,9 @@ public class PersonsController {
 
             return ResponseEntity.ok(personsDetails);
     }
+
+
+
+
 
 } // END
