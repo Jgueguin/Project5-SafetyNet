@@ -13,7 +13,6 @@ import java.util.List;
 @Repository
 public interface DtoMedicalRecordsRepository extends CrudRepository<MedicalRecords, Long> {
 
-
     /**
      *
      * @param firstName

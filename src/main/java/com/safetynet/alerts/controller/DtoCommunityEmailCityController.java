@@ -1,7 +1,7 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
+import com.safetynet.alerts.model.dto.CommunityEmailByCityDTO;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
-public class FireController {
+public class DtoCommunityEmailCityController {
 
 
     /**
@@ -22,30 +22,30 @@ public class FireController {
 
 
     /**
-     * Instantiates a new Fire controller.
+     * Instantiates a new EmailCity controller.
      *
      * @param personsService the person service
      */
-    public FireController(PersonsService personsService) {
+    public DtoCommunityEmailCityController(PersonsService personsService) {
 
         this.personsService = personsService;
     }
 
 
-
-    // http://localhost:9090/fire?stationNumber=<station_number>
+    // http://localhost:8080/communityEmail?city=<city>
 
     /**
-     * Fire controller list.
+     * EmailCity controller list.
      *
-     * @param stationNumber:  the station number
-     * @return the list
+     * @param city :  the city
+     * @return the emails
      */
-  @GetMapping("/fire")
-    public ResponseEntity<PersonCoveredByFireStationDTO2> fireControllerDTO (@RequestParam Integer stationNumber) {
+  @GetMapping("/communityEmail")
+    public ResponseEntity<CommunityEmailByCityDTO> emailCityControllerDTO (@RequestParam String city) {
 
-        return ResponseEntity.ok(personsService.findPersonByStationDTO(stationNumber));
+        return ResponseEntity.ok(personsService.findEmailByCityDTO(city));
     }
+
 
 } //END
 

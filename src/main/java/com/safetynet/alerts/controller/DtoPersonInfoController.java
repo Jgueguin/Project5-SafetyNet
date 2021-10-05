@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
-public class FindPersonInfoController {
-
+public class DtoPersonInfoController {
 
     /**
      * @see PersonsService
@@ -22,12 +21,13 @@ public class FindPersonInfoController {
 
 
 
+
     /**
      * Instantiates a new PersonInfo controller.
      *
      * @param personsService the person service
      */
-    public FindPersonInfoController(PersonsService personsService) {
+    public DtoPersonInfoController(PersonsService personsService) {
 
         this.personsService = personsService;
     }

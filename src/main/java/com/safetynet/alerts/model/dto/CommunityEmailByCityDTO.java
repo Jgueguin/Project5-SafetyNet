@@ -16,7 +16,7 @@ http://localhost:9090/communityEmail?city=<city>
 */
 
 @Data
-public class EmailCoveredByCityDTO {
+public class CommunityEmailByCityDTO {
 
  List<Persons> persons;
 
@@ -86,7 +86,7 @@ public class EmailCoveredByCityDTO {
      * @param phone     the phone
      * @param email     the email
      */
-    public EmailCoveredByCityDTO(
+    public CommunityEmailByCityDTO(
 
     ) {
 

@@ -2,7 +2,7 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.Persons;
-import com.safetynet.alerts.model.dto.EmailCoveredByCityDTO;
+import com.safetynet.alerts.model.dto.CommunityEmailByCityDTO;
 import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
 import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameDTO;
 import com.safetynet.alerts.repository.*;
@@ -276,10 +276,7 @@ public class PersonsService {
         return personsRepository.saveAll(persons);
     }
 
-
-// 2021-09-16
-
-// DTO
+    // DTO
 
     /**
      * Find person by station.
@@ -287,10 +284,10 @@ public class PersonsService {
      * @param station the number of the station
      * @return list of persons covered by station number
      */
-   public PersonCoveredByFireStationDTO2 findPersonByStationDTO(Integer station) {
+    public PersonCoveredByFireStationDTO2 findPersonByStationDTO(Integer station) {
 
         // pointer sur la caserne qui porte le numéro demandé
-         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
+        FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
 
         // récupérer l'adresse correspondant au numéro de la caserne.
         String addressFireStation= fireStation1.getAddress();
@@ -308,7 +305,7 @@ public class PersonsService {
         for (Persons p : personCovered.getPersons() ) {
 
             if (
-                actualYear - medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(),p.getLastName()).getBirthDate().getYear() <= 18)
+                    actualYear - medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(),p.getLastName()).getBirthDate().getYear() <= 18)
 
             {
                 count_child++;
@@ -323,7 +320,7 @@ public class PersonsService {
 
         // renvoyer la liste personCovered avec le nombre d'enfants et d'adultes
 
-         return personCovered;
+        return personCovered;
 
     }
 
@@ -333,10 +330,10 @@ public class PersonsService {
      * @param city
      * @return
      */
-    public EmailCoveredByCityDTO findEmailByCityDTO(String city) {
+    public CommunityEmailByCityDTO findEmailByCityDTO(String city) {
 
         // récupérer tous les emails des personnes vivant dans une ville donnée
-        EmailCoveredByCityDTO emailCity = new EmailCoveredByCityDTO();
+        CommunityEmailByCityDTO emailCity = new CommunityEmailByCityDTO();
         emailCity.setPersons(dtoPersonsRepository.findEmailByCity(city));
 
         return emailCity;
@@ -358,10 +355,6 @@ public class PersonsService {
 
         return personInfo;
     }
-
-
-
-
 
 
 }
