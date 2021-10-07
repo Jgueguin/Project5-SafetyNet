@@ -1,7 +1,7 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.CommunityEmailByCityDTO;
+import com.safetynet.alerts.model.dto.ExtractEmailByCityDTO;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,9 +41,9 @@ public class DtoCommunityEmailCityController {
      * @return the emails
      */
   @GetMapping("/communityEmail")
-    public ResponseEntity<CommunityEmailByCityDTO> emailCityControllerDTO (@RequestParam String city) {
+    public ResponseEntity<ExtractEmailByCityDTO> emailCityControllerDTO (@RequestParam String city) {
 
-        return ResponseEntity.ok(personsService.findEmailByCityDTO(city));
+        return ResponseEntity.ok(personsService.ExtractEmailByCityDTO(city));
     }
 
 

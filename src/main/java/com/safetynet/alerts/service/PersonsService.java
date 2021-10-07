@@ -2,15 +2,13 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.Persons;
-import com.safetynet.alerts.model.dto.CommunityEmailByCityDTO;
-import com.safetynet.alerts.model.dto.PersonInfoCoveredByFirstNameAndLastNameDTO;
-import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO;
-import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationStationNumberDTO;
+import com.safetynet.alerts.model.dto.*;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -331,13 +329,23 @@ public class PersonsService {
      * @param city
      * @return
      */
-    public CommunityEmailByCityDTO findEmailByCityDTO(String city) {
+    public ExtractEmailByCityDTO ExtractEmailByCityDTO(String city) {
+
+        // récupérer tous les habitants vivant dans une ville donnée
+        CommunityEmailByCityDTO emailCity = new CommunityEmailByCityDTO();
+        ExtractEmailByCityDTO emailList = new ExtractEmailByCityDTO();
 
         // récupérer tous les emails des personnes vivant dans une ville donnée
-        CommunityEmailByCityDTO emailCity = new CommunityEmailByCityDTO();
-        emailCity.setPersons(dtoPersonsRepository.findEmailByCity(city));
+        for (Persons p:dtoPersonsRepository.findEmailByCity(city)) {
 
-        return emailCity;
+                    ArrayList<String> tmp = emailCity.getEmail();
+                    tmp.add(p.getFirstName());
+                    tmp.add(p.getLastName());
+                    tmp.add(p.getEmail());
+                    emailList.setEmail(tmp);
+        }
+
+        return emailList;
     }
 
     /**

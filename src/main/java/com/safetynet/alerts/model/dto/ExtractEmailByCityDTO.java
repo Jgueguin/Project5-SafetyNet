@@ -1,10 +1,8 @@
 package com.safetynet.alerts.model.dto;
 
-import com.safetynet.alerts.model.Persons;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * List of Email/persons covered by a specific city
@@ -17,25 +15,20 @@ http://localhost:9090/communityEmail?city=<city>
 */
 
 @Data
-public class CommunityEmailByCityDTO {
+public class ExtractEmailByCityDTO {
 
- List<Persons> persons;
- ArrayList<String> email ;
+    ArrayList<String> email ;
 
     /**
-     * Instantiates  a new EmailCoveredByCity object.
+     * Instantiates  a new ExtractEmail object.
      *
-      */
-    public CommunityEmailByCityDTO(
+     */
+    public ExtractEmailByCityDTO(
 
     ) {
         email =new ArrayList<>();
 
-        this.persons= persons;
-
     }
-
-
 
 
 } //END

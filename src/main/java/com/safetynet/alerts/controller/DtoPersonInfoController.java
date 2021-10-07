@@ -35,7 +35,6 @@ public class DtoPersonInfoController {
 
     // http://localhost:9090/personInfo?firstName=<firstName>&lastName=<lastName>
 
-
     /**
      * PersonInfo controller list.
      *
