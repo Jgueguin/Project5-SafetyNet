@@ -339,9 +339,9 @@ public class PersonsService {
         for (Persons p:dtoPersonsRepository.findEmailByCity(city)) {
 
                     ArrayList<String> tmp = emailCity.getEmail();
-                    tmp.add(p.getFirstName());
-                    tmp.add(p.getLastName());
-                    tmp.add(p.getEmail());
+                    tmp.add("Firstname : "+p.getFirstName());
+                    tmp.add("LastName : "+p.getLastName());
+                    tmp.add("Email : "+p.getEmail());
                     emailList.setEmail(tmp);
         }
 

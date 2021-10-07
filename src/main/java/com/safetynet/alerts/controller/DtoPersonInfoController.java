@@ -20,8 +20,6 @@ public class DtoPersonInfoController {
     PersonsService personsService;
 
 
-
-
     /**
      * Instantiates a new PersonInfo controller.
      *
