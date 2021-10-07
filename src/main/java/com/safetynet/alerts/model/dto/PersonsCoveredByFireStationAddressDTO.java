@@ -1,12 +1,17 @@
 package com.safetynet.alerts.model.dto;
 
+import com.safetynet.alerts.model.FireStations;
+import com.safetynet.alerts.model.MedicalRecords;
+import com.safetynet.alerts.model.Persons;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * List of Persons living at an address and specific fire station
  */
 @Data
-public class ListPersonsFireStationAddressDTO {
+public class PersonsCoveredByFireStationAddressDTO {
 
 /*
 http://localhost:8080/fire?address=<address>
@@ -17,65 +22,18 @@ médicaux (médicaments, posologie et allergies) de chaque personne.
 
  */
 
-    /**
-     * The fire Station
-     */
-    private Long fireStation;
+    List<Persons> persons;
+    List<MedicalRecords> medicalRecords;
+    List<FireStations> fireStations;
 
-    /**
-     * The FirstName
-     */
-    private String firstName;
+    public PersonsCoveredByFireStationAddressDTO(){
 
-    /**
-     * The LastName
-     */
-    private String lastName;
-
-    /**
-     * The Phone
-     */
-    private String phone;
-
-    /**
-     * The Age
-     */
-    private int age;
-
-    /**
-     * The Medications
-     */
-    private String[] medications;
-
-    /**
-     * The Allergies
-     */
-    private String[] allergies;
-
-
-    /**
-     * Instantiates a new Fire Address.
-     */
-    public ListPersonsFireStationAddressDTO() {
-
+        this.persons = persons;
+        this.medicalRecords = medicalRecords;
+        this.fireStations = fireStations;
     }
 
-    public ListPersonsFireStationAddressDTO(final Long fireStation,
-                                            final String firstName,
-                                            final String lastName,
-                                            final String phone,
-                                            final int age,
-                                            String[] medications,
-                                            String[] allergies
-    ) {
-        this.fireStation = fireStation;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
-        this.age = age;
-        this.medications = medications;
-        this.allergies = allergies;
-    }
+
 
 
 } // END

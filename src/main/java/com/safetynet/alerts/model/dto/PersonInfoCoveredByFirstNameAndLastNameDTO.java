@@ -19,7 +19,7 @@ toutes apparaître
 */
 
 @Data
-public class PersonInfoByFirstNameAndLastNameDTO {
+public class PersonInfoCoveredByFirstNameAndLastNameDTO {
 
  List<Persons> persons;
  List<MedicalRecords> medicalRecords;
@@ -28,7 +28,7 @@ public class PersonInfoByFirstNameAndLastNameDTO {
      * Instantiates  a new PersonInfoByFirstNameAndLastName object
      *
      */
-    public PersonInfoByFirstNameAndLastNameDTO(
+    public PersonInfoCoveredByFirstNameAndLastNameDTO(
 
     ) {
 

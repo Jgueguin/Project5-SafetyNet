@@ -3,8 +3,9 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.CommunityEmailByCityDTO;
-import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
-import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameDTO;
+import com.safetynet.alerts.model.dto.PersonInfoCoveredByFirstNameAndLastNameDTO;
+import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO;
+import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationStationNumberDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -284,7 +285,7 @@ public class PersonsService {
      * @param station the number of the station
      * @return list of persons covered by station number
      */
-    public PersonCoveredByFireStationDTO2 findPersonByStationDTO(Integer station) {
+    public PersonsCoveredByFireStationStationNumberDTO findPersonByStationDTO(Integer station) {
 
         // pointer sur la caserne qui porte le numéro demandé
         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
@@ -293,7 +294,7 @@ public class PersonsService {
         String addressFireStation= fireStation1.getAddress();
 
         // chercher les personnes qui ont cette adresse
-        PersonCoveredByFireStationDTO2 personCovered = new PersonCoveredByFireStationDTO2();
+        PersonsCoveredByFireStationStationNumberDTO personCovered = new PersonsCoveredByFireStationStationNumberDTO();
         personCovered.setPersons(dtoPersonsRepository.findPersonByAddress(addressFireStation));
 
         int count_child=0;
@@ -345,16 +346,54 @@ public class PersonsService {
      * @param lastName
      * @return personInfo
      */
-    public PersonInfoByFirstNameAndLastNameDTO findfirstNameAndLastNameDTO(String firstName, String lastName) {
+    public PersonInfoCoveredByFirstNameAndLastNameDTO findFirstNameAndLastNameDTO(String firstName, String lastName) {
 
         // récupérer les données personnelles des personnes ainsi que les données médicales à partir du firstName et du lastName
-        PersonInfoByFirstNameAndLastNameDTO personInfo = new PersonInfoByFirstNameAndLastNameDTO();
+        PersonInfoCoveredByFirstNameAndLastNameDTO personInfo = new PersonInfoCoveredByFirstNameAndLastNameDTO();
 
         personInfo.setPersons(dtoPersonsRepository.findPersonInfoByFirstNameAndLastName(firstName, lastName));
         personInfo.setMedicalRecords(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName, lastName));
 
         return personInfo;
     }
+
+
+
+    /*http://localhost:9090/fire?address=<address>
+    Cette url doit retourner la liste des habitants vivant à l’adresse donnée ainsi que le numéro de la caserne
+    de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
+    médicaux (médicaments, posologie et allergies) de chaque personne.*/
+
+    /**
+     *
+     * @param address
+     * @return
+     */
+    public PersonsCoveredByFireStationAddressDTO findPersonsCoveredByAddress(String address) {
+
+       // récupérer la liste des habitants vivant à une addresse donnée
+        PersonsCoveredByFireStationAddressDTO personsList = new PersonsCoveredByFireStationAddressDTO();
+
+        // remplir la liste avec les habitants vivant à l'addresse
+        personsList.setPersons(dtoPersonsRepository.findPersonsCoveredByAddress(address));
+
+        //récupérer le numéro de la caserne associée à l'addresse
+        personsList.setFireStations(dtoFireStationsRepository.findFireStationByAddress(address));
+
+        //récupérer les antécedents médicaux
+
+        for (Persons persons : personsList.getPersons()
+             ) {
+
+            String firstName = persons.getFirstName();
+            String lastName = persons.getLastName();
+
+            personsList.setMedicalRecords(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName,lastName));
+
+        }
+
+        return personsList;
+     }
 
 
 }

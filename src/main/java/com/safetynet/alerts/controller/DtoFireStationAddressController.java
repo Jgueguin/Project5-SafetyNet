@@ -1,7 +1,7 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
+import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
-public class DtoFireStationNumberController {
+public class DtoFireStationAddressController {
 
 
     /**
@@ -27,26 +27,30 @@ public class DtoFireStationNumberController {
      *
      * @param personsService the person service
      */
-    public DtoFireStationNumberController(PersonsService personsService) {
+    public DtoFireStationAddressController(PersonsService personsService) {
 
         this.personsService = personsService;
     }
 
+    /*http://localhost:9090/fire?address=<address>
+    Cette url doit retourner la liste des habitants vivant à l’adresse donnée ainsi que le numéro de la caserne
+    de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
+    médicaux (médicaments, posologie et allergies) de chaque personne.*/
 
-
-    // http://localhost:9090/fire?stationNumber=<station_number>
 
     /**
      * Fire controller list.
      *
-     * @param stationNumber:  the station number
+     * @param address:  the station address
      * @return the list
      */
-  @GetMapping("/fire")
-    public ResponseEntity<PersonCoveredByFireStationDTO2> fireControllerDTO (@RequestParam Integer stationNumber) {
+  @GetMapping("/fires")
+    public ResponseEntity<PersonsCoveredByFireStationAddressDTO> FireStationControllerDTO (@RequestParam String address) {
 
-        return ResponseEntity.ok(personsService.findPersonByStationDTO(stationNumber));
+        return ResponseEntity.ok(personsService.findPersonsCoveredByAddress(address));
     }
+
+
 
 } //END
 

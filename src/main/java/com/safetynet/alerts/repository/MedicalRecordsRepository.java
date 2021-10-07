@@ -5,6 +5,7 @@ import com.safetynet.alerts.model.Persons;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -46,6 +47,17 @@ public interface MedicalRecordsRepository extends CrudRepository<MedicalRecords,
      */
 
     Persons deleteByFirstNameAndLastName(String firstName, String lastName);
+
+    /**
+     *
+     * @param firstName
+     * @param lastName
+     * @return
+     */
+    List<MedicalRecords> findMedicalRecordsByFirstNameAndLastName(String firstName, String lastName);
+
+
+
 
 // End
 }

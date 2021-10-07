@@ -1,6 +1,5 @@
 package com.safetynet.alerts.repository;
 
-import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -43,12 +42,10 @@ public interface DtoPersonsRepository extends CrudRepository<Persons, Long> {
 
     /**
      *
-     * @param firstName
-     * @param lastName
+     * @param address
      * @return
      */
-    List<MedicalRecords> findMedicalRecordsByFirstNameAndLastName(String firstName, String lastName);
-
+    List<Persons> findPersonsCoveredByAddress(String address);
 
 
 

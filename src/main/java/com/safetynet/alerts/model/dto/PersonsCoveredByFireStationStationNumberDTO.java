@@ -20,14 +20,14 @@ import java.util.List;
     */
 
 @Data
-public class PersonCoveredByStationNumberDTO {
+public class PersonsCoveredByFireStationStationNumberDTO {
 
  List<Persons> persons;
 
  int count_child;
  int count_adult;
 
- public PersonCoveredByStationNumberDTO(){
+ public PersonsCoveredByFireStationStationNumberDTO(){
   this.count_adult = count_adult;
   this.count_child = count_child;
   this.persons = persons;

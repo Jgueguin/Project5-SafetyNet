@@ -1,7 +1,7 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.PersonCoveredByFireStationDTO2;
+import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationStationNumberDTO;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,6 @@ public class DtoFireStationNumberController {
      * @see PersonsService
      */
     PersonsService personsService;
-
 
 
     /**
@@ -43,7 +42,7 @@ public class DtoFireStationNumberController {
      * @return the list
      */
   @GetMapping("/fire")
-    public ResponseEntity<PersonCoveredByFireStationDTO2> fireControllerDTO (@RequestParam Integer stationNumber) {
+    public ResponseEntity<PersonsCoveredByFireStationStationNumberDTO> fireControllerDTO (@RequestParam Integer stationNumber) {
 
         return ResponseEntity.ok(personsService.findPersonByStationDTO(stationNumber));
     }

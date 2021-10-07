@@ -22,6 +22,13 @@ public interface DtoFireStationsRepository extends CrudRepository<FireStations, 
      List<FireStations> findByStation(Integer station);
 
 
+     /**
+      *
+      * @param address
+      * @return
+      */
+     List<FireStations> findFireStationByAddress(String address);
+
 
 } // END
 

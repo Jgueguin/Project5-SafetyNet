@@ -1,7 +1,7 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameDTO;
+import com.safetynet.alerts.model.dto.PersonInfoCoveredByFirstNameAndLastNameDTO;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,11 +44,11 @@ public class DtoPersonInfoController {
      * @return
      */
   @GetMapping("/personInfo")
-    public ResponseEntity<PersonInfoByFirstNameAndLastNameDTO> findPersonInfoControllerDTO (
+    public ResponseEntity<PersonInfoCoveredByFirstNameAndLastNameDTO> findPersonInfoControllerDTO (
             @RequestParam String firstName,
             @RequestParam String lastName
   ) {
-        return ResponseEntity.ok(personsService.findfirstNameAndLastNameDTO(firstName,lastName));
+        return ResponseEntity.ok(personsService.findFirstNameAndLastNameDTO(firstName,lastName));
     }
 
 
