@@ -372,85 +372,39 @@ public class PersonsService {
     de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
     médicaux (médicaments, posologie et allergies) de chaque personne.*/
 
-    /**
-     *
-     * @param address
-     * @return
-     */
-    public PersonsCoveredByFireStationAddressDTO findPersonsCoveredByAddress(String address) {
-
-       // récupérer la liste des habitants vivant à une addresse donnée
-        PersonsCoveredByFireStationAddressDTO personsList = new PersonsCoveredByFireStationAddressDTO();
-
-        // remplir la liste avec les habitants vivant à l'addresse
-        personsList.setPersons(dtoPersonsRepository.findPersonsCoveredByAddress(address));
-
-        //récupérer le numéro de la caserne associée à l'addresse
-        personsList.setFireStations(dtoFireStationsRepository.findFireStationByAddress(address));
-
-        //récupérer les antécedents médicaux
-
-        for (Persons persons : personsList.getPersons()
-             ) {
-
-            String firstName = persons.getFirstName();
-            String lastName = persons.getLastName();
-
-            personsList.setMedicalRecords(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName,lastName));
-
-        }
-
-        return personsList;
-     }
 
 
     public PersonsCoveredByFireStationAddressDTO2 findPersonsCoveredByAddress2(String address) {
 
-        // Créer un objet de type personList pour pouvoir récupérer les données qui nous intérressent
-        ListPersonDTO personsList = new ListPersonDTO();
-
-        // Création objet de type fireStationList
-        ListFireStationsDTO fireStationsDTO = new ListFireStationsDTO();
-        fireStationsDTO.setFireStations(dtoFireStationsRepository.findFireStationByAddress(address));
-        System.out.println(dtoFireStationsRepository.findFireStationByAddress(address));
-
-        // Création objet de type medicalRecords
-        MedicalRecords medicalRecords = new MedicalRecords();
-
         // Création objet de type PersonCoveredByFireStationDTO2
         PersonsCoveredByFireStationAddressDTO2 fireStationsArray = new PersonsCoveredByFireStationAddressDTO2();
 
-        // ne récupérer que les données des personnes vivant à l'addresse demandée
+
+        // préparation tableau intermédiaire pour récupérer les données
         ArrayList<String> tmp2 = (ArrayList<String>) fireStationsArray.getFireAddressArray();
 
+        Date date = new Date();
 
-        //tmp2.add(fireStationsArray.setFireAddressArray(dtoFireStationsRepository.findFireStationByAddress(address)));
+        tmp2.add(address);
 
         for (
                 Persons p:dtoPersonsRepository.findPersonsCoveredByAddress(address)
         ) {
 
-            String phone = p.getPhone();
-            //medicalRecords.getBirthDate(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName,lastName));
+            // FireStations fireStations = dtoFireStationsRepository.findFireStationByAddress(address);
 
-            //ArrayList<String> tmp2 = fireStationsArray.getFireAddressArray();
+            tmp2.add(p.getFirstName()+" "+p.getLastName() );
+            tmp2.add("Phone : "+ p.getPhone());
 
-            tmp2.add("LastName : "+ p.getLastName());
-            tmp2.add("Firstname : "+ p.getFirstName());
-            tmp2.add("Phone : "+ phone);
+            MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
 
+            Date birthdate = medicalRecords.getBirthDate();
+            tmp2.add("Age: "+(date.getYear()-birthdate.getYear()));
 
+            tmp2.add(String.valueOf(medicalRecords.getAllergies()));
+            tmp2.add(String.valueOf(medicalRecords.getMedications()));
 
             tmp2.add("       ");
-/*
-
-
-            tmp2.add(
-                    medicalRecords.getMedications(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(p.getFirstName(), p.getLastName()))
-*/
-
-            // );
-
 
             fireStationsArray.setFireAddressArray(tmp2);
 
@@ -464,11 +418,10 @@ public class PersonsService {
 
     //Child Alert
 
-
     /**
-     * Find PersonInfo from given firstName and Lastname
-
-
+     * Child Alert
+     * @param address
+     * @return childAlertListDTO
      */
     public ChildAlertListDTO findChildAlertDTO(String address) {
 
@@ -481,18 +434,13 @@ public class PersonsService {
 
         for (Persons p:dtoPersonsRepository.findPersonByAddress(address)) {
 
-
-
-
-            System.out.println(p);
-
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
+
             Date birthdate = medicalRecords.getBirthDate();
 
             if (date.getYear() - birthdate.getYear() <= 18)
             {
                 tmp.add(" Child : "+p.getFirstName()+" "+p.getLastName()+" Age: "+(date.getYear() - birthdate.getYear()));
-
             }
             else
             {
