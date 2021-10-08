@@ -2,6 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO;
+import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO2;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -49,6 +50,21 @@ public class DtoFireStationAddressController {
 
         return ResponseEntity.ok(personsService.findPersonsCoveredByAddress(address));
     }
+
+
+
+    /**
+     * Fire controller list.
+     *
+     * @param address:  the station address
+     * @return the list
+     */
+    @GetMapping("/firesta")
+    public ResponseEntity<PersonsCoveredByFireStationAddressDTO2> FireStationController2DTO (@RequestParam String address) {
+
+        return ResponseEntity.ok(personsService.findPersonsCoveredByAddress2(address));
+    }
+
 
 
 

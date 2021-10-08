@@ -1,7 +1,7 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.CommunityEmailByCityListDTO;
+import com.safetynet.alerts.model.dto.ChildAlertListDTO;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * Fire controller.
+ * Child Alert controller.
  */
 @RestController
-public class DtoCommunityEmailCityController {
+public class DtoChildAlertController {
 
 
     /**
@@ -22,28 +22,29 @@ public class DtoCommunityEmailCityController {
 
 
     /**
-     * Instantiates a new EmailCity controller.
+     * Instantiates a new Child Alert controller.
      *
      * @param personsService the person service
      */
-    public DtoCommunityEmailCityController(PersonsService personsService) {
+    public DtoChildAlertController(PersonsService personsService) {
 
         this.personsService = personsService;
     }
 
 
-    // http://localhost:8080/communityEmail?city=<city>
+    // http://localhost:9090/childAlert?address=<address>
 
     /**
-     * EmailCity controller list.
+     * Child Alert controller
      *
-     * @param city :  the city
+     * @param address :  address of the city
      * @return the emails
      */
-  @GetMapping("/communityEmail")
-    public ResponseEntity<CommunityEmailByCityListDTO> emailCityControllerDTO (@RequestParam String city) {
 
-        return ResponseEntity.ok(personsService.ExtractEmailByCityDTO(city));
+  @GetMapping("/childAlert")
+    public ResponseEntity<ChildAlertListDTO> childAlertControllerDTO (@RequestParam String address) {
+
+        return ResponseEntity.ok(personsService.findChildAlertDTO(address));
     }
 
 

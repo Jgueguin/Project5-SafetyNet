@@ -1,6 +1,7 @@
 package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.FireStations;
+import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.*;
 import com.safetynet.alerts.repository.*;
@@ -329,20 +330,19 @@ public class PersonsService {
      * @param city
      * @return
      */
-    public ExtractEmailByCityDTO ExtractEmailByCityDTO(String city) {
+    public CommunityEmailByCityListDTO ExtractEmailByCityDTO(String city) {
 
         // récupérer tous les habitants vivant dans une ville donnée
-        CommunityEmailByCityDTO emailCity = new CommunityEmailByCityDTO();
-        ExtractEmailByCityDTO emailList = new ExtractEmailByCityDTO();
+        ListPersonDTO emailCity = new ListPersonDTO();
+        CommunityEmailByCityListDTO emailList = new CommunityEmailByCityListDTO();
 
         // récupérer tous les emails des personnes vivant dans une ville donnée
         for (Persons p:dtoPersonsRepository.findEmailByCity(city)) {
 
-                    ArrayList<String> tmp = emailCity.getEmail();
-                    tmp.add("Firstname : "+p.getFirstName());
-                    tmp.add("LastName : "+p.getLastName());
-                    tmp.add("Email : "+p.getEmail());
-                    emailList.setEmail(tmp);
+                    ArrayList<String> tmp = emailList.getEmailArray();
+                    tmp.add("Firstname: "+p.getFirstName()+" -- Lastname: "+p.getLastName() + "-> Email: "+p.getEmail());
+
+                    emailList.setEmailArray(tmp);
         }
 
         return emailList;
@@ -354,10 +354,10 @@ public class PersonsService {
      * @param lastName
      * @return personInfo
      */
-    public PersonInfoCoveredByFirstNameAndLastNameDTO findFirstNameAndLastNameDTO(String firstName, String lastName) {
+    public PersonInfoCoveredByFirstNameAndLastNameListDTO findFirstNameAndLastNameDTO(String firstName, String lastName) {
 
         // récupérer les données personnelles des personnes ainsi que les données médicales à partir du firstName et du lastName
-        PersonInfoCoveredByFirstNameAndLastNameDTO personInfo = new PersonInfoCoveredByFirstNameAndLastNameDTO();
+        PersonInfoCoveredByFirstNameAndLastNameListDTO personInfo = new PersonInfoCoveredByFirstNameAndLastNameListDTO();
 
         personInfo.setPersons(dtoPersonsRepository.findPersonInfoByFirstNameAndLastName(firstName, lastName));
         personInfo.setMedicalRecords(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName, lastName));
@@ -402,6 +402,112 @@ public class PersonsService {
 
         return personsList;
      }
+
+
+    public PersonsCoveredByFireStationAddressDTO2 findPersonsCoveredByAddress2(String address) {
+
+        // Créer un objet de type personList pour pouvoir récupérer les données qui nous intérressent
+        ListPersonDTO personsList = new ListPersonDTO();
+
+        // Création objet de type fireStationList
+        ListFireStationsDTO fireStationsDTO = new ListFireStationsDTO();
+        fireStationsDTO.setFireStations(dtoFireStationsRepository.findFireStationByAddress(address));
+        System.out.println(dtoFireStationsRepository.findFireStationByAddress(address));
+
+        // Création objet de type medicalRecords
+        MedicalRecords medicalRecords = new MedicalRecords();
+
+        // Création objet de type PersonCoveredByFireStationDTO2
+        PersonsCoveredByFireStationAddressDTO2 fireStationsArray = new PersonsCoveredByFireStationAddressDTO2();
+
+        // ne récupérer que les données des personnes vivant à l'addresse demandée
+        ArrayList<String> tmp2 = (ArrayList<String>) fireStationsArray.getFireAddressArray();
+
+
+        //tmp2.add(fireStationsArray.setFireAddressArray(dtoFireStationsRepository.findFireStationByAddress(address)));
+
+        for (
+                Persons p:dtoPersonsRepository.findPersonsCoveredByAddress(address)
+        ) {
+
+            String phone = p.getPhone();
+            //medicalRecords.getBirthDate(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName,lastName));
+
+            //ArrayList<String> tmp2 = fireStationsArray.getFireAddressArray();
+
+            tmp2.add("LastName : "+ p.getLastName());
+            tmp2.add("Firstname : "+ p.getFirstName());
+            tmp2.add("Phone : "+ phone);
+
+
+
+            tmp2.add("       ");
+/*
+
+
+            tmp2.add(
+                    medicalRecords.getMedications(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(p.getFirstName(), p.getLastName()))
+*/
+
+            // );
+
+
+            fireStationsArray.setFireAddressArray(tmp2);
+
+        }
+
+        return fireStationsArray;
+    }
+
+
+
+
+    //Child Alert
+
+
+    /**
+     * Find PersonInfo from given firstName and Lastname
+
+
+     */
+    public ChildAlertListDTO findChildAlertDTO(String address) {
+
+        ChildAlertListDTO childAlertListDTO = new ChildAlertListDTO();
+
+        Date date = new Date();
+
+        ArrayList<String> tmp = childAlertListDTO.getChildAlertArray();
+        tmp.add(address);
+
+        for (Persons p:dtoPersonsRepository.findPersonByAddress(address)) {
+
+
+
+
+            System.out.println(p);
+
+            MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
+            Date birthdate = medicalRecords.getBirthDate();
+
+            if (date.getYear() - birthdate.getYear() <= 18)
+            {
+                tmp.add(" Child : "+p.getFirstName()+" "+p.getLastName()+" Age: "+(date.getYear() - birthdate.getYear()));
+
+            }
+            else
+            {
+                tmp.add("Adult "+p.getFirstName()+" "+p.getLastName());
+            }
+
+            childAlertListDTO.setChildAlertArray(tmp);
+
+        }
+
+        return childAlertListDTO;
+    }
+
+
+
 
 
 }
