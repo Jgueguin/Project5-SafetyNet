@@ -48,7 +48,7 @@ public class DtoFireStationAddressController {
     @GetMapping("/firesta")
     public ResponseEntity<PersonsCoveredByFireStationAddressDTO2> FireStationController2DTO (@RequestParam String address) {
 
-        return ResponseEntity.ok(personsService.findPersonsCoveredByAddress2(address));
+        return ResponseEntity.ok(personsService.personsCoveredByAddress2(address));
     }
 
 } //END

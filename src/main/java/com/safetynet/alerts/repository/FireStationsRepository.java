@@ -24,7 +24,7 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
 
     // 2021-08-26
 
-/**
+     /**
      * Find a fire Station by its address
      * @param address the address
      * @return the firestations
@@ -33,13 +33,20 @@ public interface FireStationsRepository extends CrudRepository<FireStations, Lon
     FireStations findByAddress(String address);
 
 
-/**
+    /**
      * Delete a firestation by an adress
      * @param address
      * @return
      */
     FireStations deleteByAddress(String address);
 
+
+    /**
+     * Find a Firestations by its number
+     * @param station
+     * @return
+     */
+    FireStations findByStation(Integer station);
 
 } // END
 

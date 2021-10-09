@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -263,6 +264,8 @@ public class PersonsService {
         return personsRepository.saveAll(persons);
     }
 
+
+
     // DTO
 
     /**
@@ -271,7 +274,7 @@ public class PersonsService {
      * @param station the number of the station
      * @return list of persons covered by station number
      */
-    public PersonsCoveredByFireStationStationNumberDTO findPersonByStationDTO(Integer station) {
+    public PersonsCoveredByFireStationStationNumberDTO personByStationDTO(Integer station) {
 
         // pointer sur la caserne qui porte le numéro demandé
         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
@@ -315,7 +318,7 @@ public class PersonsService {
      * @param city
      * @return
      */
-    public CommunityEmailByCityListDTO ExtractEmailByCityDTO(String city) {
+    public CommunityEmailByCityListDTO extractEmailByCityDTO(String city) {
 
         // récupérer tous les habitants vivant dans une ville donnée
         ListPersonDTO emailCity = new ListPersonDTO();
@@ -343,7 +346,7 @@ public class PersonsService {
      * @param lastName
      * @return personInfo
      */
-    public PersonInfoCoveredByFirstNameAndLastNameListDTO findFirstNameAndLastNameDTO(String firstName, String lastName) {
+    public PersonInfoCoveredByFirstNameAndLastNameListDTO firstNameAndLastNameDTO(String firstName, String lastName) {
 
         PersonInfoCoveredByFirstNameAndLastNameListDTO personInfoArray = new PersonInfoCoveredByFirstNameAndLastNameListDTO();
 
@@ -384,7 +387,7 @@ public class PersonsService {
     de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
     médicaux (médicaments, posologie et allergies) de chaque personne.*/
 
-    public PersonsCoveredByFireStationAddressDTO2 findPersonsCoveredByAddress2(String address) {
+    public PersonsCoveredByFireStationAddressDTO2 personsCoveredByAddress2(String address) {
 
         // Création objet de type PersonCoveredByFireStationDTO2
         PersonsCoveredByFireStationAddressDTO2 fireStationsArray = new PersonsCoveredByFireStationAddressDTO2();
@@ -441,13 +444,13 @@ public class PersonsService {
      * @param address
      * @return childAlertListDTO
      */
-    public ChildAlertListDTO findChildAlertDTO(String address) {
+    public ChildAlertListDTO childAlertDTO(String address) {
 
-        ChildAlertListDTO childAlertListDTO = new ChildAlertListDTO();
+        ChildAlertListDTO childAlertList = new ChildAlertListDTO();
 
         Date date = new Date();
 
-        ArrayList<String> tmp = childAlertListDTO.getChildAlertArray();
+        ArrayList<String> tmp = childAlertList.getChildAlertArray();
         tmp.add(address);
 
         for (Persons p : dtoPersonsRepository.findPersonByAddress(address)) {
@@ -466,11 +469,54 @@ public class PersonsService {
 
             }
 
-            childAlertListDTO.setChildAlertArray(tmp);
+            childAlertList.setChildAlertArray(tmp);
         }
 
-        return childAlertListDTO;
+        return childAlertList;
     }
+
+
+    /*http://localhost:8080/phoneAlert?firestation=<firestation_number>
+
+    Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
+    pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.*/
+
+    public PhoneAlertListDTO phoneAlertDTO(Integer station) {
+
+        PhoneAlertListDTO phoneAlert = new PhoneAlertListDTO();
+
+        // récupération de l'addresse à partir du numero de station
+        List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
+
+        // mise en place du tableau intermédiaire
+        ArrayList<String> tmp = phoneAlert.getPhoneAlertArray();
+
+        tmp.add("Caserne n°: "+station);
+
+
+for (FireStations f:dtoFireStationsRepository.findByStation(station)){
+        tmp.add(f.getAddress());
+        for (Persons p :dtoPersonsRepository.findPersonByAddress(f.getAddress())){
+            tmp.add("      " + p.getPhone());
+
+        }
+
+}
+
+
+
+
+
+        /*for (Persons p : dtoPersonsRepository.findPersonByAddress(fireStations.getAddress())) {
+
+            System.out.println(p);
+            phoneAlert.setPhoneAlertArray(tmp);
+        }
+*/
+        return phoneAlert;
+    }
+
+
 
 
 

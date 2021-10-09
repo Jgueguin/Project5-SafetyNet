@@ -43,7 +43,7 @@ public class DtoCommunityEmailCityController {
   @GetMapping("/communityEmail")
     public ResponseEntity<CommunityEmailByCityListDTO> emailCityControllerDTO (@RequestParam String city) {
 
-        return ResponseEntity.ok(personsService.ExtractEmailByCityDTO(city));
+        return ResponseEntity.ok(personsService.extractEmailByCityDTO(city));
     }
 
 

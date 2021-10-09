@@ -44,7 +44,7 @@ public class DtoFireStationNumberController {
   @GetMapping("/fire")
     public ResponseEntity<PersonsCoveredByFireStationStationNumberDTO> fireControllerDTO (@RequestParam Integer stationNumber) {
 
-        return ResponseEntity.ok(personsService.findPersonByStationDTO(stationNumber));
+        return ResponseEntity.ok(personsService.personByStationDTO(stationNumber));
     }
 
 } //END

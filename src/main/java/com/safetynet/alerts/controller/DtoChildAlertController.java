@@ -46,7 +46,7 @@ public class DtoChildAlertController {
   @GetMapping("/childAlert")
     public ResponseEntity<ChildAlertListDTO> childAlertControllerDTO (@RequestParam String address) {
 
-        return ResponseEntity.ok(personsService.findChildAlertDTO(address));
+        return ResponseEntity.ok(personsService.childAlertDTO(address));
     }
 
 

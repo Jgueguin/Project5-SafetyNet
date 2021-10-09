@@ -45,7 +45,7 @@ public class DtoPersonInfoController {
             @RequestParam String firstName,
             @RequestParam String lastName
   ) {
-        return ResponseEntity.ok(personsService.findFirstNameAndLastNameDTO(firstName,lastName));
+        return ResponseEntity.ok(personsService.firstNameAndLastNameDTO(firstName,lastName));
     }
 
 
