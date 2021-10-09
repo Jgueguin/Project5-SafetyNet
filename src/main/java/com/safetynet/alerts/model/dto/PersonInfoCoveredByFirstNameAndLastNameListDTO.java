@@ -1,10 +1,8 @@
 package com.safetynet.alerts.model.dto;
 
-import com.safetynet.alerts.model.MedicalRecords;
-import com.safetynet.alerts.model.Persons;
 import lombok.Data;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * List of person info with first name and lastname parameters
@@ -21,8 +19,7 @@ toutes apparaître
 @Data
 public class PersonInfoCoveredByFirstNameAndLastNameListDTO {
 
- List<Persons> persons;
- List<MedicalRecords> medicalRecords;
+    ArrayList<String> personInfoArray = new ArrayList<>();
 
     /**
      * Instantiates  a new PersonInfoByFirstNameAndLastName object
@@ -32,9 +29,7 @@ public class PersonInfoCoveredByFirstNameAndLastNameListDTO {
 
     ) {
 
-
-        this.persons= persons;
-        this.medicalRecords = getMedicalRecords();
+      personInfoArray = new ArrayList<>();
 
     }
 

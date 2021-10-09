@@ -61,17 +61,13 @@ public class PersonsService {
      * Choose a person in the Repository by its first and lastname
      *
      * @param firstName : parameter to choose a person
-     *                  @param lastName : parameter to choose a person
+     * @param lastName  : parameter to choose a person
      * @return the information for a person
      */
     public Persons getPersonsFirstLastName(final String firstName, final String lastName) {
         return personsRepository.findByFirstNameAndLastName(firstName, lastName);
 
     }
-
-
-
-
 
 
     /**
@@ -84,9 +80,7 @@ public class PersonsService {
         personsRepository.deleteById(id);
     }
 
-    // 2021-09-04
-
-    /**
+     /**
      * delete a person by its firstname and lastname
      *
      * @param firstName
@@ -97,9 +91,6 @@ public class PersonsService {
         Persons personToDelete = personsRepository.findByFirstNameAndLastName(firstName, lastName);
         personsRepository.deleteById(personToDelete.getId());
     }
-
-
-    // 2021-08-27
 
     /**
      * Save a person in the Repository
@@ -150,8 +141,6 @@ public class PersonsService {
         return personsRepository.save(personToSave);
     }
 
-
-    //2021-08-26
 
     /**
      * update a person by its id
@@ -213,8 +202,6 @@ public class PersonsService {
         return null;
     }
 
-
-    //2021-08-26
 
     /**
      * modify a person by its firstname and lastname
@@ -290,27 +277,24 @@ public class PersonsService {
         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
 
         // récupérer l'adresse correspondant au numéro de la caserne.
-        String addressFireStation= fireStation1.getAddress();
+        String addressFireStation = fireStation1.getAddress();
 
         // chercher les personnes qui ont cette adresse
         PersonsCoveredByFireStationStationNumberDTO personCovered = new PersonsCoveredByFireStationStationNumberDTO();
         personCovered.setPersons(dtoPersonsRepository.findPersonByAddress(addressFireStation));
 
-        int count_child=0;
-        int count_adult=0;
+        int count_child = 0;
+        int count_adult = 0;
 
         Date date = new Date();
         int actualYear = date.getYear();
 
-        for (Persons p : personCovered.getPersons() ) {
+        for (Persons p : personCovered.getPersons()) {
 
             if (
-                    actualYear - medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(),p.getLastName()).getBirthDate().getYear() <= 18)
-
-            {
+                    actualYear - medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName()).getBirthDate().getYear() <= 18) {
                 count_child++;
-            }
-            else {
+            } else {
                 count_adult++;
             }
         }
@@ -327,6 +311,7 @@ public class PersonsService {
 
     /**
      * find email for persons living in a given city
+     *
      * @param city
      * @return
      */
@@ -337,32 +322,59 @@ public class PersonsService {
         CommunityEmailByCityListDTO emailList = new CommunityEmailByCityListDTO();
 
         // récupérer tous les emails des personnes vivant dans une ville donnée
-        for (Persons p:dtoPersonsRepository.findEmailByCity(city)) {
+        for (Persons p : dtoPersonsRepository.findEmailByCity(city)) {
 
-                    ArrayList<String> tmp = emailList.getEmailArray();
-                    tmp.add("Firstname: "+p.getFirstName()+" -- Lastname: "+p.getLastName() + "-> Email: "+p.getEmail());
+            ArrayList<String> tmp = emailList.getEmailArray();
+            tmp.add("Firstname: " + p.getFirstName() + " -- Lastname: " + p.getLastName() + "-> Email: " + p.getEmail());
 
-                    emailList.setEmailArray(tmp);
+            emailList.setEmailArray(tmp);
         }
 
         return emailList;
     }
 
+
+    // http://localhost:9090/personInfo?firstName=<firstName>&lastName=<lastName>
+
     /**
      * Find PersonInfo from given firstName and Lastname
+     *
      * @param firstName
      * @param lastName
      * @return personInfo
      */
     public PersonInfoCoveredByFirstNameAndLastNameListDTO findFirstNameAndLastNameDTO(String firstName, String lastName) {
 
-        // récupérer les données personnelles des personnes ainsi que les données médicales à partir du firstName et du lastName
-        PersonInfoCoveredByFirstNameAndLastNameListDTO personInfo = new PersonInfoCoveredByFirstNameAndLastNameListDTO();
+        PersonInfoCoveredByFirstNameAndLastNameListDTO personInfoArray = new PersonInfoCoveredByFirstNameAndLastNameListDTO();
 
-        personInfo.setPersons(dtoPersonsRepository.findPersonInfoByFirstNameAndLastName(firstName, lastName));
-        personInfo.setMedicalRecords(dtoMedicalRecordsRepository.findMedicalRecordsByFirstNameAndLastName(firstName, lastName));
+        // préparation tableau intermédiaire pour récupérer les données
+        ArrayList<String> tmp2 = personInfoArray.getPersonInfoArray();
 
-        return personInfo;
+        for (
+                Persons p : dtoPersonsRepository.findPersonInfoByFirstNameAndLastName(firstName, lastName)
+        ) {
+            tmp2.add(p.getFirstName()+" "+p.getLastName());
+            tmp2.add(p.getAddress());
+
+            MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
+
+            Date date = new Date();
+            Date birthdate = medicalRecords.getBirthDate();
+            tmp2.add("Age: " + (date.getYear() - birthdate.getYear()));
+
+            tmp2.add(p.getEmail());
+
+            String allergies = String.join(",", medicalRecords.getAllergies());
+            tmp2.add("Allergies: "+allergies);
+
+            String medications = String.join(",", medicalRecords.getMedications());
+            tmp2.add("Medications: "+medications);
+
+        }
+        personInfoArray.setPersonInfoArray(tmp2);
+
+
+        return personInfoArray;
     }
 
 
@@ -372,37 +384,39 @@ public class PersonsService {
     de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
     médicaux (médicaments, posologie et allergies) de chaque personne.*/
 
-
-
     public PersonsCoveredByFireStationAddressDTO2 findPersonsCoveredByAddress2(String address) {
 
         // Création objet de type PersonCoveredByFireStationDTO2
         PersonsCoveredByFireStationAddressDTO2 fireStationsArray = new PersonsCoveredByFireStationAddressDTO2();
 
-
         // préparation tableau intermédiaire pour récupérer les données
         ArrayList<String> tmp2 = (ArrayList<String>) fireStationsArray.getFireAddressArray();
 
-        Date date = new Date();
-
         tmp2.add(address);
 
+        FireStations fireStations = fireStationsRepository.findByAddress(address);
+        tmp2.add("StationNumber :" + fireStations.getStation().toString());
+        tmp2.add("   ");
+
         for (
-                Persons p:dtoPersonsRepository.findPersonsCoveredByAddress(address)
+                Persons p : dtoPersonsRepository.findPersonsCoveredByAddress(address)
         ) {
 
-            // FireStations fireStations = dtoFireStationsRepository.findFireStationByAddress(address);
-
-            tmp2.add(p.getFirstName()+" "+p.getLastName() );
-            tmp2.add("Phone : "+ p.getPhone());
+            tmp2.add(p.getFirstName() + " " + p.getLastName());
+            tmp2.add("Phone : " + p.getPhone());
 
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
 
+            Date date = new Date();
             Date birthdate = medicalRecords.getBirthDate();
-            tmp2.add("Age: "+(date.getYear()-birthdate.getYear()));
+            tmp2.add("Age: " + (date.getYear() - birthdate.getYear()));
 
-            tmp2.add(String.valueOf(medicalRecords.getAllergies()));
-            tmp2.add(String.valueOf(medicalRecords.getMedications()));
+
+            String allergies = String.join(",", medicalRecords.getAllergies());
+            tmp2.add("Allergies: "+allergies);
+
+            String medications = String.join(",", medicalRecords.getMedications());
+            tmp2.add("Medications: "+medications);
 
             tmp2.add("       ");
 
@@ -413,13 +427,17 @@ public class PersonsService {
         return fireStationsArray;
     }
 
+/*
+    http://localhost:9090/childAlert?address=<address>
 
-
-
-    //Child Alert
+    Cette url doit retourner une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette adresse.
+    La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
+    membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.
+*/
 
     /**
      * Child Alert
+     *
      * @param address
      * @return childAlertListDTO
      */
@@ -432,28 +450,27 @@ public class PersonsService {
         ArrayList<String> tmp = childAlertListDTO.getChildAlertArray();
         tmp.add(address);
 
-        for (Persons p:dtoPersonsRepository.findPersonByAddress(address)) {
+        for (Persons p : dtoPersonsRepository.findPersonByAddress(address)) {
 
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
 
             Date birthdate = medicalRecords.getBirthDate();
 
-            if (date.getYear() - birthdate.getYear() <= 18)
-            {
-                tmp.add(" Child : "+p.getFirstName()+" "+p.getLastName()+" Age: "+(date.getYear() - birthdate.getYear()));
-            }
-            else
-            {
-                tmp.add("Adult "+p.getFirstName()+" "+p.getLastName());
+            if (date.getYear() - birthdate.getYear() <= 18) {
+
+                tmp.add(" Child : " + p.getFirstName() + " " + p.getLastName() + " Age: " + (date.getYear() - birthdate.getYear()));
+
+            } else {
+
+                tmp.add("Adult " + p.getFirstName() + " " + p.getLastName());
+
             }
 
             childAlertListDTO.setChildAlertArray(tmp);
-
         }
 
         return childAlertListDTO;
     }
-
 
 
 

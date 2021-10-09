@@ -18,7 +18,8 @@ public class DtoChildAlertController {
     /**
      * @see PersonsService
      */
-    PersonsService personsService;
+     PersonsService personsService;
+
 
 
     /**
@@ -29,6 +30,7 @@ public class DtoChildAlertController {
     public DtoChildAlertController(PersonsService personsService) {
 
         this.personsService = personsService;
+
     }
 
 
