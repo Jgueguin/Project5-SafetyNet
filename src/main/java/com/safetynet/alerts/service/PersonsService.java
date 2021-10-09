@@ -81,7 +81,7 @@ public class PersonsService {
         personsRepository.deleteById(id);
     }
 
-     /**
+    /**
      * delete a person by its firstname and lastname
      *
      * @param firstName
@@ -265,7 +265,6 @@ public class PersonsService {
     }
 
 
-
     // DTO
 
     /**
@@ -356,7 +355,7 @@ public class PersonsService {
         for (
                 Persons p : dtoPersonsRepository.findPersonInfoByFirstNameAndLastName(firstName, lastName)
         ) {
-            tmp2.add(p.getFirstName()+" "+p.getLastName());
+            tmp2.add(p.getFirstName() + " " + p.getLastName());
             tmp2.add(p.getAddress());
 
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
@@ -368,10 +367,10 @@ public class PersonsService {
             tmp2.add(p.getEmail());
 
             String allergies = String.join(",", medicalRecords.getAllergies());
-            tmp2.add("Allergies: "+allergies);
+            tmp2.add("Allergies: " + allergies);
 
             String medications = String.join(",", medicalRecords.getMedications());
-            tmp2.add("Medications: "+medications);
+            tmp2.add("Medications: " + medications);
 
         }
         personInfoArray.setPersonInfoArray(tmp2);
@@ -416,10 +415,10 @@ public class PersonsService {
 
 
             String allergies = String.join(",", medicalRecords.getAllergies());
-            tmp2.add("Allergies: "+allergies);
+            tmp2.add("Allergies: " + allergies);
 
             String medications = String.join(",", medicalRecords.getMedications());
-            tmp2.add("Medications: "+medications);
+            tmp2.add("Medications: " + medications);
 
             tmp2.add("       ");
 
@@ -442,13 +441,13 @@ public class PersonsService {
      * Child Alert
      *
      * @param address
-     * @return childAlertListDTO
+     * @return childAlertList
      */
     public ChildAlertListDTO childAlertDTO(String address) {
 
         ChildAlertListDTO childAlertList = new ChildAlertListDTO();
 
-        Date date = new Date();
+
 
         ArrayList<String> tmp = childAlertList.getChildAlertArray();
         tmp.add(address);
@@ -456,7 +455,7 @@ public class PersonsService {
         for (Persons p : dtoPersonsRepository.findPersonByAddress(address)) {
 
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
-
+            Date date = new Date();
             Date birthdate = medicalRecords.getBirthDate();
 
             if (date.getYear() - birthdate.getYear() <= 18) {
@@ -481,46 +480,91 @@ public class PersonsService {
     Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
     pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.*/
 
+    /**
+     * phone Alert
+     *
+     * @param station
+     * @return phoneAlertList
+     */
     public PhoneAlertListDTO phoneAlertDTO(Integer station) {
 
-        PhoneAlertListDTO phoneAlert = new PhoneAlertListDTO();
+        PhoneAlertListDTO phoneAlertList = new PhoneAlertListDTO();
 
         // récupération de l'addresse à partir du numero de station
         List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
 
         // mise en place du tableau intermédiaire
-        ArrayList<String> tmp = phoneAlert.getPhoneAlertArray();
+        ArrayList<String> tmp = phoneAlertList.getPhoneAlertArray();
 
-        tmp.add("Caserne n°: "+station);
+        tmp.add("Caserne n°: " + station);
 
+        for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
+            tmp.add(f.getAddress());
+            for (Persons p : dtoPersonsRepository.findPersonByAddress(f.getAddress())) {
+                tmp.add("      " + p.getPhone());
 
-for (FireStations f:dtoFireStationsRepository.findByStation(station)){
-        tmp.add(f.getAddress());
-        for (Persons p :dtoPersonsRepository.findPersonByAddress(f.getAddress())){
-            tmp.add("      " + p.getPhone());
+            }
+
+            phoneAlertList.setPhoneAlertArray(tmp);
 
         }
 
-}
-
-
-
-
-
-        /*for (Persons p : dtoPersonsRepository.findPersonByAddress(fireStations.getAddress())) {
-
-            System.out.println(p);
-            phoneAlert.setPhoneAlertArray(tmp);
-        }
-*/
-        return phoneAlert;
+        return phoneAlertList;
     }
 
 
 
+/*
 
+    http://localhost:8080/flood/stations?stations=<a list of station_numbers>
 
+    Cette url doit retourner une liste de tous les foyers desservis par la caserne. Cette liste doit regrouper les
+    personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
+    faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
+
+*/
+
+    public FloodListDTO floodDTO(Integer station) {
+
+        FloodListDTO floodListDto = new FloodListDTO();
+
+        // récupération de l'addresse à partir du numero de station
+        List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
+
+        // mise en place du tableau intermédiaire
+        ArrayList<String> tmp = floodListDto.getFloodArray();
+
+        tmp.add("Caserne n°: " + station);
+
+        for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
+            tmp.add(f.getAddress());
+            for (Persons p : dtoPersonsRepository.findPersonByAddress(f.getAddress())) {
+
+                MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
+                Date date = new Date();
+                Date birthdate = medicalRecords.getBirthDate();
+                Integer age = date.getYear()-birthdate.getYear();
+
+                tmp.add("      " + p.getLastName()+" "+p.getFirstName());
+                tmp.add("                  "+p.getPhone());
+                tmp.add("                   Age: "+age);
+
+                String allergies = String.join(",", medicalRecords.getAllergies());
+                tmp.add("                   Allergies: " + allergies);
+
+                String medications = String.join(",", medicalRecords.getMedications());
+                tmp.add("                   Medications: " + medications);
+
+            }
+
+        }
+        return floodListDto;
+    }
 
 }
+
+
+
+
 
 
