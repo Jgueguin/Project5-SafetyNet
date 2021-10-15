@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.ChildAlertListDTO;
-import com.safetynet.alerts.service.PersonsService;
+import com.safetynet.alerts.service.DtoChildAlertService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,20 +16,20 @@ public class DtoChildAlertController {
 
 
     /**
-     * @see PersonsService
+     * @see DtoChildAlertService
      */
-     PersonsService personsService;
+    DtoChildAlertService dtoChildAlertService;
 
 
 
     /**
      * Instantiates a new Child Alert controller.
      *
-     * @param personsService the person service
+     * @param dtoChildAlertService the person service
      */
-    public DtoChildAlertController(PersonsService personsService) {
+    public DtoChildAlertController(DtoChildAlertService dtoChildAlertService) {
 
-        this.personsService = personsService;
+        this.dtoChildAlertService = dtoChildAlertService;
 
     }
 
@@ -46,7 +46,7 @@ public class DtoChildAlertController {
   @GetMapping("/childAlert")
     public ResponseEntity<ChildAlertListDTO> childAlertControllerDTO (@RequestParam String address) {
 
-        return ResponseEntity.ok(personsService.childAlertDTO(address));
+        return ResponseEntity.ok(dtoChildAlertService.childAlertDTO(address));
     }
 
 

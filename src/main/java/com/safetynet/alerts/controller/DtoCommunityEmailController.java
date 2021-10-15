@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.CommunityEmailByCityListDTO;
-import com.safetynet.alerts.service.PersonsService;
+import com.safetynet.alerts.service.DtoCommunityEmailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,19 +16,19 @@ public class DtoCommunityEmailController {
 
 
     /**
-     * @see PersonsService
+     * @see DtoCommunityEmailController
      */
-    PersonsService personsService;
+    DtoCommunityEmailService dtoCommunityEmailService;
 
 
     /**
-     * Instantiates a new EmailCity controller.
+     * Instantiates a new Community Email controller.
      *
-     * @param personsService the person service
+     * @param dtoCommunityEmailService the person service
      */
-    public DtoCommunityEmailController(PersonsService personsService) {
+    public DtoCommunityEmailController(DtoCommunityEmailService dtoCommunityEmailService) {
 
-        this.personsService = personsService;
+        this.dtoCommunityEmailService = dtoCommunityEmailService;
     }
 
 
@@ -43,7 +43,7 @@ public class DtoCommunityEmailController {
   @GetMapping("/communityEmail")
     public ResponseEntity<CommunityEmailByCityListDTO> emailCityControllerDTO (@RequestParam String city) {
 
-        return ResponseEntity.ok(personsService.extractEmailByCityDTO(city));
+        return ResponseEntity.ok(dtoCommunityEmailService.extractEmailByCityDTO(city));
     }
 
 
