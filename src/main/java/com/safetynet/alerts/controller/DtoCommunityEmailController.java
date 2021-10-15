@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
-public class DtoCommunityEmailCityController {
+public class DtoCommunityEmailController {
 
 
     /**
@@ -26,7 +26,7 @@ public class DtoCommunityEmailCityController {
      *
      * @param personsService the person service
      */
-    public DtoCommunityEmailCityController(PersonsService personsService) {
+    public DtoCommunityEmailController(PersonsService personsService) {
 
         this.personsService = personsService;
     }
