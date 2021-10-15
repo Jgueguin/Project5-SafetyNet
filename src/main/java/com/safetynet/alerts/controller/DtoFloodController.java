@@ -2,6 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.FloodListDTO;
+import com.safetynet.alerts.service.FloodService;
 import com.safetynet.alerts.service.PersonsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,22 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DtoFloodController {
 
-
     /**
      * @see PersonsService
      */
-     PersonsService personsService;
-
-
+     FloodService floodService;
 
     /**
      * Instantiates a new Flood controller.
      *
-     * @param personsService the person service
+     * @param floodService the person service
      */
-    public DtoFloodController(PersonsService personsService) {
+    public DtoFloodController(FloodService floodService) {
 
-        this.personsService = personsService;
+        this.floodService = floodService;
 
     }
 
@@ -46,9 +44,8 @@ public class DtoFloodController {
   @GetMapping("/flood/stations")
     public ResponseEntity<FloodListDTO> floodControllerDTO (@RequestParam Integer station) {
 
-        return ResponseEntity.ok(personsService.floodDTO(station));
+        return ResponseEntity.ok(floodService.floodDTO(station));
     }
-
 
 } //END
 

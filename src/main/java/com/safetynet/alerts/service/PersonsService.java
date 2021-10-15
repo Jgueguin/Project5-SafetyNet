@@ -311,30 +311,6 @@ public class PersonsService {
     }
 
 
-    /**
-     * find email for persons living in a given city
-     *
-     * @param city
-     * @return
-     */
-    public CommunityEmailByCityListDTO extractEmailByCityDTO(String city) {
-
-        // récupérer tous les habitants vivant dans une ville donnée
-        ListPersonDTO emailCity = new ListPersonDTO();
-        CommunityEmailByCityListDTO emailList = new CommunityEmailByCityListDTO();
-
-        // récupérer tous les emails des personnes vivant dans une ville donnée
-        for (Persons p : dtoPersonsRepository.findEmailByCity(city)) {
-
-            ArrayList<String> tmp = emailList.getEmailArray();
-            tmp.add("Firstname: " + p.getFirstName() + " -- Lastname: " + p.getLastName() + "-> Email: " + p.getEmail());
-
-            emailList.setEmailArray(tmp);
-        }
-
-        return emailList;
-    }
-
 
     // http://localhost:9090/personInfo?firstName=<firstName>&lastName=<lastName>
 
@@ -480,18 +456,19 @@ public class PersonsService {
 
     public FloodListDTO floodDTO(Integer station) {
 
-        FloodListDTO floodListDto = new FloodListDTO();
+        FloodListDTO floodArray = new FloodListDTO();
 
         // récupération de l'addresse à partir du numero de station
         List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
 
         // mise en place du tableau intermédiaire
-        ArrayList<String> tmp = floodListDto.getFloodArray();
+        ArrayList<String> tmp = floodArray.getFloodArray();
 
         tmp.add("Caserne n°: " + station);
 
         for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
             tmp.add(f.getAddress());
+
             for (Persons p : dtoPersonsRepository.findPersonByAddress(f.getAddress())) {
 
                 MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
@@ -510,9 +487,8 @@ public class PersonsService {
                 tmp.add("                   Medications: " + medications);
 
             }
-
         }
-        return floodListDto;
+        return floodArray;
     }
 
 }
