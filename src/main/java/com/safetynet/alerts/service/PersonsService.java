@@ -429,52 +429,6 @@ public class PersonsService {
         return fireStationsArray;
     }
 
-/*
-    http://localhost:9090/childAlert?address=<address>
-
-    Cette url doit retourner une liste d'enfants (tout individu âgé de 18 ans ou moins) habitant à cette adresse.
-    La liste doit comprendre le prénom et le nom de famille de chaque enfant, son âge et une liste des autres
-    membres du foyer. S'il n'y a pas d'enfant, cette url peut renvoyer une chaîne vide.
-*/
-
-    /**
-     * Child Alert
-     *
-     * @param address
-     * @return childAlertList
-     */
-    public ChildAlertListDTO childAlertDTO(String address) {
-
-        ChildAlertListDTO childAlertList = new ChildAlertListDTO();
-
-
-
-        ArrayList<String> tmp = childAlertList.getChildAlertArray();
-        tmp.add(address);
-
-        for (Persons p : dtoPersonsRepository.findPersonByAddress(address)) {
-
-            MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
-            Date date = new Date();
-            Date birthdate = medicalRecords.getBirthDate();
-
-            if (date.getYear() - birthdate.getYear() <= 18) {
-
-                tmp.add(" Child : " + p.getFirstName() + " " + p.getLastName() + " Age: " + (date.getYear() - birthdate.getYear()));
-
-            } else {
-
-                tmp.add("Adult " + p.getFirstName() + " " + p.getLastName());
-
-            }
-
-            childAlertList.setChildAlertArray(tmp);
-        }
-
-        return childAlertList;
-    }
-
-
     /*http://localhost:8080/phoneAlert?firestation=<firestation_number>
 
     Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
