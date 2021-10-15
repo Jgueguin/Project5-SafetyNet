@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.PhoneAlertListDTO;
-import com.safetynet.alerts.service.PersonsService;
+import com.safetynet.alerts.service.PhoneAlertService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,27 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DtoPhoneAlertController {
 
-
     /**
-     * @see PersonsService
+     * @see PhoneAlertService
      */
-     PersonsService personsService;
-
-
+     PhoneAlertService phoneAlertService;
 
     /**
-     * Instantiates a new Child Alert controller.
+     * Instantiates a new Phone Alert controller.
      *
-     * @param personsService the person service
+     * @param phoneAlertService the person service
      */
-    public DtoPhoneAlertController(PersonsService personsService) {
+    public DtoPhoneAlertController(PhoneAlertService phoneAlertService) {
 
-        this.personsService = personsService;
+        this.phoneAlertService = phoneAlertService;
 
     }
-
-
-
 
     /*http://localhost:9090/phoneAlert?firestation=<firestation_number>
 
@@ -52,7 +46,7 @@ public class DtoPhoneAlertController {
   @GetMapping("/phoneAlert")
     public ResponseEntity<PhoneAlertListDTO> phoneAlertControllerDTO (@RequestParam Integer station) {
 
-        return ResponseEntity.ok(personsService.phoneAlertDTO(station));
+        return ResponseEntity.ok(phoneAlertService.phoneAlertDTO(station));
     }
 
 } //END

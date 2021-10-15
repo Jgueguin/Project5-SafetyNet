@@ -3,7 +3,9 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
-import com.safetynet.alerts.model.dto.*;
+import com.safetynet.alerts.model.dto.PersonInfoCoveredByFirstNameAndLastNameListDTO;
+import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO2;
+import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationStationNumberDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -403,92 +404,6 @@ public class PersonsService {
         }
 
         return fireStationsArray;
-    }
-
-    /*http://localhost:8080/phoneAlert?firestation=<firestation_number>
-
-    Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
-    pompiers. Nous l'utiliserons pour envoyer des messages texte d'urgence à des foyers spécifiques.*/
-
-    /**
-     * phone Alert
-     *
-     * @param station
-     * @return phoneAlertList
-     */
-    public PhoneAlertListDTO phoneAlertDTO(Integer station) {
-
-        PhoneAlertListDTO phoneAlertList = new PhoneAlertListDTO();
-
-        // récupération de l'addresse à partir du numero de station
-        List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
-
-        // mise en place du tableau intermédiaire
-        ArrayList<String> tmp = phoneAlertList.getPhoneAlertArray();
-
-        tmp.add("Caserne n°: " + station);
-
-        for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
-            tmp.add(f.getAddress());
-            for (Persons p : dtoPersonsRepository.findPersonByAddress(f.getAddress())) {
-                tmp.add("      " + p.getPhone());
-
-            }
-
-            phoneAlertList.setPhoneAlertArray(tmp);
-
-        }
-
-        return phoneAlertList;
-    }
-
-
-
-/*
-
-    http://localhost:8080/flood/stations?stations=<a list of station_numbers>
-
-    Cette url doit retourner une liste de tous les foyers desservis par la caserne. Cette liste doit regrouper les
-    personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone et l'âge des habitants, et
-    faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
-
-*/
-
-    public FloodListDTO floodDTO(Integer station) {
-
-        FloodListDTO floodArray = new FloodListDTO();
-
-        // récupération de l'addresse à partir du numero de station
-        List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
-
-        // mise en place du tableau intermédiaire
-        ArrayList<String> tmp = floodArray.getFloodArray();
-
-        tmp.add("Caserne n°: " + station);
-
-        for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
-            tmp.add(f.getAddress());
-
-            for (Persons p : dtoPersonsRepository.findPersonByAddress(f.getAddress())) {
-
-                MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
-                Date date = new Date();
-                Date birthdate = medicalRecords.getBirthDate();
-                Integer age = date.getYear()-birthdate.getYear();
-
-                tmp.add("      " + p.getLastName()+" "+p.getFirstName());
-                tmp.add("                  "+p.getPhone());
-                tmp.add("                   Age: "+age);
-
-                String allergies = String.join(",", medicalRecords.getAllergies());
-                tmp.add("                   Allergies: " + allergies);
-
-                String medications = String.join(",", medicalRecords.getMedications());
-                tmp.add("                   Medications: " + medications);
-
-            }
-        }
-        return floodArray;
     }
 
 }
