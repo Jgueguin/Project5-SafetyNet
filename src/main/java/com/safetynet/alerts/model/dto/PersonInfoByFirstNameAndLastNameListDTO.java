@@ -17,7 +17,7 @@ toutes apparaître
 */
 
 @Data
-public class PersonInfoCoveredByFirstNameAndLastNameListDTO {
+public class PersonInfoByFirstNameAndLastNameListDTO {
 
     ArrayList<String> personInfoArray = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class PersonInfoCoveredByFirstNameAndLastNameListDTO {
      * Instantiates  a new PersonInfoByFirstNameAndLastName object
      *
      */
-    public PersonInfoCoveredByFirstNameAndLastNameListDTO(
+    public PersonInfoByFirstNameAndLastNameListDTO(
 
     ) {
 

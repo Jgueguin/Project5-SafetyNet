@@ -4,7 +4,7 @@ import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.FireStationByStationNumberDTO;
-import com.safetynet.alerts.model.dto.PersonInfoCoveredByFirstNameAndLastNameListDTO;
+import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameListDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -320,9 +320,9 @@ public class PersonsService {
      * @param lastName
      * @return personInfo
      */
-    public PersonInfoCoveredByFirstNameAndLastNameListDTO firstNameAndLastNameDTO(String firstName, String lastName) {
+    public PersonInfoByFirstNameAndLastNameListDTO firstNameAndLastNameDTO(String firstName, String lastName) {
 
-        PersonInfoCoveredByFirstNameAndLastNameListDTO personInfoArray = new PersonInfoCoveredByFirstNameAndLastNameListDTO();
+        PersonInfoByFirstNameAndLastNameListDTO personInfoArray = new PersonInfoByFirstNameAndLastNameListDTO();
 
         // préparation tableau intermédiaire pour récupérer les données
         ArrayList<String> tmp2 = personInfoArray.getPersonInfoArray();

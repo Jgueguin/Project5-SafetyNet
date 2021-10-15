@@ -1,8 +1,8 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.PersonInfoCoveredByFirstNameAndLastNameListDTO;
-import com.safetynet.alerts.service.PersonsService;
+import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameListDTO;
+import com.safetynet.alerts.service.PersonInfoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,19 +15,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class DtoPersonInfoController {
 
     /**
-     * @see PersonsService
+     * @see PersonInfoService
      */
-    PersonsService personsService;
+    PersonInfoService personInfoService;
 
 
     /**
      * Instantiates a new PersonInfo controller.
      *
-     * @param personsService the person service
+     * @param personInfoService the person service
      */
-    public DtoPersonInfoController(PersonsService personsService) {
+    public DtoPersonInfoController(PersonInfoService personInfoService) {
 
-        this.personsService = personsService;
+        this.personInfoService = personInfoService;
     }
 
 
@@ -41,13 +41,12 @@ public class DtoPersonInfoController {
      * @return
      */
   @GetMapping("/personInfo")
-    public ResponseEntity<PersonInfoCoveredByFirstNameAndLastNameListDTO> findPersonInfoControllerDTO (
+    public ResponseEntity<PersonInfoByFirstNameAndLastNameListDTO> findPersonInfoControllerDTO (
             @RequestParam String firstName,
             @RequestParam String lastName
   ) {
-        return ResponseEntity.ok(personsService.firstNameAndLastNameDTO(firstName,lastName));
+        return ResponseEntity.ok(personInfoService.firstNameAndLastNameDTO(firstName,lastName));
     }
-
 
 } //END
 
