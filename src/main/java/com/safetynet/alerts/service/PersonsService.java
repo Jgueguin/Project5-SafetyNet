@@ -3,9 +3,8 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
+import com.safetynet.alerts.model.dto.FireStationByStationNumberDTO;
 import com.safetynet.alerts.model.dto.PersonInfoCoveredByFirstNameAndLastNameListDTO;
-import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO2;
-import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationStationNumberDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -274,7 +273,7 @@ public class PersonsService {
      * @param station the number of the station
      * @return list of persons covered by station number
      */
-    public PersonsCoveredByFireStationStationNumberDTO personByStationDTO(Integer station) {
+    public FireStationByStationNumberDTO personByStationDTO(Integer station) {
 
         // pointer sur la caserne qui porte le numéro demandé
         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
@@ -283,7 +282,7 @@ public class PersonsService {
         String addressFireStation = fireStation1.getAddress();
 
         // chercher les personnes qui ont cette adresse
-        PersonsCoveredByFireStationStationNumberDTO personCovered = new PersonsCoveredByFireStationStationNumberDTO();
+        FireStationByStationNumberDTO personCovered = new FireStationByStationNumberDTO();
         personCovered.setPersons(dtoPersonsRepository.findPersonByAddress(addressFireStation));
 
         int count_child = 0;
@@ -310,7 +309,6 @@ public class PersonsService {
         return personCovered;
 
     }
-
 
 
     // http://localhost:9090/personInfo?firstName=<firstName>&lastName=<lastName>
@@ -352,58 +350,7 @@ public class PersonsService {
         }
         personInfoArray.setPersonInfoArray(tmp2);
 
-
         return personInfoArray;
-    }
-
-
-
-    /*http://localhost:9090/fire?address=<address>
-    Cette url doit retourner la liste des habitants vivant à l’adresse donnée ainsi que le numéro de la caserne
-    de pompiers la desservant. La liste doit inclure le nom, le numéro de téléphone, l'âge et les antécédents
-    médicaux (médicaments, posologie et allergies) de chaque personne.*/
-
-    public PersonsCoveredByFireStationAddressDTO2 personsCoveredByAddress2(String address) {
-
-        // Création objet de type PersonCoveredByFireStationDTO2
-        PersonsCoveredByFireStationAddressDTO2 fireStationsArray = new PersonsCoveredByFireStationAddressDTO2();
-
-        // préparation tableau intermédiaire pour récupérer les données
-        ArrayList<String> tmp2 = (ArrayList<String>) fireStationsArray.getFireAddressArray();
-
-        tmp2.add(address);
-
-        FireStations fireStations = fireStationsRepository.findByAddress(address);
-        tmp2.add("StationNumber :" + fireStations.getStation().toString());
-        tmp2.add("   ");
-
-        for (
-                Persons p : dtoPersonsRepository.findPersonsCoveredByAddress(address)
-        ) {
-
-            tmp2.add(p.getFirstName() + " " + p.getLastName());
-            tmp2.add("Phone : " + p.getPhone());
-
-            MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
-
-            Date date = new Date();
-            Date birthdate = medicalRecords.getBirthDate();
-            tmp2.add("Age: " + (date.getYear() - birthdate.getYear()));
-
-
-            String allergies = String.join(",", medicalRecords.getAllergies());
-            tmp2.add("Allergies: " + allergies);
-
-            String medications = String.join(",", medicalRecords.getMedications());
-            tmp2.add("Medications: " + medications);
-
-            tmp2.add("       ");
-
-            fireStationsArray.setFireAddressArray(tmp2);
-
-        }
-
-        return fireStationsArray;
     }
 
 }

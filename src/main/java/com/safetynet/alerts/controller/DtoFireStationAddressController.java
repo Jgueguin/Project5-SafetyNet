@@ -1,8 +1,8 @@
 
 package com.safetynet.alerts.controller;
 
-import com.safetynet.alerts.model.dto.PersonsCoveredByFireStationAddressDTO2;
-import com.safetynet.alerts.service.PersonsService;
+import com.safetynet.alerts.model.dto.FireStationByAddressDTO;
+import com.safetynet.alerts.service.FireStationByAddressService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,9 +16,9 @@ public class DtoFireStationAddressController {
 
 
     /**
-     * @see PersonsService
+     * @see FireStationByAddressService
      */
-    PersonsService personsService;
+    FireStationByAddressService fireStationByAddressService;
 
 
 
@@ -27,9 +27,9 @@ public class DtoFireStationAddressController {
      *
      * @param personsService the person service
      */
-    public DtoFireStationAddressController(PersonsService personsService) {
+    public DtoFireStationAddressController(FireStationByAddressService fireStationByAddressService) {
 
-        this.personsService = personsService;
+        this.fireStationByAddressService = fireStationByAddressService;
     }
 
     /*http://localhost:9090/fire?address=<address>
@@ -38,17 +38,16 @@ public class DtoFireStationAddressController {
     médicaux (médicaments, posologie et allergies) de chaque personne.*/
 
 
-
     /**
-     * Fire controller list.
+     * FireStation By Address controller .
      *
      * @param address:  the station address
      * @return the list
      */
     @GetMapping("/firesta")
-    public ResponseEntity<PersonsCoveredByFireStationAddressDTO2> FireStationController2DTO (@RequestParam String address) {
+    public ResponseEntity<FireStationByAddressDTO> FireStationController2DTO (@RequestParam String address) {
 
-        return ResponseEntity.ok(personsService.personsCoveredByAddress2(address));
+        return ResponseEntity.ok(fireStationByAddressService.personsCoveredByAddress2(address));
     }
 
 } //END

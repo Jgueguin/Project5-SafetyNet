@@ -1,17 +1,14 @@
 package com.safetynet.alerts.model.dto;
 
-import com.safetynet.alerts.model.FireStations;
-import com.safetynet.alerts.model.MedicalRecords;
-import com.safetynet.alerts.model.Persons;
 import lombok.Data;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * List of Persons living at an address and specific fire station
  */
 @Data
-public class PersonsCoveredByFireStationAddressDTO {
+public class FireStationByAddressDTO {
 
 /*
 http://localhost:8080/fire?address=<address>
@@ -22,18 +19,18 @@ médicaux (médicaments, posologie et allergies) de chaque personne.
 
  */
 
-    List<Persons> persons;
-    List<MedicalRecords> medicalRecords;
-    List<FireStations> fireStations;
+    List<String> fireAddressArray ;
 
-    public PersonsCoveredByFireStationAddressDTO(){
+    /**
+     * Instantiates a new fire Address Array
+     *
+     */
 
-        this.persons = persons;
-        this.medicalRecords = medicalRecords;
-        this.fireStations = fireStations;
+
+    public FireStationByAddressDTO(){
+
+        fireAddressArray =new ArrayList<>();
     }
-
-
 
 
 } // END
