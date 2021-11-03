@@ -34,7 +34,6 @@ public class PhoneAlertService {
     private DtoFireStationsRepository dtoFireStationsRepository;
 
 
-
     /*http://localhost:8080/phoneAlert?firestation=<firestation_number>
 
     Cette url doit retourner une liste des numéros de téléphone des résidents desservis par la caserne de
@@ -56,7 +55,7 @@ public class PhoneAlertService {
         // mise en place du tableau intermédiaire
         ArrayList<String> tmp = phoneAlertArray.getPhoneAlertArray();
 
-        tmp.add("Caserne n°: " + station);
+        // tmp.add("Caserne n°: " + station);
 
         for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
             tmp.add(f.getAddress());

@@ -53,7 +53,7 @@ public class DtoChildAlertService {
         ChildAlertListDTO childAlertArray = new ChildAlertListDTO();
 
         ArrayList<String> tmp = childAlertArray.getChildAlertArray();
-        tmp.add(address);
+        //         tmp.add(address);
 
         for (Persons p : dtoPersonsRepository.findPersonByAddress(address)) {
 
@@ -63,11 +63,11 @@ public class DtoChildAlertService {
 
             if (date.getYear() - birthdate.getYear() <= 18) {
 
-                tmp.add(" Child : " + p.getFirstName() + " " + p.getLastName() + " Age: " + (date.getYear() - birthdate.getYear()));
+                tmp.add("Child : " + p.getFirstName() + " " + p.getLastName() + " Age: " + (date.getYear() - birthdate.getYear()));
 
             } else {
 
-                tmp.add("Adult " + p.getFirstName() + " " + p.getLastName());
+                tmp.add("Adult :" + p.getFirstName() + " " + p.getLastName());
 
             }
 

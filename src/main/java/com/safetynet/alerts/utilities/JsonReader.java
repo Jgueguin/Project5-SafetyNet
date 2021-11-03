@@ -90,7 +90,6 @@ public class JsonReader {
                 System.out.println();
             //test
 
-
             personsService.saveAll(persons);
             fireStationsService.saveAll(fireStations);
             medicalRecordsService.saveAll(medicalRecords);
