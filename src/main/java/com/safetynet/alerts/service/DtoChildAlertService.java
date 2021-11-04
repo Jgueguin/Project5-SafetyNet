@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -58,12 +59,12 @@ public class DtoChildAlertService {
         for (Persons p : dtoPersonsRepository.findPersonByAddress(address)) {
 
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
-            Date date = new Date();
-            Date birthdate = medicalRecords.getBirthDate();
+            Calendar date = new GregorianCalendar();
+            Calendar birthdate = medicalRecords.getBirthDate();
 
-            if (date.getYear() - birthdate.getYear() <= 18) {
+            if (date.getWeekYear() - birthdate.getWeekYear() <= 18) {
 
-                tmp.add("Child : " + p.getFirstName() + " " + p.getLastName() + " Age: " + (date.getYear() - birthdate.getYear()));
+                tmp.add("Child : " + p.getFirstName() + " " + p.getLastName() + " Age: " + (date.getWeekYear() - birthdate.getWeekYear()));
 
             } else {
 

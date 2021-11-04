@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.Optional;
 
 
@@ -120,7 +120,7 @@ public class MedicalRecordsService {
                     medicalRecordsToUpdate.setLastName(lastName);
                 }
 
-                Date birthDate = medicalRecordsDetails.getBirthDate();
+                Calendar birthDate = medicalRecordsDetails.getBirthDate();
                 if (birthDate != null) {
                     medicalRecordsToUpdate.setBirthDate(birthDate);
                 }
@@ -157,7 +157,7 @@ public class MedicalRecordsService {
         try {
             MedicalRecords medicalRecordsToUpdate = medicalRecordsRepository.findByFirstNameAndLastName(firstName, lastName);
 
-            Date birthDate = medicalRecordsDetails.getBirthDate();
+            Calendar birthDate = medicalRecordsDetails.getBirthDate();
             if (birthDate != null) {
                 medicalRecordsToUpdate.setBirthDate(birthDate);
             }

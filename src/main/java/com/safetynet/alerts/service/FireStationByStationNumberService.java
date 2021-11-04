@@ -8,7 +8,8 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -51,13 +52,12 @@ public class FireStationByStationNumberService {
         int count_child = 0;
         int count_adult = 0;
 
-        Date date = new Date();
-        int actualYear = date.getYear();
+        Calendar date = new GregorianCalendar();
 
         for (Persons p : fireStationByStationNumberArray.getPersons()) {
 
             if (
-                    actualYear - medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName()).getBirthDate().getYear() <= 18) {
+                    date.getWeekYear() - medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName()).getBirthDate().getWeekYear() <= 18) {
                 count_child++;
             } else {
                 count_adult++;

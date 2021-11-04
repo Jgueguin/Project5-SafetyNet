@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -52,7 +53,6 @@ public class FireStationByAddressService {
 
         FireStations fireStations = fireStationsRepository.findByAddress(address);
         tmp2.add("StationNumber :" + fireStations.getStation().toString());
-        tmp2.add("   ");
 
         for (
                 Persons p : dtoPersonsRepository.findPersonsCoveredByAddress(address)
@@ -63,10 +63,11 @@ public class FireStationByAddressService {
 
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
 
-            Date date = new Date();
-            Date birthdate = medicalRecords.getBirthDate();
-            tmp2.add("Age: " + (date.getYear() - birthdate.getYear()));
+            Calendar date = new GregorianCalendar();
+            date.getWeekYear();
+            Calendar birthdate = medicalRecords.getBirthDate();
 
+            tmp2.add("Age: " + (date.getWeekYear() - birthdate.getWeekYear()));
 
             String allergies = String.join(",", medicalRecords.getAllergies());
             tmp2.add("Allergies: " + allergies);
@@ -74,7 +75,7 @@ public class FireStationByAddressService {
             String medications = String.join(",", medicalRecords.getMedications());
             tmp2.add("Medications: " + medications);
 
-            tmp2.add("       ");
+/*            tmp2.add("       ");*/
 
             fireStationsArray.setFireAddressArray(tmp2);
 

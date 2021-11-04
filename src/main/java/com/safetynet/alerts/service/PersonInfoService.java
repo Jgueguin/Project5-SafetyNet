@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 /**
@@ -57,9 +58,9 @@ public class PersonInfoService {
 
             MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
 
-            Date date = new Date();
-            Date birthdate = medicalRecords.getBirthDate();
-            tmp2.add("Age: " + (date.getYear() - birthdate.getYear()));
+            Calendar date = new GregorianCalendar();
+            Calendar birthdate = medicalRecords.getBirthDate();
+            tmp2.add("Age: " + (date.getWeekYear() - birthdate.getWeekYear()));
 
             tmp2.add(p.getEmail());
 

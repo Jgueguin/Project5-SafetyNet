@@ -9,9 +9,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Flood Service
@@ -50,9 +48,9 @@ public class FloodService {
             for (Persons p : dtoPersonsRepository.findPersonByAddress(f.getAddress())) {
 
                 MedicalRecords medicalRecords = medicalRecordsRepository.findByFirstNameAndLastName(p.getFirstName(), p.getLastName());
-                Date date = new Date();
-                Date birthdate = medicalRecords.getBirthDate();
-                Integer age = date.getYear()-birthdate.getYear();
+                Calendar date = new GregorianCalendar();
+                Calendar birthdate = medicalRecords.getBirthDate();
+                Integer age = date.getWeekYear()-birthdate.getWeekYear();
 
                 tmp.add("      " + p.getLastName()+" "+p.getFirstName());
                 tmp.add("                  "+p.getPhone());

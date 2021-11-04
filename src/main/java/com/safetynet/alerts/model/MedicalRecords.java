@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Calendar;
 
 
 /**
@@ -46,7 +46,7 @@ public class MedicalRecords {
     @Column(name = "birth_date")
     @JsonProperty("birthdate")
     @JsonFormat(pattern = "dd/MM/yyyy")
-    private Date birthDate;
+    private Calendar birthDate;
 
     /**
      * The Medications
@@ -83,7 +83,7 @@ public class MedicalRecords {
     public MedicalRecords(Long id,
                           String firstName,
                           String lastName,
-                          Date birthDate,
+                          Calendar birthDate,
                           String[] medications,
                           String[] allergies) {
 
