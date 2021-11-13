@@ -16,7 +16,6 @@ import java.util.Optional;
 public interface MedicalRecordsRepository extends CrudRepository<MedicalRecords, Long> {
 
 
-
 //2021-08-26
 
     /**

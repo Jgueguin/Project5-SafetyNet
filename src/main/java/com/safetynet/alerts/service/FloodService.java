@@ -36,11 +36,11 @@ public class FloodService {
 
         FloodListDTO floodArray = new FloodListDTO();
 
-        List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
+       //  List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
 
         ArrayList<String> tmp = floodArray.getFloodArray();
 
-        tmp.add("Caserne n°: " + station);
+        // tmp.add("Caserne n°: " + station);
 
         for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
             tmp.add(f.getAddress());
@@ -62,6 +62,7 @@ public class FloodService {
                 String medications = String.join(",", medicalRecords.getMedications());
                 tmp.add("                   Medications: " + medications);
 
+                floodArray.setFloodArray(tmp);
             }
         }
         return floodArray;

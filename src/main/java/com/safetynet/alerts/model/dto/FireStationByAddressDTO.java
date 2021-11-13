@@ -1,13 +1,17 @@
 package com.safetynet.alerts.model.dto;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.*;
 
 /**
  * List of Persons living at an address and specific fire station
  */
+
+@ToString
 @Data
+
 public class FireStationByAddressDTO {
 
 /*
@@ -26,11 +30,26 @@ médicaux (médicaments, posologie et allergies) de chaque personne.
      *
      */
 
-
     public FireStationByAddressDTO(){
 
         fireAddressArray =new ArrayList<>();
+
     }
+
+    @ToString.Include
+    public String toString() {
+        System.out.println("sout: "+fireAddressArray);
+
+
+        return this.fireAddressArray
+                + "]";
+    }
+
+
+
+
+
+    // rajouter un .toString
 
 
 } // END

@@ -1,6 +1,7 @@
 package com.safetynet.alerts.model.dto;
 
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.ArrayList;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  * Flood class.
  */
 @Data
+@ToString
 public class FloodListDTO {
 
 /*
@@ -18,8 +20,7 @@ personnes par adresse. Elle doit aussi inclure le nom, le numéro de téléphone
 faire figurer leurs antécédents médicaux (médicaments, posologie et allergies) à côté de chaque nom.
 
  */
-
-    ArrayList<String> floodArray = new ArrayList<>();
+    ArrayList<String> floodArray ;
 
     public FloodListDTO(
     ) {

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import java.util.Calendar;
  */
 
 @Data
+
 @Entity
 @Table(name = "medicalrecords")
 
@@ -93,7 +95,13 @@ public class MedicalRecords {
         this.birthDate = birthDate;
         this.medications = medications;
         this.allergies = allergies;
+
     }
 
+    @ToString.Include
+    public String toString() {
+        return "[id=" + this.id + " firstname=" + this.firstName + " lastname=" + this.lastName + " " + this.birthDate + " Medications=" + this.medications + " Allergies" + this.allergies
+                + "]";
+    }
 }
 
