@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
  * Child Alert controller.
  */
 @RestController
-public class DtoPhoneAlertController {
+public class DtoPhoneAlertController  {
+
 
     /**
      * @see PhoneAlertService
      */
      PhoneAlertService phoneAlertService;
+     Integer number;
 
     /**
      * Instantiates a new Phone Alert controller.
@@ -45,6 +47,8 @@ public class DtoPhoneAlertController {
 
   @GetMapping("/phoneAlert")
     public ResponseEntity<PhoneAlertListDTO> phoneAlertControllerDTO (@RequestParam Integer station) {
+
+      number = station;
 
         return ResponseEntity.ok(phoneAlertService.phoneAlertDTO(station));
     }

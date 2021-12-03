@@ -12,7 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
-public class DtoFireStationAddressController {
+ public class DtoFireStationAddressController  {
+
+// public class DtoFireStationAddressController implements HealthIndicator {
+
+
+
 
 
     /**
@@ -20,7 +25,7 @@ public class DtoFireStationAddressController {
      */
     FireStationByAddressService fireStationByAddressService;
 
-
+    String addr;
 
     /**
      * Instantiates a new Fire controller.
@@ -47,8 +52,12 @@ public class DtoFireStationAddressController {
     @GetMapping("/firesta")
     public ResponseEntity<FireStationByAddressDTO> FireStationController2DTO (@RequestParam String address) {
 
+        addr = address;
+
         return ResponseEntity.ok(fireStationByAddressService.personsCoveredByAddress2(address));
     }
+
+
 
 } //END
 

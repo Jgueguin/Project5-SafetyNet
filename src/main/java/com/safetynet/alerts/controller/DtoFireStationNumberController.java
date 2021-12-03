@@ -12,7 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
+
 public class DtoFireStationNumberController {
+
+// public class DtoFireStationNumberController implements HealthIndicator {
+
 
 
     /**
@@ -20,6 +24,7 @@ public class DtoFireStationNumberController {
      */
     FireStationByStationNumberService fireStationByStationNumberService;
 
+    Integer number;
 
     /**
      * Instantiates a new Fire controller.
@@ -43,8 +48,24 @@ public class DtoFireStationNumberController {
   @GetMapping("/fire")
     public ResponseEntity<FireStationByStationNumberDTO> fireControllerDTO (@RequestParam Integer stationNumber) {
 
+      number = stationNumber;
+
         return ResponseEntity.ok(fireStationByStationNumberService.personByStationDTO(stationNumber));
     }
+
+   /* @Override
+    public Health health() {
+
+        FireStationByStationNumberDTO list = fireStationByStationNumberService.personByStationDTO(number);
+
+        if(list.getPersons().isEmpty()) {
+            return Health.down().build();
+        }
+        return Health.up().build();
+    }
+*/
+
+
 
 } //END
 

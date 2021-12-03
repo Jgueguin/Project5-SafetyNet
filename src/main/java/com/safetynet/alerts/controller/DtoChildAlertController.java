@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Child Alert controller.
  */
 @RestController
-public class DtoChildAlertController {
+
+ public class DtoChildAlertController  {
 
 
     /**
@@ -20,6 +21,7 @@ public class DtoChildAlertController {
      */
     DtoChildAlertService dtoChildAlertService;
 
+    String add;
 
 
     /**
@@ -45,6 +47,8 @@ public class DtoChildAlertController {
 
   @GetMapping("/childAlert")
     public ResponseEntity<ChildAlertListDTO> childAlertControllerDTO (@RequestParam String address) {
+
+      add = address;
 
         return ResponseEntity.ok(dtoChildAlertService.childAlertDTO(address));
     }

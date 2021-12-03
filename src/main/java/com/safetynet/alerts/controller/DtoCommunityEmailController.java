@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
-public class DtoCommunityEmailController {
+public class DtoCommunityEmailController  {
 
 
     /**
      * @see DtoCommunityEmailController
      */
     DtoCommunityEmailService dtoCommunityEmailService;
-
+    String cit;
 
     /**
      * Instantiates a new Community Email controller.
@@ -43,8 +43,14 @@ public class DtoCommunityEmailController {
   @GetMapping("/communityEmail")
     public ResponseEntity<CommunityEmailByCityListDTO> emailCityControllerDTO (@RequestParam String city) {
 
+      cit = city;
+
         return ResponseEntity.ok(dtoCommunityEmailService.extractEmailByCityDTO(city));
     }
+
+
+
+
 
 
 } //END

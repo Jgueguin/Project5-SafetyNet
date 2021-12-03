@@ -86,7 +86,6 @@ public class Dto3PhoneAlertTest {
     @DisplayName("DTO 3 : Phone Alert")
     public void phoneAlertTest() {
 
-        System.out.println("DTO 3 : Phone Alert: ");
         when(dtoFireStationsRepository.findByStation(any())).thenReturn(fireStationsList);
         when(dtoPersonsRepository.findPersonByAddress(any())).thenReturn(personsList);
 

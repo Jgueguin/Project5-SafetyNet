@@ -153,7 +153,6 @@ public class Dto5FloodTest {
     @Test
     @DisplayName("Flood")
     public void floodTest() {
-        System.out.println("DTO 5 : Flood");
 
         when(dtoFireStationsRepository.findByStation(any())).thenReturn(fireStationsList);
         when(dtoPersonsRepository.findPersonByAddress(any())).thenReturn(personsList);
@@ -163,14 +162,7 @@ public class Dto5FloodTest {
             when(medicalRecordsRepository.findByFirstNameAndLastName(mr.getFirstName(), mr.getLastName())).thenReturn(mr);
 
        }
-
-        System.out.println(floodListDTO);
-        System.out.println(
-
-                floodService.floodDTO(1)
-        );
-
-   assertEquals(StringUtils.deleteWhitespace(floodListDTO.toString()), StringUtils.deleteWhitespace(floodService.floodDTO(1).toString()));
+       assertEquals(StringUtils.deleteWhitespace(floodListDTO.toString()), StringUtils.deleteWhitespace(floodService.floodDTO(1).toString()));
 
     }
 

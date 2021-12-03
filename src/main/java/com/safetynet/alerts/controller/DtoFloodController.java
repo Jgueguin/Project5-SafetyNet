@@ -13,12 +13,16 @@ import org.springframework.web.bind.annotation.RestController;
  * Flood controller.
  */
 @RestController
+
 public class DtoFloodController {
+
+//public class DtoFloodController implements HealthIndicator {
 
     /**
      * @see PersonsService
      */
      FloodService floodService;
+     Integer number;
 
     /**
      * Instantiates a new Flood controller.
@@ -44,8 +48,22 @@ public class DtoFloodController {
   @GetMapping("/flood/stations")
     public ResponseEntity<FloodListDTO> floodControllerDTO (@RequestParam Integer station) {
 
+      number = station;
         return ResponseEntity.ok(floodService.floodDTO(station));
     }
+
+   /* @Override
+    public Health health() {
+
+        FloodListDTO list = floodService.floodDTO(number);
+
+        if(list.getFloodArray().isEmpty()) {
+            return Health.down().build();
+        }
+        return Health.up().build();
+    }*/
+
+
 
 } //END
 

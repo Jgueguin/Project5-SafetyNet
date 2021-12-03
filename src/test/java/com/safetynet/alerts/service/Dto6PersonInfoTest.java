@@ -146,8 +146,6 @@ public class Dto6PersonInfoTest {
     @Test
     @DisplayName("Person Info")
     public void personInfoTest() {
-        System.out.println("*******************************");
-        System.out.println("DTO 6 : Person Info");
 
         when(dtoPersonsRepository.findPersonInfoByFirstNameAndLastName(any(),any())).thenReturn(personsList);
 

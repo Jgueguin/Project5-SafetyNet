@@ -12,13 +12,19 @@ import org.springframework.web.bind.annotation.RestController;
  * Fire controller.
  */
 @RestController
+
 public class DtoPersonInfoController {
+// public class DtoPersonInfoController implements HealthIndicator {
+
+
 
     /**
      * @see PersonInfoService
      */
     PersonInfoService personInfoService;
 
+    String first;
+    String last;
 
     /**
      * Instantiates a new PersonInfo controller.
@@ -45,8 +51,26 @@ public class DtoPersonInfoController {
             @RequestParam String firstName,
             @RequestParam String lastName
   ) {
+      first = firstName;
+      last = lastName;
+
         return ResponseEntity.ok(personInfoService.firstNameAndLastNameDTO(firstName,lastName));
     }
+
+    /*@Override
+    public Health health() {
+
+        PersonInfoByFirstNameAndLastNameListDTO list = personInfoService.firstNameAndLastNameDTO(first,last);
+
+        if(list.getPersonInfoArray().isEmpty()) {
+            return Health.down().build();
+        }
+        return Health.up().build();
+    }*/
+
+
+
+
 
 } //END
 

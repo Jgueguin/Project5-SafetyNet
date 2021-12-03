@@ -69,6 +69,7 @@ public class Dto7CommunityEmailTest {
     public void communityEmailTest() {
 
         when(dtoPersonsRepository.findEmailByCity(any())).thenReturn(personsList);
+
         assertEquals(StringUtils.deleteWhitespace(communityEmailByCityListDTO.toString()), StringUtils.deleteWhitespace(dtoCommunityEmailService.extractEmailByCityDTO(any()).toString()));
     }
 

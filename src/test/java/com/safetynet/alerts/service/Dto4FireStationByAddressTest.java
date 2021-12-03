@@ -150,8 +150,6 @@ public class Dto4FireStationByAddressTest {
     @Test
     @DisplayName("FireStation By Address")
     public void fireStationByAddressTest() {
-        System.out.println("*******************************");
-        System.out.println("DTO 4 : FireStation by Address");
 
         when(fireStationsRepository.findByAddress(any())).thenReturn(fireStationsList.get(0));
         when(dtoPersonsRepository.findPersonsCoveredByAddress(any())).thenReturn(personsList);
