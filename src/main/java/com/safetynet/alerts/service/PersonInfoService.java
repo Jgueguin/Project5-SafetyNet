@@ -50,7 +50,7 @@ public class PersonInfoService {
      */
     public PersonInfoByFirstNameAndLastNameListDTO firstNameAndLastNameDTO(String firstName, String lastName) {
 
-        logger.info("--> Call of PersonInfo by firstname and lastname DTO Service");
+        logger.info("Call of PersonInfo by firstname and lastname DTO Service");
 
         PersonInfoByFirstNameAndLastNameListDTO personInfoArray = new PersonInfoByFirstNameAndLastNameListDTO();
 

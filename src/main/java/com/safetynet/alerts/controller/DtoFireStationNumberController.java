@@ -34,7 +34,7 @@ public class DtoFireStationNumberController {
      */
     public DtoFireStationNumberController(FireStationByStationNumberService fireStationByStationNumberService) {
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.fireStationByStationNumberService = fireStationByStationNumberService;
     }
@@ -51,7 +51,7 @@ public class DtoFireStationNumberController {
   @GetMapping("/fire")
     public ResponseEntity<FireStationByStationNumberDTO> fireControllerDTO (@RequestParam Integer stationNumber) {
 
-      logger.info("--> Get Mapping FireStationByStationNumberDTO Controller");
+      logger.info("Get Mapping FireStationByStationNumberDTO Controller");
 
           number = stationNumber;
 

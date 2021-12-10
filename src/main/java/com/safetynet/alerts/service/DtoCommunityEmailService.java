@@ -45,14 +45,10 @@ public class DtoCommunityEmailService {
      */
     public CommunityEmailByCityListDTO extractEmailByCityDTO(String city) {
 
-        logger.info(" -->  Call of Extract Email By City DTO Service ");
-
-
-        // récupérer tous les habitants vivant dans une ville donnée
+        logger.info("Call of Extract Email By City DTO Service ");
 
         CommunityEmailByCityListDTO emailArray = new CommunityEmailByCityListDTO();
 
-        // récupérer tous les emails des personnes vivant dans une ville donnée
         for (Persons p : dtoPersonsRepository.findEmailByCity(city)) {
 
             ArrayList<String> tmp = emailArray.getEmailArray();
@@ -65,9 +61,3 @@ public class DtoCommunityEmailService {
     }
 
 }
-
-
-
-
-
-

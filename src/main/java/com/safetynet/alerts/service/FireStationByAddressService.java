@@ -46,13 +46,10 @@ public class FireStationByAddressService {
 
     public FireStationByAddressDTO personsCoveredByAddress2(String address) {
 
-        logger.info(" -->  Call of Persons Covered By Address Service ");
+        logger.info("Call of Persons Covered By Address Service ");
 
-
-        // Création objet de type PersonCoveredByFireStationDTO2
         FireStationByAddressDTO fireStationsArray = new FireStationByAddressDTO();
 
-        // préparation tableau intermédiaire pour récupérer les données
         ArrayList<String> tmp2 = (ArrayList<String>) fireStationsArray.getFireAddressArray();
 
         tmp2.add(address);
@@ -80,8 +77,6 @@ public class FireStationByAddressService {
 
             String medications = String.join(",", medicalRecords.getMedications());
             tmp2.add("Medications: " + medications);
-
-/*            tmp2.add("       ");*/
 
             fireStationsArray.setFireAddressArray(tmp2);
 

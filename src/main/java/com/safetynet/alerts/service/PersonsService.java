@@ -216,7 +216,7 @@ public class PersonsService {
 
         } catch (Exception e) {
 
-            logger.error(e);
+            logger.error("Person doesn't exist");
 
         }
 

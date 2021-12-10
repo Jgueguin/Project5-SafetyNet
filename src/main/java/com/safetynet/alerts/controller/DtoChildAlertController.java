@@ -34,7 +34,7 @@ import org.apache.logging.log4j.Logger;
      */
     public DtoChildAlertController(DtoChildAlertService dtoChildAlertService) {
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.dtoChildAlertService = dtoChildAlertService;
     }
@@ -52,7 +52,7 @@ import org.apache.logging.log4j.Logger;
   @GetMapping("/childAlert")
     public ResponseEntity<ChildAlertListDTO> childAlertControllerDTO (@RequestParam String address) {
 
-      logger.info("--> Get Mapping Child Alert controller");
+      logger.info("Get Mapping Child Alert controller");
 
       add = address;
 

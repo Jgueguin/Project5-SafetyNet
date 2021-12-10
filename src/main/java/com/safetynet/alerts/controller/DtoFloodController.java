@@ -33,7 +33,7 @@ public class DtoFloodController {
      */
     public DtoFloodController(FloodService floodService) {
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.floodService = floodService;
 

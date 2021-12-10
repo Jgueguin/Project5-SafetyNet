@@ -158,7 +158,7 @@ public class MedicalRecordsService {
 
         } catch (Exception e) {
 
-            logger.error(e);
+            logger.error("Medical Record doesn't exist");
 
         }
         return null;
@@ -198,7 +198,7 @@ public class MedicalRecordsService {
 
         } catch (Exception e) {
 
-            logger.error(e);
+            logger.error("Medical Record doesn't exist");
 
         }
         return null;

@@ -21,9 +21,7 @@ public class FireStationsService {
     private FireStationsRepository fireStationsRepository;
 
     //Logger
-    private static final Logger logger = LogManager.getLogger("App");
-
-
+    private static final Logger logger = LogManager.getLogger("FireStationsService");
 
     /**
      * Select a choosen Fire Station between all
@@ -33,7 +31,7 @@ public class FireStationsService {
      */
     public Optional<FireStations> getFireStationsById(final Long id) {
 
-        logger.info("--> Get FireStation by Id Service");
+        logger.info("Get FireStation by Id ");
 
         Optional<FireStations> optionalFireStations = fireStationsRepository.findById(id);
 
@@ -52,7 +50,7 @@ public class FireStationsService {
      */
     public Iterable<FireStations> getFireStationsAll() {
 
-        logger.info("--> Get All FireStation Service");
+        logger.info("Get All FireStation");
 
         return fireStationsRepository.findAll();
     }
@@ -64,7 +62,7 @@ public class FireStationsService {
      */
     public void deleteFireStationsById(final Long id) {
 
-        logger.info("--> Delete Fire Station by Id Service");
+        logger.info("Delete a Fire Station by Id");
 
         fireStationsRepository.deleteById(id);
     }
@@ -88,7 +86,7 @@ public class FireStationsService {
      */
     public FireStations saveFirestations(FireStations firestations) {
 
-        logger.info("--> Save a Firestation");
+        logger.info("Save a Firestation");
 
         FireStations savedFirestations = fireStationsRepository.save(firestations);
         return firestations;
@@ -103,7 +101,7 @@ public class FireStationsService {
      */
     public Iterable<FireStations> saveAll(Iterable<FireStations> firestations) {
 
-        logger.info("--> Save all FireStations ");
+        logger.info("Save all FireStations ");
 
         return fireStationsRepository.saveAll(firestations);
     }
@@ -125,7 +123,7 @@ public class FireStationsService {
 
         try {
 
-            logger.info("--> Update FireStation By Id");
+            logger.info("Update FireStation By Id");
 
             Optional<FireStations> optionalFireStations = fireStationsRepository.findById(id);
 
@@ -150,9 +148,7 @@ public class FireStationsService {
         }
         catch (Exception e) {
 
-            logger.error(e);
-
-
+            logger.error("Fire station doesn't exist");
 
         }
         return null;
@@ -173,7 +169,7 @@ public class FireStationsService {
 
         try {
 
-            logger.info("--> Update Fire Station by Address Service");
+            logger.info("Update Fire Station by Address Service");
 
            FireStations fireStationsToUpdate = fireStationsRepository.findByAddress(address);
 
@@ -186,9 +182,9 @@ public class FireStationsService {
 
         } catch(Exception exception){
 
-            logger.error(exception);
+            logger.error("Fire station doesn't exist");
         }
-        System.out.println("Return null");
+
         return null;
     }
 

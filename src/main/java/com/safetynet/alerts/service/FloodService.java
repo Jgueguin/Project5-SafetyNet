@@ -42,15 +42,11 @@ public class FloodService {
 
     public FloodListDTO floodDTO(Integer station) {
 
-        logger.info("--> Call of Flood DTO service");
+        logger.info("Call of Flood DTO service");
 
         FloodListDTO floodArray = new FloodListDTO();
 
-       //  List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
-
         ArrayList<String> tmp = floodArray.getFloodArray();
-
-        // tmp.add("Caserne n°: " + station);
 
         for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
             tmp.add(f.getAddress());

@@ -55,8 +55,7 @@ public class DtoChildAlertService {
      */
     public ChildAlertListDTO childAlertDTO(String address) {
 
-        logger.info(" -->  Call of Dto Child Alert Service ");
-
+        logger.info("Call of Dto Child Alert Service ");
 
         ChildAlertListDTO childAlertArray = new ChildAlertListDTO();
 

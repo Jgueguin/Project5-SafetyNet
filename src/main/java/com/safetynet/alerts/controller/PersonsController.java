@@ -27,7 +27,7 @@ public class PersonsController {
 
     public PersonsController (PersonsService personsService){
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.personsService = personsService;
     }

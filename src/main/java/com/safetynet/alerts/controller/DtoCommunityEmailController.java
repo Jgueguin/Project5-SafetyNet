@@ -31,7 +31,7 @@ public class DtoCommunityEmailController  {
      */
     public DtoCommunityEmailController(DtoCommunityEmailService dtoCommunityEmailService) {
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.dtoCommunityEmailService = dtoCommunityEmailService;
     }
@@ -48,16 +48,12 @@ public class DtoCommunityEmailController  {
   @GetMapping("/communityEmail")
     public ResponseEntity<CommunityEmailByCityListDTO> emailCityControllerDTO (@RequestParam String city) {
 
-      logger.info("--> Get Mapping EmailCity controller");
+      logger.info("Get Mapping EmailCity controller");
 
       cit = city;
 
         return ResponseEntity.ok(dtoCommunityEmailService.extractEmailByCityDTO(city));
     }
-
-
-
-
 
 
 } //END

@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
      */
     public DtoFireStationAddressController(FireStationByAddressService fireStationByAddressService) {
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.fireStationByAddressService = fireStationByAddressService;
     }
@@ -51,7 +51,7 @@ import org.springframework.web.bind.annotation.RestController;
     @GetMapping("/firesta")
     public ResponseEntity<FireStationByAddressDTO> FireStationController2DTO (@RequestParam String address) {
 
-        logger.info("--> Get Mapping FireStation By Address DTO controller");
+        logger.info("Get Mapping FireStation By Address DTO controller");
 
         addr = address;
 

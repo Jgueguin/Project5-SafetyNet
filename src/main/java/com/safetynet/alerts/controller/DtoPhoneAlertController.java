@@ -32,7 +32,7 @@ public class DtoPhoneAlertController  {
      */
     public DtoPhoneAlertController(PhoneAlertService phoneAlertService) {
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.phoneAlertService = phoneAlertService;
 

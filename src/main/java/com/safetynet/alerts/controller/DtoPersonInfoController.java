@@ -34,7 +34,7 @@ public class DtoPersonInfoController {
      */
     public DtoPersonInfoController(PersonInfoService personInfoService) {
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.personInfoService = personInfoService;
     }

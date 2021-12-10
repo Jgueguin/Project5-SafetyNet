@@ -45,7 +45,7 @@ public class FireStationByStationNumberService {
      * @return list of persons covered by station number
      */
     public FireStationByStationNumberDTO personByStationDTO(Integer station) {
-        logger.info(" -->  Call of Persons By Station DTO Service ");
+        logger.info("Call of Persons By Station DTO Service ");
 
         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
 
@@ -75,11 +75,4 @@ public class FireStationByStationNumberService {
         return fireStationByStationNumberArray;
 
     }
-
 }
-
-
-
-
-
-

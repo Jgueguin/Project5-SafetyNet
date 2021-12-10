@@ -51,17 +51,13 @@ public class PhoneAlertService {
      */
     public PhoneAlertListDTO phoneAlertDTO(Integer station) {
 
-        logger.info("--> Call of Person Alert Service");
+        logger.info("Call of Person Alert Service");
 
         PhoneAlertListDTO phoneAlertArray = new PhoneAlertListDTO();
 
-        // récupération de l'addresse à partir du numero de station
         List<FireStations> fireStations = dtoFireStationsRepository.findByStation(station);
 
-        // mise en place du tableau intermédiaire
         ArrayList<String> tmp = phoneAlertArray.getPhoneAlertArray();
-
-        // tmp.add("Caserne n°: " + station);
 
         for (FireStations f : dtoFireStationsRepository.findByStation(station)) {
             tmp.add(f.getAddress());
@@ -76,7 +72,6 @@ public class PhoneAlertService {
 
         return phoneAlertArray;
     }
-
 }
 
 

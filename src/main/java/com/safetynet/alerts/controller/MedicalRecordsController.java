@@ -26,7 +26,7 @@ public class MedicalRecordsController {
 
     public MedicalRecordsController(MedicalRecordsService medicalRecordsService){
 
-        logger.info("--> Instantiates a new controller");
+        logger.info("Instantiates a new controller");
 
         this.medicalRecordsService = medicalRecordsService;
     }
@@ -75,7 +75,6 @@ public class MedicalRecordsController {
             @PathVariable("firstName") final String firstName,
             @PathVariable("lastName") final String lastName)
     {
-
         logger.info("Get mapping a medical records by its firstname and lastname");
 
         return ResponseEntity.ok(medicalRecordsService.findByFirstNameAndLastName(firstName, lastName));
