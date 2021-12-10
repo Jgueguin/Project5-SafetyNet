@@ -4,6 +4,8 @@ import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.CommunityEmailByCityListDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +34,9 @@ public class DtoCommunityEmailService {
     private DtoFireStationsRepository dtoFireStationsRepository;
 
 
+    // logger
+    private static final Logger logger = LogManager.getLogger("DtoCommunityEmailService");
+
     /**
      * find email for persons living in a given city
      *
@@ -39,6 +44,9 @@ public class DtoCommunityEmailService {
      * @return
      */
     public CommunityEmailByCityListDTO extractEmailByCityDTO(String city) {
+
+        logger.info(" -->  Call of Extract Email By City DTO Service ");
+
 
         // récupérer tous les habitants vivant dans une ville donnée
 

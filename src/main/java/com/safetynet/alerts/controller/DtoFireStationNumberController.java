@@ -3,6 +3,8 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.FireStationByStationNumberDTO;
 import com.safetynet.alerts.service.FireStationByStationNumberService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,13 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * Fire controller.
  */
+
 @RestController
 
 public class DtoFireStationNumberController {
 
-// public class DtoFireStationNumberController implements HealthIndicator {
-
-
+    private static final Logger logger = LogManager.getLogger("DtoFireStationNumberController");
 
     /**
      * @see FireStationByStationNumberService
@@ -32,6 +33,8 @@ public class DtoFireStationNumberController {
      * @param fireStationByStationNumberService the person service
      */
     public DtoFireStationNumberController(FireStationByStationNumberService fireStationByStationNumberService) {
+
+        logger.info("--> Instantiates a new controller");
 
         this.fireStationByStationNumberService = fireStationByStationNumberService;
     }
@@ -48,23 +51,12 @@ public class DtoFireStationNumberController {
   @GetMapping("/fire")
     public ResponseEntity<FireStationByStationNumberDTO> fireControllerDTO (@RequestParam Integer stationNumber) {
 
-      number = stationNumber;
+      logger.info("--> Get Mapping FireStationByStationNumberDTO Controller");
+
+          number = stationNumber;
 
         return ResponseEntity.ok(fireStationByStationNumberService.personByStationDTO(stationNumber));
     }
-
-   /* @Override
-    public Health health() {
-
-        FireStationByStationNumberDTO list = fireStationByStationNumberService.personByStationDTO(number);
-
-        if(list.getPersons().isEmpty()) {
-            return Health.down().build();
-        }
-        return Health.up().build();
-    }
-*/
-
 
 
 } //END

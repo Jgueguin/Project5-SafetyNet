@@ -5,6 +5,8 @@ import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.FireStationByStationNumberDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +35,8 @@ public class FireStationByStationNumberService {
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 
+    // Logger
+    private static final Logger logger = LogManager.getLogger("FireStationByStationNumberService");
 
     /**
      * FireStation By StationNumber Service
@@ -41,6 +45,7 @@ public class FireStationByStationNumberService {
      * @return list of persons covered by station number
      */
     public FireStationByStationNumberDTO personByStationDTO(Integer station) {
+        logger.info(" -->  Call of Persons By Station DTO Service ");
 
         FireStations fireStation1 = dtoFireStationsRepository.findByStation(station).get(0);
 

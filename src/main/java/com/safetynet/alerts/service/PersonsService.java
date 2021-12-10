@@ -3,6 +3,8 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,10 @@ public class PersonsService {
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 
+    //Logger
+    private static final Logger logger = LogManager.getLogger("PersonsService");
+
+
 
     /**
      * Choose a person in the Repository
@@ -38,6 +44,9 @@ public class PersonsService {
      * @return the information for a person
      */
     public Optional<Persons> getPersons(final Long id) {
+
+        logger.info("Choose a person in the repository");
+
         return personsRepository.findById(id);
 
     }
@@ -48,6 +57,9 @@ public class PersonsService {
      * @return the informations of all the persons
      */
     public Iterable<Persons> getPersons() {
+
+        logger.info("Retrieve all the persons in the repository");
+
         return personsRepository.findAll();
     }
 
@@ -60,6 +72,9 @@ public class PersonsService {
      * @return the information for a person
      */
     public Persons getPersonsFirstLastName(final String firstName, final String lastName) {
+
+        logger.info("Choose a person in the repository by its first and lastname");
+
         return personsRepository.findByFirstNameAndLastName(firstName, lastName);
 
     }
@@ -72,6 +87,8 @@ public class PersonsService {
      */
     public void deletePersons(final Long id) {
 
+        logger.info("Delete a person by its Id");
+
         personsRepository.deleteById(id);
     }
 
@@ -82,6 +99,8 @@ public class PersonsService {
      * @param lastName
      */
     public void deletePersonByFirstNameAndLastName(String firstName, String lastName) {
+
+        logger.info("Delete a person by its firstname and lastname");
 
         Persons personToDelete = personsRepository.findByFirstNameAndLastName(firstName, lastName);
         personsRepository.deleteById(personToDelete.getId());
@@ -95,6 +114,8 @@ public class PersonsService {
      */
 
     public Persons savePersons(Persons personsDetails) {
+
+        logger.info("Save a person in the repository");
 
         Persons personToSave = new Persons();
 
@@ -146,6 +167,9 @@ public class PersonsService {
      */
     public Persons updatePersonsById(Long id, Persons personsDetails) {
         try {
+
+            logger.info("Update a person by its Id");
+
             Optional<Persons> optionalPerson = personsRepository.findById(id);
 
             if (optionalPerson.isPresent()) {
@@ -191,7 +215,9 @@ public class PersonsService {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+
+            logger.error(e);
+
         }
 
         return null;
@@ -209,6 +235,8 @@ public class PersonsService {
             Persons personsDetails) {
 
         try {
+
+            logger.info("Modify a person by its first and lastname");
 
             Persons personToUpdate = personsRepository.findByFirstNameAndLastName(firstName, lastName);
 
@@ -240,9 +268,10 @@ public class PersonsService {
             return personsRepository.save(personToUpdate);
 
         } catch (Exception exception) {
-            exception.printStackTrace();
+
+            logger.error("Person doesn't exist");
         }
-        System.out.println("Return null");
+
         return null;
     }
 
@@ -253,6 +282,8 @@ public class PersonsService {
      * @return list of persons saved
      */
     public Iterable<Persons> saveAll(Iterable<Persons> persons) {
+
+        logger.info("Save all persons");
 
         return personsRepository.saveAll(persons);
     }

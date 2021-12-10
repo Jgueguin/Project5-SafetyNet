@@ -5,6 +5,8 @@ import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameListDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,6 +36,9 @@ public class PersonInfoService {
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 
+    //Logger
+    private static final Logger logger = LogManager.getLogger("App");
+
     // http://localhost:9090/personInfo?firstName=<firstName>&lastName=<lastName>
 
     /**
@@ -44,6 +49,8 @@ public class PersonInfoService {
      * @return personInfo
      */
     public PersonInfoByFirstNameAndLastNameListDTO firstNameAndLastNameDTO(String firstName, String lastName) {
+
+        logger.info("--> Call of PersonInfo by firstname and lastname DTO Service");
 
         PersonInfoByFirstNameAndLastNameListDTO personInfoArray = new PersonInfoByFirstNameAndLastNameListDTO();
 

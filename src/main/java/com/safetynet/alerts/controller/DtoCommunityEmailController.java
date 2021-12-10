@@ -3,6 +3,8 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.CommunityEmailByCityListDTO;
 import com.safetynet.alerts.service.DtoCommunityEmailService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DtoCommunityEmailController  {
 
+    private static final Logger logger = LogManager.getLogger("DtoCommunityEmailController");
 
     /**
      * @see DtoCommunityEmailController
@@ -27,6 +30,8 @@ public class DtoCommunityEmailController  {
      * @param dtoCommunityEmailService the person service
      */
     public DtoCommunityEmailController(DtoCommunityEmailService dtoCommunityEmailService) {
+
+        logger.info("--> Instantiates a new controller");
 
         this.dtoCommunityEmailService = dtoCommunityEmailService;
     }
@@ -42,6 +47,8 @@ public class DtoCommunityEmailController  {
      */
   @GetMapping("/communityEmail")
     public ResponseEntity<CommunityEmailByCityListDTO> emailCityControllerDTO (@RequestParam String city) {
+
+      logger.info("--> Get Mapping EmailCity controller");
 
       cit = city;
 

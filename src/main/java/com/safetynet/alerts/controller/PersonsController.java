@@ -2,8 +2,9 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.service.PersonsService;
-import edu.umd.cs.findbugs.classfile.ResourceNotFoundException;
 import javassist.NotFoundException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,13 @@ public class PersonsController {
     @Autowired
     private PersonsService personsService;
 
+    //Logger
+    private static final Logger logger = LogManager.getLogger("PersonsController");
+
+
     public PersonsController (PersonsService personsService){
+
+        logger.info("--> Instantiates a new controller");
 
         this.personsService = personsService;
     }
@@ -31,6 +38,8 @@ public class PersonsController {
      */
     @GetMapping("/persons")
     public ResponseEntity<Iterable<Persons>> getPersons() {
+
+        logger.info("Get Mapping - Get all persons");
 
        return ResponseEntity.ok(personsService.getPersons());
     }
@@ -43,6 +52,8 @@ public class PersonsController {
     @GetMapping("/persons/{id}")
     public ResponseEntity<Persons> getPersons(@PathVariable("id") final Long id) {
 
+        logger.info("Get Mapping - Get one persons with its id");
+
         Optional<Persons> persons = personsService.getPersons(id);
 
         if(persons.isPresent()) {
@@ -53,7 +64,7 @@ public class PersonsController {
     }
 
     /**
-     *
+     * Get one persons with its firstname and lastname
      * @param firstname
      * @param lastname
      * @return
@@ -63,6 +74,8 @@ public class PersonsController {
             @PathVariable("firstname") final String firstname,
             @PathVariable("lastname") final String lastname) {
         Persons personsFirstLastName = (personsService.getPersonsFirstLastName(firstname, lastname));
+
+        logger.info("Get Mapping - Get one persons with its firstname and lastname");
 
         return ResponseEntity.ok(personsFirstLastName);
     }
@@ -74,6 +87,8 @@ public class PersonsController {
      */
     @DeleteMapping("/persons/{id}")
     public void deletePersons(@PathVariable("id") final Long id) {
+
+        logger.info("DeleteMapping - Delete one persons with its id");
 
         personsService.deletePersons(id);
     }
@@ -90,6 +105,8 @@ public class PersonsController {
             @PathVariable("firstName") final String firstName,
             @PathVariable("lastName") final String lastName)
     {
+        logger.info("DeleteMapping - Delete a person with its firstname and lastname");
+
         personsService.deletePersonByFirstNameAndLastName(firstName, lastName);
     }
 
@@ -101,6 +118,8 @@ public class PersonsController {
     @PostMapping("/persons")
     public ResponseEntity<Persons> createPersons(
             @RequestBody Persons personsDetails) {
+
+        logger.info("Create mapping - create a new person");
 
         personsService.savePersons(personsDetails);
 
@@ -115,12 +134,13 @@ public class PersonsController {
      * @param id
      * @param personsDetails
      * @return
-     * @throws ResourceNotFoundException
      */
     @PutMapping("/persons/{id}")
     public ResponseEntity<Persons> updatePersonsById(
             @PathVariable("id") Long id,
             @RequestBody Persons personsDetails) {
+
+            logger.info("PutMapping - modify a person with its id");
 
             personsService.updatePersonsById(id, personsDetails);
 
@@ -140,6 +160,8 @@ public class PersonsController {
             @PathVariable(value = "firstName") String firstName,
             @PathVariable(value = "lastName") String lastName,
             @RequestBody Persons personsDetails ){
+
+            logger.info("Put mapping - modify a person with its firstname and lastname");
 
             personsService.updatePersonsByFirstNameAndLastName(firstName, lastName, personsDetails);
 

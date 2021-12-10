@@ -2,6 +2,8 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.service.FireStationsService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +22,13 @@ public class FireStationsController {
     @Autowired
     private FireStationsService fireStationsService;
 
+    //Logger
+    private static final Logger logger = LogManager.getLogger("FireStationsController");
+
     public FireStationsController(FireStationsService fireStationsService){
+
+        logger.info("--> Instantiates a new controller");
+
         this.fireStationsService = fireStationsService;
     }
 
@@ -31,6 +39,8 @@ public class FireStationsController {
      */
     @GetMapping("/firestations")
     public ResponseEntity<Iterable<FireStations>> getFireStationsAll() {
+
+        logger.info("Get Mapping all fire stations");
 
         return ResponseEntity.ok(fireStationsService.getFireStationsAll());
     }
@@ -45,6 +55,8 @@ public class FireStationsController {
     public ResponseEntity<FireStations> getFireStationsById(
             @PathVariable("id") final Long id)
     {
+        logger.info("Get Mapping a fire station");
+
         Optional<FireStations> fireStationsDetails = (fireStationsService.getFireStationsById(id));
 
         if(fireStationsDetails.isPresent()) {
@@ -57,13 +69,6 @@ public class FireStationsController {
     }
 
 
-
-
-
-
-
-
-
     /**
      * Delete - Delete a firestation
      * @param id - The id of the fire station to delete
@@ -71,6 +76,8 @@ public class FireStationsController {
     @DeleteMapping("/firestations/{id}")
     public void deleteFireStations(@PathVariable("id") final Long id)
     {
+        logger.info("Delete a fire stations");
+
         fireStationsService.deleteFireStationsById(id);
     }
 
@@ -84,7 +91,9 @@ public class FireStationsController {
     public void deleteFireStationsByAddress(
             @PathVariable("address") String address)
     {
-            fireStationsService.deleteFireStationsByAddress(address);
+        logger.info("Delete a person by its address");
+
+        fireStationsService.deleteFireStationsByAddress(address);
     }
 
 
@@ -97,6 +106,9 @@ public class FireStationsController {
     @PostMapping("/firestations")
     public ResponseEntity<FireStations> createFireStations(
             @RequestBody FireStations fireStationsDetails) {
+
+        logger.info("Create a new fire Station");
+
         fireStationsService.saveFirestations(fireStationsDetails);
 
         return ResponseEntity.ok(fireStationsDetails);
@@ -116,68 +128,32 @@ public class FireStationsController {
             @PathVariable(value = "id") Long id,
             @Valid @RequestBody FireStations firestationDetails)  {
 
+        logger.info("Modify a fire Station by its Id");
+
         fireStationsService.updateFireStationsById(id, firestationDetails);
 
         return ResponseEntity.ok(firestationDetails);
     }
 
-
     // update 2021-08-26
+
     /**
-     * Update a firestation by its address
      *
      * @param address
      * @param fireStationsDetails
      * @return
      */
-/*    @PutMapping("/firestations/fire/{address}")
-    public ResponseEntity<FireStations> updateFireStationByAddress(
-            @PathVariable (value = "address") String address,
-            @RequestBody FireStations fireStationsDetails)
-    {
-        fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);
-
-        return ResponseEntity.ok(fireStationsDetails);
-    }*/
-
     @PutMapping("/firestations")
     public ResponseEntity<FireStations> updateFireStationByAddress(
             @PathVariable ("address") String address,
             @RequestBody FireStations fireStationsDetails)
     {
+        logger.info("update a FireStation by its address");
+
         fireStationsService.updateFireStationsByAddress(address,fireStationsDetails);
 
         return ResponseEntity.ok(fireStationsDetails);
     }
-
-
-
-
-
-
-    // URLS
-    //http://localhost:8080/firestation?stationNumber=<station_number>
-
-    /**
-     * Read - Get a fire station
-     * @param id The id of a fire station
-     * @return A firestation object full filled
-     */
-/*
-    @GetMapping("/firestations")
-    public FireStations getFireStations(
-            @PathVariable("stationNumber") Long stationNumber) {
-
-        Optional<FireStations> fireStations = fireStationsService.getFireStationsById(id);
-
-        if(fireStations.isPresent()) {
-            return fireStations.get();
-        } else {
-            return null;
-        }
-    }
-*/
-
 
 }
 

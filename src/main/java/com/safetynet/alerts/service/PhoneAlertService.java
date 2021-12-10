@@ -5,12 +5,13 @@ import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.PhoneAlertListDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Person Service
@@ -33,6 +34,9 @@ public class PhoneAlertService {
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 
+    // Logger
+    private static final Logger logger = LogManager.getLogger("App");
+
 
     /*http://localhost:8080/phoneAlert?firestation=<firestation_number>
 
@@ -46,6 +50,8 @@ public class PhoneAlertService {
      * @return phoneAlertList
      */
     public PhoneAlertListDTO phoneAlertDTO(Integer station) {
+
+        logger.info("--> Call of Person Alert Service");
 
         PhoneAlertListDTO phoneAlertArray = new PhoneAlertListDTO();
 

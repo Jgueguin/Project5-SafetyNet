@@ -4,13 +4,14 @@ import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.repository.MedicalRecordsRepository;
 import javassist.NotFoundException;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
 import java.util.Calendar;
 import java.util.Optional;
-
 
 /**
  * Medical Records Service
@@ -22,6 +23,8 @@ public class MedicalRecordsService {
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;
 
+    private static final Logger logger = LogManager.getLogger("App");
+
     /**
      * Select one medical record between all
      *
@@ -29,6 +32,8 @@ public class MedicalRecordsService {
      * @return: the choosen medical records
      */
     public Optional<MedicalRecords> getMedicalRecords(final Long id) {
+
+        logger.info("Select one medical record ");
 
         return medicalRecordsRepository.findById(id);
     }
@@ -40,6 +45,8 @@ public class MedicalRecordsService {
      */
     public Iterable<MedicalRecords> getMedicalRecords() {
 
+        logger.info("Select all the Medical Records");
+
         return medicalRecordsRepository.findAll();
     }
 
@@ -49,6 +56,8 @@ public class MedicalRecordsService {
      * @param id : parameter to choose the medical record to delete
      */
     public void deleteMedicalRecordsById(final Long id) {
+
+        logger.info("Delete a choosen medical record");
 
         medicalRecordsRepository.deleteById(id);
     }
@@ -64,6 +73,8 @@ public class MedicalRecordsService {
      */
     public void deleteMedicalRecordsByFirstNameAndLastName(String firstName, String lastName) {
 
+        logger.info("Delete of a medical records by firstname and lastname");
+
         MedicalRecords medicalRecordsToDelete = medicalRecordsRepository.findByFirstNameAndLastName(firstName, lastName);
         medicalRecordsRepository.deleteById(medicalRecordsToDelete.getId());
     }
@@ -77,6 +88,8 @@ public class MedicalRecordsService {
      */
     public MedicalRecords saveMedicalRecords(MedicalRecords medicalRecords) {
 
+        logger.info("Save a new medical Record");
+
         MedicalRecords savedMedicalRecords = medicalRecordsRepository.save(medicalRecords);
         return medicalRecords;
     }
@@ -89,6 +102,9 @@ public class MedicalRecordsService {
      */
     public Iterable<MedicalRecords> saveAll(
             Iterable<MedicalRecords> medicalRecords) {
+
+        logger.info("Save all medical Records");
+
         return medicalRecordsRepository.saveAll(medicalRecords);
     }
 
@@ -96,14 +112,16 @@ public class MedicalRecordsService {
 
     /**
      * modify a Medical record by its id
-     *
      * @param id
-     * @param MedicalRecords
+     * @param medicalRecordsDetails
      * @return
      */
     public MedicalRecords updateMedicalRecordById(Long id,
                                                   MedicalRecords medicalRecordsDetails) {
         try {
+
+            logger.info("Update a medical records by its id");
+
             Optional<MedicalRecords> optionalMedicalRecords = medicalRecordsRepository.findById(id);
 
             if (optionalMedicalRecords.isPresent()) {
@@ -139,7 +157,9 @@ public class MedicalRecordsService {
             }
 
         } catch (Exception e) {
-            System.out.println(e);
+
+            logger.error(e);
+
         }
         return null;
     }
@@ -155,6 +175,9 @@ public class MedicalRecordsService {
     public MedicalRecords updateMedicalRecordByFirstNameAndLastName(String firstName, String lastName,
                                                                     @Valid MedicalRecords medicalRecordsDetails) {
         try {
+
+            logger.info("Update a medical records by firstname and lastname");
+
             MedicalRecords medicalRecordsToUpdate = medicalRecordsRepository.findByFirstNameAndLastName(firstName, lastName);
 
             Calendar birthDate = medicalRecordsDetails.getBirthDate();
@@ -174,7 +197,9 @@ public class MedicalRecordsService {
             return medicalRecordsRepository.save(medicalRecordsToUpdate);
 
         } catch (Exception e) {
-            System.out.println(e);
+
+            logger.error(e);
+
         }
         return null;
     }
@@ -190,6 +215,8 @@ public class MedicalRecordsService {
      */
     public MedicalRecords findByFirstNameAndLastName(String firstName,
                                                      String lastName) {
+
+        logger.info("Find medical record by firstname and lastname");
 
         MedicalRecords medicalRecordToFind = medicalRecordsRepository.findByFirstNameAndLastName(firstName, lastName);
 

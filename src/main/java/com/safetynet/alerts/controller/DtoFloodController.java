@@ -4,6 +4,8 @@ package com.safetynet.alerts.controller;
 import com.safetynet.alerts.model.dto.FloodListDTO;
 import com.safetynet.alerts.service.FloodService;
 import com.safetynet.alerts.service.PersonsService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class DtoFloodController {
 
-//public class DtoFloodController implements HealthIndicator {
+    private static final Logger logger = LogManager.getLogger("DtoFloodController");
 
     /**
      * @see PersonsService
@@ -31,10 +33,11 @@ public class DtoFloodController {
      */
     public DtoFloodController(FloodService floodService) {
 
+        logger.info("--> Instantiates a new controller");
+
         this.floodService = floodService;
 
     }
-
 
     // http://localhost:9090/childAlert?address=<address>
 
@@ -48,21 +51,11 @@ public class DtoFloodController {
   @GetMapping("/flood/stations")
     public ResponseEntity<FloodListDTO> floodControllerDTO (@RequestParam Integer station) {
 
+      logger.info("Get Mapping FloodList Dto Controller");
+
       number = station;
         return ResponseEntity.ok(floodService.floodDTO(station));
     }
-
-   /* @Override
-    public Health health() {
-
-        FloodListDTO list = floodService.floodDTO(number);
-
-        if(list.getFloodArray().isEmpty()) {
-            return Health.down().build();
-        }
-        return Health.up().build();
-    }*/
-
 
 
 } //END

@@ -3,6 +3,8 @@ package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.PhoneAlertListDTO;
 import com.safetynet.alerts.service.PhoneAlertService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class DtoPhoneAlertController  {
 
+    //Logger
+    private static final Logger logger = LogManager.getLogger("DtoPhoneAlertController");
 
     /**
      * @see PhoneAlertService
@@ -27,6 +31,8 @@ public class DtoPhoneAlertController  {
      * @param phoneAlertService the person service
      */
     public DtoPhoneAlertController(PhoneAlertService phoneAlertService) {
+
+        logger.info("--> Instantiates a new controller");
 
         this.phoneAlertService = phoneAlertService;
 
@@ -47,6 +53,8 @@ public class DtoPhoneAlertController  {
 
   @GetMapping("/phoneAlert")
     public ResponseEntity<PhoneAlertListDTO> phoneAlertControllerDTO (@RequestParam Integer station) {
+
+      logger.info("Get Mapping honeAlertListDTO Controller");
 
       number = station;
 

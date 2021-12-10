@@ -6,13 +6,14 @@ import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.FireStationByAddressDTO;
 import com.safetynet.alerts.repository.*;
 import lombok.Data;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 
 /**
  * Fire Station by Address Service
@@ -35,6 +36,8 @@ public class FireStationByAddressService {
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 
+    //Logger
+    private static final Logger logger = LogManager.getLogger("FireStationByAddressService");
 
     /*http://localhost:9090/fire?address=<address>
     Cette url doit retourner la liste des habitants vivant à l’adresse donnée ainsi que le numéro de la caserne
@@ -42,6 +45,9 @@ public class FireStationByAddressService {
     médicaux (médicaments, posologie et allergies) de chaque personne.*/
 
     public FireStationByAddressDTO personsCoveredByAddress2(String address) {
+
+        logger.info(" -->  Call of Persons Covered By Address Service ");
+
 
         // Création objet de type PersonCoveredByFireStationDTO2
         FireStationByAddressDTO fireStationsArray = new FireStationByAddressDTO();

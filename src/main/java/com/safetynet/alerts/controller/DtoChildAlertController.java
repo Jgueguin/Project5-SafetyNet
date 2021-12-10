@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 /**
  * Child Alert controller.
  */
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
  public class DtoChildAlertController  {
 
+    private static final Logger logger = LogManager.getLogger("DtoChildAlertController");
 
     /**
      * @see DtoChildAlertService
@@ -23,7 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 
     String add;
 
-
     /**
      * Instantiates a new Child Alert controller.
      *
@@ -31,8 +34,9 @@ import org.springframework.web.bind.annotation.RestController;
      */
     public DtoChildAlertController(DtoChildAlertService dtoChildAlertService) {
 
-        this.dtoChildAlertService = dtoChildAlertService;
+        logger.info("--> Instantiates a new controller");
 
+        this.dtoChildAlertService = dtoChildAlertService;
     }
 
 
@@ -47,6 +51,8 @@ import org.springframework.web.bind.annotation.RestController;
 
   @GetMapping("/childAlert")
     public ResponseEntity<ChildAlertListDTO> childAlertControllerDTO (@RequestParam String address) {
+
+      logger.info("--> Get Mapping Child Alert controller");
 
       add = address;
 
