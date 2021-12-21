@@ -31,10 +31,10 @@ public class FireStationByAddressService {
 
     @Autowired
     private DtoPersonsRepository dtoPersonsRepository;
-    @Autowired
-    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
-    @Autowired
-    private DtoFireStationsRepository dtoFireStationsRepository;
+    // @Autowired
+    // private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
+    // @Autowired
+    // private DtoFireStationsRepository dtoFireStationsRepository;
 
     //Logger
     private static final Logger logger = LogManager.getLogger("FireStationByAddressService");

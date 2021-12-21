@@ -24,8 +24,8 @@ import java.util.GregorianCalendar;
 public class DtoChildAlertService {
     @Autowired
     private PersonsRepository personsRepository;
-    @Autowired
-    private FireStationsRepository fireStationsRepository;
+    //@Autowired
+    //private FireStationsRepository fireStationsRepository;
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;
 
@@ -33,8 +33,9 @@ public class DtoChildAlertService {
     private DtoPersonsRepository dtoPersonsRepository;
     @Autowired
     private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
-    @Autowired
-    private DtoFireStationsRepository dtoFireStationsRepository;
+
+    //@Autowired
+    //private DtoFireStationsRepository dtoFireStationsRepository;
 
     // logger
     private static final Logger logger = LogManager.getLogger("DtoChildAlertService");

@@ -19,19 +19,17 @@ public class App implements CommandLineRunner{
 	 * @see JsonReader
 	 */
 	private JsonReader jsonReader;
-
 	private static final Logger logger = LogManager.getLogger("App");
 
 	public static void main(String[] args) {
+		logger.info("Initializing Application");
+
 		SpringApplication.run(App.class, args);
 	}
 
-
-
-	 // logger.info("Initializing Parking System");
-
 	@Override
 	public void run(String... args) throws Exception {
+		logger.info("Read Json and Save To DataBase H2");
 		jsonReader.readJsonAndSaveToDb();
 	}
 
@@ -40,15 +38,17 @@ public class App implements CommandLineRunner{
 	 * Instantiates a new Alerts application.
 	 	 * @param jsonReader : the json reader
 	 */
+
 	public App(JsonReader jsonReader) {
+		logger.info("Initializing Json Reader");
 		this.jsonReader = jsonReader;
 	}
 
 	@Bean
 	public HttpTraceRepository httpTraceRepository() {
+		logger.info("HttpTraceRepository");
 		return new InMemoryHttpTraceRepository();
 	}
-
 
 }
 

@@ -19,19 +19,10 @@ import java.util.ArrayList;
 @Data
 @Service
 public class DtoCommunityEmailService {
-    @Autowired
-    private PersonsRepository personsRepository;
-    @Autowired
-    private FireStationsRepository fireStationsRepository;
-    @Autowired
-    private MedicalRecordsRepository medicalRecordsRepository;
 
     @Autowired
     private DtoPersonsRepository dtoPersonsRepository;
-    @Autowired
-    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
-    @Autowired
-    private DtoFireStationsRepository dtoFireStationsRepository;
+
 
 
     // logger

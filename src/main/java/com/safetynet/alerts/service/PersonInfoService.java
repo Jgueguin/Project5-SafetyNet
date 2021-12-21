@@ -22,19 +22,12 @@ import java.util.GregorianCalendar;
 @Data
 @Service
 public class PersonInfoService {
-    @Autowired
-    private PersonsRepository personsRepository;
-    @Autowired
-    private FireStationsRepository fireStationsRepository;
+
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;
 
     @Autowired
     private DtoPersonsRepository dtoPersonsRepository;
-    @Autowired
-    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
-    @Autowired
-    private DtoFireStationsRepository dtoFireStationsRepository;
 
     //Logger
     private static final Logger logger = LogManager.getLogger("App");

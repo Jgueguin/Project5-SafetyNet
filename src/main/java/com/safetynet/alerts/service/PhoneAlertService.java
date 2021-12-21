@@ -24,13 +24,13 @@ public class PhoneAlertService {
     private PersonsRepository personsRepository;
     @Autowired
     private FireStationsRepository fireStationsRepository;
-    @Autowired
-    private MedicalRecordsRepository medicalRecordsRepository;
+    // @Autowired
+    // private MedicalRecordsRepository medicalRecordsRepository;
 
     @Autowired
     private DtoPersonsRepository dtoPersonsRepository;
-    @Autowired
-    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
+   // @Autowired
+    // private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 

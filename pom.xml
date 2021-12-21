@@ -17,6 +17,17 @@
 		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-parent</artifactId>
+			<version>1.3.2.RELEASE</version>
+
+			<type>pom</type>
+		</dependency>
+
+
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
@@ -92,7 +103,7 @@
 
         -->
 
-		<!--
+
 		<dependency>
             <groupId>org.apache.maven.surefire</groupId>
             <artifactId>surefire-junit-platform</artifactId>
@@ -100,16 +111,14 @@
             <scope>test</scope>
         </dependency>
 
-		-->
 
-		<!--
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-surefire-provider</artifactId>
 			<version>1.2.0</version>
 			<scope>test</scope>
 		</dependency>
--->
+
 
 		<!--
 		<dependency>
@@ -143,6 +152,18 @@
 			<version>0.8.7</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-project-info-reports-plugin -->
+		<dependency>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-project-info-reports-plugin</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+
+
+
+
+
 	</dependencies>
 
 	<build>
@@ -151,6 +172,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-site-plugin</artifactId>
+		<version>3.7.1</version>
+	</plugin>
+
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-project-info-reports-plugin</artifactId>
+		<version>3.0.0</version>
+	</plugin>
+
 		</plugins>
 	</build>
 

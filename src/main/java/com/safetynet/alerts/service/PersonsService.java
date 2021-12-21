@@ -20,22 +20,25 @@ import java.util.Optional;
 public class PersonsService {
     @Autowired
     private PersonsRepository personsRepository;
-    @Autowired
-    private FireStationsRepository fireStationsRepository;
-    @Autowired
-    private MedicalRecordsRepository medicalRecordsRepository;
 
-    @Autowired
-    private DtoPersonsRepository dtoPersonsRepository;
-    @Autowired
-    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
-    @Autowired
-    private DtoFireStationsRepository dtoFireStationsRepository;
+
+   // @Autowired
+    // private FireStationsRepository fireStationsRepository;
+
+
+    // @Autowired
+    // private MedicalRecordsRepository medicalRecordsRepository;
+
+    // @Autowired
+    // private DtoPersonsRepository dtoPersonsRepository;
+
+    // @Autowired
+    // private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
+    // @Autowired
+    // private DtoFireStationsRepository dtoFireStationsRepository;
 
     //Logger
     private static final Logger logger = LogManager.getLogger("PersonsService");
-
-
 
     /**
      * Choose a person in the Repository
@@ -63,7 +66,6 @@ public class PersonsService {
         return personsRepository.findAll();
     }
 
-
     /**
      * Choose a person in the Repository by its first and lastname
      *
@@ -76,20 +78,20 @@ public class PersonsService {
         logger.info("Choose a person in the repository by its first and lastname");
 
         return personsRepository.findByFirstNameAndLastName(firstName, lastName);
-
     }
-
 
     /**
      * delete a person by its id
      *
      * @param id to choose a person to delete into the repository
      */
-    public void deletePersons(final Long id) {
+    public boolean deletePersons(final Long id) {
 
         logger.info("Delete a person by its Id");
 
         personsRepository.deleteById(id);
+
+        return true;
     }
 
     /**

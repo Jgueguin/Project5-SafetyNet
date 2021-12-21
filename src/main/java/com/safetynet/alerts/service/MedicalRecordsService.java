@@ -23,7 +23,7 @@ public class MedicalRecordsService {
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;
 
-    private static final Logger logger = LogManager.getLogger("App");
+    private static final Logger logger = LogManager.getLogger("MedicalRecordsService");
 
     /**
      * Select one medical record between all
