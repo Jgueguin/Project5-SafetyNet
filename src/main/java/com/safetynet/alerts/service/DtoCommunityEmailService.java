@@ -42,6 +42,7 @@ public class DtoCommunityEmailService {
 
         for (Persons p : dtoPersonsRepository.findEmailByCity(city)) {
 
+
             ArrayList<String> tmp = emailArray.getEmailArray();
             tmp.add("Firstname: " + p.getFirstName() + " -- Lastname: " + p.getLastName() + "-> Email: " + p.getEmail());
 
