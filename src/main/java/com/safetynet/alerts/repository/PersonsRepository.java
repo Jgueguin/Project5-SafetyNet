@@ -15,24 +15,19 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
 
     /**
      * Find a person by its id
-     *
      * @param id
      * @return the person
      */
     Optional<Persons> findById(Long id);
 
-
-// 2021-08-26
     /**
      * Find by first name and last name a person
-     *
      * @param firstName the first name
      * @param lastName  the last name
      * @return the person
      */
     Persons findByFirstNameAndLastName(String firstName, String lastName);
 
-    //2021-08-19
 
     /**
      * Delete a person by its first name and last name
@@ -41,8 +36,6 @@ public interface PersonsRepository extends CrudRepository<Persons, Long> {
      * @return
      */
     Persons deleteByFirstNameAndLastName(String firstName, String lastName);
-
-
 
 
 } //END

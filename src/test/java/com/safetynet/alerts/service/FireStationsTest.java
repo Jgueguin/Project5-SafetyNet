@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -22,12 +23,16 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
+
 @ExtendWith(MockitoExtension.class)
+
+//annotation Junit 4
 @RunWith(MockitoJUnitRunner.class)
 
 public class FireStationsTest {
 
     @InjectMocks
+    @Autowired
     private FireStationsService fireStationService;
 
     private static FireStations fireStation1 = new FireStations(1L, 1, "address1");
@@ -47,6 +52,9 @@ public class FireStationsTest {
 
     @Before
     public void setUp() {
+
+        // annotation for junit5
+        // MockitoAnnotations.initMocks(this);
 
         // add FireStations into a list of Firestation
         fireStationsList.add(fireStation1);
@@ -68,6 +76,7 @@ public class FireStationsTest {
     @DisplayName("Get FireStation  by Id Test")
     public void getFireStations_By_Id_Test() {
         when(fireStationsRepository.findById(any())).thenReturn(Optional.ofNullable(fireStation1));
+
         assertEquals(Optional.ofNullable(fireStation1), fireStationService.getFireStationsById(1L));
     }
 
@@ -92,7 +101,9 @@ public class FireStationsTest {
     public void saveFireStation_Test() {
 
         when(fireStationsRepository.save(any())).thenReturn(fireStation4);
+
         fireStationService.saveFirestations(fireStation4);
+
         assertEquals(fireStation4,fireStationService.saveFirestations(fireStation4));
     }
 
@@ -117,6 +128,21 @@ public class FireStationsTest {
     }
 
 
+
+
+
+    @Test
+    @DisplayName("fzfsed")
+    public void test() {
+
+
+        assertEquals(null,
+        fireStationService.getFireStationsById(1L)
+                );
+
+
+
+    }
 
 
 } //End

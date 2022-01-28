@@ -5,6 +5,7 @@ import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.ChildAlertListDTO;
 import com.safetynet.alerts.repository.DtoPersonsRepository;
 import com.safetynet.alerts.repository.MedicalRecordsRepository;
+import com.safetynet.alerts.repository.PersonsRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -32,16 +34,30 @@ import static org.mockito.Mockito.when;
 
 public class Dto2ChilAlertTest {
 
+
+    @Autowired
+    private PersonsRepository personsRepository;
+
+   /* @Mock
+    private DtoChildAlertService dtoChildAlertService;*/
+
     @InjectMocks
     private PersonsService personsService;
     @InjectMocks
     private FireStationsService fireStationsService;
 
     // Dto
-    @InjectMocks
-    private FireStationByStationNumberService fireStationByStationNumberService;
+   /* @InjectMocks
+    private FireStationByStationNumberService fireStationByStationNumberService;*/
+
     @InjectMocks
     private DtoChildAlertService dtoChildAlertService;
+
+    @Mock
+    private DtoPersonsRepository dtoPersonsRepository;
+    @Mock
+    private MedicalRecordsRepository medicalRecordsRepository;
+
 
     private static Calendar adultBirth = new GregorianCalendar(2001, 9, 5, 1, 1);
     private static Calendar childBirth = new GregorianCalendar(2019, 9, 5, 1, 1);
@@ -67,7 +83,6 @@ public class Dto2ChilAlertTest {
     private static MedicalRecords medicalRecordsPerson3 = new MedicalRecords(3L, person3.getFirstName(), person3.getLastName(), childBirth, medications3, allergies3);
     private static MedicalRecords medicalRecordsPerson4 = new MedicalRecords(4L, person4.getFirstName(), person4.getLastName(), childBirth, medications4, allergies4);
 
-
     private static String childAlertPerson1 = "Adult :" + person1.getFirstName() + " " + person1.getLastName();
     private static String childAlertPerson2 = "Adult :" + person2.getFirstName() + " " + person2.getLastName();;
     private static String childAlertPerson3 = "Child :" + person3.getFirstName() + " " + person3.getLastName() + " Age: " + (dateNow.getWeekYear() - childBirth.getWeekYear());
@@ -79,10 +94,7 @@ public class Dto2ChilAlertTest {
     //DTO
       ChildAlertListDTO childAlertListDTO = new ChildAlertListDTO();
 
-    @Mock
-    private DtoPersonsRepository dtoPersonsRepository;
-    @Mock
-    private MedicalRecordsRepository medicalRecordsRepository;
+
 
     @Before
     public void setUp() {
@@ -112,6 +124,7 @@ public class Dto2ChilAlertTest {
     }
 
     //DTO Numéro 2
+
     @Test
     @DisplayName("DTO 2 : Child Alert")
     public void childAlertDtoTest() {
@@ -125,6 +138,24 @@ public class Dto2ChilAlertTest {
         assertEquals(StringUtils.deleteWhitespace(childAlertListDTO.toString()),
                 StringUtils.deleteWhitespace(dtoChildAlertService.childAlertDTO("Address_1").toString()));
     }
+
+    @Test
+    @DisplayName("DTO 2 : Child Alert")
+    public void childAlertDtoTest2() {
+
+        when(dtoPersonsRepository.findPersonByAddress(any())).thenReturn(personsList);
+
+        for (MedicalRecords mr : medicalRecordsList) {
+            when(medicalRecordsRepository.findByFirstNameAndLastName(mr.getFirstName(), mr.getLastName())).thenReturn(mr);
+        }
+
+        dtoChildAlertService.childAlertDTO(any());
+
+        assertEquals(StringUtils.deleteWhitespace(childAlertListDTO.toString()),
+                StringUtils.deleteWhitespace(dtoChildAlertService.childAlertDTO("Address_1").toString()));
+    }
+
+
 
 
 } //End

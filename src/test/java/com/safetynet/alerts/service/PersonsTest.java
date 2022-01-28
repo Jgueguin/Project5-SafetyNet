@@ -7,10 +7,10 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
@@ -28,7 +28,10 @@ import static org.mockito.Mockito.when;
 public class PersonsTest {
 
     // Dto
-    @InjectMocks
+    // @InjectMocks
+
+
+    @Autowired
     private  PersonsService personsService;
 
     @Mock
@@ -78,8 +81,24 @@ public class PersonsTest {
     public void getPersons_By_Id_Test() {
 
         when(personsRepository.findById(any())).thenReturn(Optional.ofNullable(person1));
+
         assertEquals(Optional.ofNullable(person1), personsService.getPersons(1L));
     }
+
+    @Test
+    @DisplayName("Get Person by Id Test")
+    public void getPersons_By_Id_Test2() {
+
+        when(personsRepository.findById(any())).thenReturn(Optional.ofNullable(person1));
+
+        personsService.getPersons(1L);
+
+        assertEquals(Optional.ofNullable(person1), personsService.getPersons(1L));
+    }
+
+
+
+
 
     @Test
     @DisplayName("Get All Persons ")
@@ -88,6 +107,18 @@ public class PersonsTest {
         when(personsRepository.findAll()).thenReturn(personsList);
         assertEquals(personsList, personsService.getPersons());
     }
+
+
+    @Test
+    @DisplayName("Get All Persons ")
+    public void getAllPersons_Test2() {
+
+        when(personsRepository.findAll()).thenReturn(personsList);
+        assertEquals(personsList, personsService.getPersons());
+    }
+
+
+
 
     @Test
     @DisplayName("Get a Person with First Name and LastName ")
@@ -102,6 +133,7 @@ public class PersonsTest {
     public void deletePersons_Test() {
 
         personsService.deletePersons(4L);
+
         int newListSize = personsList.size()-1;
         assertEquals(newListSize, personsList2.size());
     }
@@ -111,6 +143,7 @@ public class PersonsTest {
     public void deletePersonsWithFirstAndLastName_Test() {
 
         when(personsRepository.findByFirstNameAndLastName(any(),any())).thenReturn(person4);
+
         personsService.deletePersonByFirstNameAndLastName(person4.getFirstName(), person4.getLastName());
 
         int newListSize = personsList.size()-1;
@@ -122,6 +155,7 @@ public class PersonsTest {
     public void savePersons_Test() {
 
         when(personsRepository.save(any())).thenReturn(person5);
+
         personsService.savePersons(person5);
 
         assertEquals(person5,personsService.savePersons(person5));
@@ -136,6 +170,24 @@ public class PersonsTest {
 
         assertEquals(person6,personsService.updatePersonsById(1L,person6));
     }
+
+    @Test
+    @DisplayName("Update a person by its id")
+    public void updatePersonById_Test2() {
+
+        when(personsRepository.findById(1L)).thenReturn(Optional.ofNullable(person6));
+
+        personsService.updatePersonsById(1L,person6);
+
+        // when (personsRepository.save(any())).thenReturn(person6);
+
+        assertEquals(person6,personsService.updatePersonsById(1L,person6));
+
+
+    }
+
+
+
 
 
     @Test
