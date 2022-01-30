@@ -23,8 +23,6 @@ public class DtoCommunityEmailService {
     @Autowired
     private DtoPersonsRepository dtoPersonsRepository;
 
-
-
     // logger
     private static final Logger logger = LogManager.getLogger("DtoCommunityEmailService");
 

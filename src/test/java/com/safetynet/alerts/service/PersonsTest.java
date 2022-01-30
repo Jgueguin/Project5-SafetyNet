@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -25,12 +26,11 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.class)
 
+
 public class PersonsTest {
 
     // Dto
-    // @InjectMocks
-
-
+    @InjectMocks
     @Autowired
     private  PersonsService personsService;
 
@@ -46,11 +46,9 @@ public class PersonsTest {
 
     private static Persons person6 = new Persons(6L, "first_6", "Last_6", "Address_6", "City_6", 66666, "666-666-66666", "six@email.com");
 
-
     List<Persons> personsList = new ArrayList<>();
     List<Persons> personsList2 = new ArrayList<>();
     List<Persons> personsList3 = new ArrayList<>();
-
 
     @Before
     public void setUp() {
@@ -72,8 +70,6 @@ public class PersonsTest {
         personsList3.add(person3);
         personsList3.add(person4);
         personsList3.add(person5);
-
-
     }
 
     @Test
@@ -96,10 +92,6 @@ public class PersonsTest {
         assertEquals(Optional.ofNullable(person1), personsService.getPersons(1L));
     }
 
-
-
-
-
     @Test
     @DisplayName("Get All Persons ")
     public void getAllPersons_Test() {
@@ -108,7 +100,6 @@ public class PersonsTest {
         assertEquals(personsList, personsService.getPersons());
     }
 
-
     @Test
     @DisplayName("Get All Persons ")
     public void getAllPersons_Test2() {
@@ -116,8 +107,6 @@ public class PersonsTest {
         when(personsRepository.findAll()).thenReturn(personsList);
         assertEquals(personsList, personsService.getPersons());
     }
-
-
 
 
     @Test
@@ -171,7 +160,20 @@ public class PersonsTest {
         assertEquals(person6,personsService.updatePersonsById(1L,person6));
     }
 
+
+    // added
     @Test
+    @DisplayName("Update a person by its id, person doesnt'exist")
+    public void updatePersonById_Test3() {
+
+        assertEquals(null,personsService.updatePersonsById(1L,person6));
+    }
+
+
+
+
+
+    //@Test
     @DisplayName("Update a person by its id")
     public void updatePersonById_Test2() {
 
@@ -186,10 +188,6 @@ public class PersonsTest {
 
     }
 
-
-
-
-
     @Test
     @DisplayName("Update a person by its firstname and lastname")
     public void updatePersonByFirstAndLastName_Test() {
@@ -199,11 +197,6 @@ public class PersonsTest {
 
         assertEquals(person6,personsService.updatePersonsByFirstNameAndLastName(person6.getFirstName(), person6.getLastName(),person6));
     }
-
-
-
-
-
 
 
 } //End

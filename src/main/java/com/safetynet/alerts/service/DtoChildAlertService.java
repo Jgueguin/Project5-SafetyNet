@@ -22,8 +22,8 @@ import java.util.GregorianCalendar;
 @Data
 @Service
 public class DtoChildAlertService {
-    @Autowired
-    private PersonsRepository personsRepository;
+ /*   @Autowired
+    private PersonsRepository personsRepository;*/
     //@Autowired
     //private FireStationsRepository fireStationsRepository;
     @Autowired
@@ -32,8 +32,8 @@ public class DtoChildAlertService {
     @Autowired
     private DtoPersonsRepository dtoPersonsRepository;
 
-    @Autowired
-    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;
+   /* @Autowired
+    private DtoMedicalRecordsRepository dtoMedicalRecordsRepository;*/
 
     //@Autowired
     //private DtoFireStationsRepository dtoFireStationsRepository;

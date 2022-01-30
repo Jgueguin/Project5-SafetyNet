@@ -87,14 +87,14 @@ public class FireStationsController {
      * delete a person by its address
      * @param address
      */
-    @DeleteMapping("/firestations/fire/{address}")
+   /* @DeleteMapping("/firestations/fire/{address}")
     public void deleteFireStationsByAddress(
             @PathVariable("address") String address)
     {
         logger.info("Delete a person by its address");
 
         fireStationsService.deleteFireStationsByAddress(address);
-    }
+    }*/
 
 
     /**

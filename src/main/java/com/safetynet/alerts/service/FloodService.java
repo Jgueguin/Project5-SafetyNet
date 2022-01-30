@@ -25,16 +25,13 @@ public class FloodService {
 
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;
-
     @Autowired
     private DtoPersonsRepository dtoPersonsRepository;
-
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 
     //Logger
     private static final Logger logger = LogManager.getLogger("FloodService");
-
 
     public FloodListDTO floodDTO(Integer station) {
 

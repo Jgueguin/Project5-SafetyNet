@@ -127,14 +127,9 @@ public class FireStationsTest {
 
     }
 
-
-
-
-
     @Test
     @DisplayName("fzfsed")
     public void test() {
-
 
         assertEquals(null,
         fireStationService.getFireStationsById(1L)

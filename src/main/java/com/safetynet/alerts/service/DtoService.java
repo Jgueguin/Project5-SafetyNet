@@ -1,6 +1,6 @@
-package com.safetynet.alerts.service;
+//package com.safetynet.alerts.service;
 
-import com.safetynet.alerts.repository.*;
+//import com.safetynet.alerts.repository.*;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,8 +10,9 @@ import org.springframework.stereotype.Service;
  * Dto Service
  */
 
-@Data
-@Service
+//@Data
+//@Service
+/*
 public class DtoService {
     @Autowired
     private PersonsRepository personsRepository;
@@ -27,12 +28,7 @@ public class DtoService {
     @Autowired
     private DtoFireStationsRepository dtoFireStationsRepository;
 
-
-
-
-
-
-
 }
 
+*/
 

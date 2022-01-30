@@ -70,12 +70,10 @@ public class FireStationsService {
 
 //2021-08-27
 
-    public void deleteFireStationsByAddress(String address) {
-
-    /*    FireStations fireStationsToDelete = fireStationsRepository.findByAddress(address);
-        fireStationsRepository.deleteById(fireStationsToDelete.getId());*/
-
-    }
+/*    public void deleteFireStationsByAddress(String address) {
+        FireStations fireStationsToDelete = fireStationsRepository.findByAddress(address);
+        fireStationsRepository.deleteById(fireStationsToDelete.getId());
+    }*/
 
 
     /**

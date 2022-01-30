@@ -22,8 +22,8 @@ import java.util.GregorianCalendar;
 @Data
 @Service
 public class FireStationByAddressService {
-    @Autowired
-    private PersonsRepository personsRepository;
+   /* @Autowired
+    private PersonsRepository personsRepository;*/
     @Autowired
     private FireStationsRepository fireStationsRepository;
     @Autowired
