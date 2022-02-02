@@ -9,7 +9,7 @@ import java.util.*;
  * List of Persons living at an address and specific fire station
  */
 
-@ToString
+//@ToString
 @Data
 
 public class FireStationByAddressDTO {
@@ -36,20 +36,14 @@ médicaux (médicaments, posologie et allergies) de chaque personne.
 
     }
 
-    @ToString.Include
+   /* @ToString.Include
     public String toString() {
         System.out.println("sout: "+fireAddressArray);
 
-
         return this.fireAddressArray
                 + "]";
-    }
+    }*/
 
-
-
-
-
-    // rajouter un .toString
 
 
 } // END

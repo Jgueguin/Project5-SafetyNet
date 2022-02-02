@@ -22,8 +22,8 @@ import java.util.List;
 public class PhoneAlertService {
     @Autowired
     private PersonsRepository personsRepository;
-    @Autowired
-    private FireStationsRepository fireStationsRepository;
+    /*@Autowired
+    private FireStationsRepository fireStationsRepository;*/
     // @Autowired
     // private MedicalRecordsRepository medicalRecordsRepository;
 
@@ -63,9 +63,7 @@ public class PhoneAlertService {
             tmp.add(f.getAddress());
             for (Persons p : dtoPersonsRepository.findPersonByAddress(f.getAddress())) {
                 tmp.add("      " + p.getPhone());
-
             }
-
             phoneAlertArray.setPhoneAlertArray(tmp);
 
         }

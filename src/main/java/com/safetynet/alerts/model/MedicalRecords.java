@@ -98,10 +98,10 @@ public class MedicalRecords {
 
     }
 
-    @ToString.Include
+  /*  @ToString.Include
     public String toString() {
         return "[id=" + this.id + " firstname=" + this.firstName + " lastname=" + this.lastName + " " + this.birthDate + " Medications=" + this.medications + " Allergies" + this.allergies
                 + "]";
-    }
+    }*/
 }
 

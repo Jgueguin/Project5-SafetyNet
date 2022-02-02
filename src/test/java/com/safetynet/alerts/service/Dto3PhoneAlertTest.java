@@ -43,9 +43,11 @@ public class Dto3PhoneAlertTest {
 
     List<Persons> personsList = new ArrayList<>();
     List<FireStations> fireStationsList = new ArrayList<>();
+    List<FireStations> fireStationsList2 = new ArrayList<>(); // empty list
 
     //DTO
     PhoneAlertListDTO phoneAlertListDTO = new PhoneAlertListDTO();
+    PhoneAlertListDTO phoneAlertList2DTO = new PhoneAlertListDTO();
 
     @Mock
     private DtoPersonsRepository dtoPersonsRepository;
@@ -53,8 +55,6 @@ public class Dto3PhoneAlertTest {
     //DTO
     @Mock
     private DtoFireStationsRepository dtoFireStationsRepository;
-
-
 
     @Before
     public void setUp() {
@@ -78,6 +78,16 @@ public class Dto3PhoneAlertTest {
         phoneAlertArray.add(person4.getPhone());
 
         phoneAlertListDTO.setPhoneAlertArray(phoneAlertArray);
+
+
+//
+        ArrayList<String> phoneAlertArray2 = new ArrayList<>();
+
+        phoneAlertArray2.add("");
+        phoneAlertList2DTO.setPhoneAlertArray(phoneAlertArray2);
+
+
+
     }
 
 
@@ -91,5 +101,16 @@ public class Dto3PhoneAlertTest {
 
         assertEquals(StringUtils.deleteWhitespace(phoneAlertListDTO.toString()), StringUtils.deleteWhitespace(phoneAlertService.phoneAlertDTO(2).toString()));
     }
+
+  /*  @Test
+    @DisplayName("DTO 3 : Phone Alert")
+    public void phoneAlertTest2() {
+
+       // when(dtoFireStationsRepository.findByStation(any())).thenReturn(fireStationsList2);
+
+        assertEquals(phoneAlertList2DTO, phoneAlertService.phoneAlertDTO(5));
+    }*/
+
+
 
 } //End

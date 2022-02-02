@@ -196,12 +196,21 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
+                <!-- <version>0.8.7</version> -->
                 <version>0.8.7</version>
+
                 <configuration>
+
                     <excludes>
+                        <!--<exclude>*hashCode*</exclude>
+                        <exclude>*equals*</exclude>-->
                         <exclude>**/api/v1/converters/*</exclude>
+
+
                     </excludes>
+
                 </configuration>
+
                 <executions>
                     <!-- Surefire -->
                     <execution>
@@ -214,6 +223,13 @@
                             <propertyName>surefire.jacoco.args</propertyName>
                         </configuration>
                     </execution>
+
+
+
+
+
+
+
                     <execution>
                         <id>after-unit-test-execution</id>
                         <phase>test</phase>
@@ -238,6 +254,7 @@
                             <propertyName>failsafe.jacoco.args</propertyName>
                         </configuration>
                     </execution>
+
                     <execution>
                         <id>after-integration-test-execution</id>
                         <phase>post-integration-test</phase>
