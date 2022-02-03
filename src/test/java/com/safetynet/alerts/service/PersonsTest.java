@@ -161,15 +161,6 @@ public class PersonsTest {
     }
 
 
-    // added
-    @Test
-    @DisplayName("Update a person by its id, person doesnt'exist")
-    public void updatePersonById_Test3() {
-
-        assertEquals(null,personsService.updatePersonsById(1L,person6));
-    }
-
-
 
 
 
@@ -197,6 +188,30 @@ public class PersonsTest {
 
         assertEquals(person6,personsService.updatePersonsByFirstNameAndLastName(person6.getFirstName(), person6.getLastName(),person6));
     }
+
+
+    // added
+    @Test
+    @DisplayName("Update a person with an unknown id")
+    public void updatePersonById_Test3() {
+
+        when(personsRepository.findById(any())).thenReturn(null  );
+        assertEquals(null,personsService.updatePersonsById(6L,person6));
+    }
+
+    @Test
+    @DisplayName("Update a person with unknown firstname and lastname")
+    public void updatePersonByFirstAndLastName_Test2() {
+
+        when(personsRepository.findByFirstNameAndLastName("bb","cc")).thenReturn(null);
+        assertEquals(null,personsService.updatePersonsByFirstNameAndLastName("bb","cc",person6));
+    }
+
+
+
+
+
+
 
 
 } //End
