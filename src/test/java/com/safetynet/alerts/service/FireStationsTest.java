@@ -135,9 +135,26 @@ public class FireStationsTest {
         fireStationService.getFireStationsById(1L)
                 );
 
-
-
     }
+
+    // added
+    @Test
+    @DisplayName("Update a fireStation by an unknown id")
+    public void updateFireStationById_Test2() {
+
+        when(fireStationsRepository.findById(any())).thenReturn(null);
+        assertEquals(null,fireStationService.updateFireStationsById(9L,fireStation5));
+    }
+
+    @Test
+    @DisplayName("Update a fireStation with an unknown address")
+    public void updateFireStationByAddress_Test2() {
+
+        when(fireStationsRepository.findByAddress(any())).thenReturn(null);
+        assertEquals(null,fireStationService.updateFireStationsByAddress("aa", fireStation5));
+    }
+
+
 
 
 } //End

@@ -166,5 +166,28 @@ public class MedicalRecordsTest {
         assertEquals(medicalRecordsPerson1, medicalRecordsService.findByFirstNameAndLastName(medicalRecordsPerson1.getFirstName(), medicalRecordsPerson1.getLastName()));
     }
 
+//Added
+
+    @Test
+    @DisplayName("Update a medical record by unknown id")
+    public void updateMedicalRecordsById_Test2() {
+
+        when(medicalRecordsRepository.findById(any())).thenReturn(null);
+        assertEquals(null,medicalRecordsService.updateMedicalRecordById(9L,medicalRecordsPerson4));
+    }
+
+    @Test
+    @DisplayName("Update a medicalRecord by its firstname and lastname")
+    public void updateMedicalRecordByFirstAndLastName_Test2() {
+
+        when(medicalRecordsRepository.findByFirstNameAndLastName(any(),any())).thenReturn(null);
+        assertEquals(null,
+                medicalRecordsService.updateMedicalRecordByFirstNameAndLastName("aa", "bb",medicalRecordsPerson1));
+    }
+
+
+
+
+
 
 } //End
