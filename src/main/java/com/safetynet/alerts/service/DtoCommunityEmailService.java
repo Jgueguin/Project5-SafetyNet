@@ -3,7 +3,7 @@ package com.safetynet.alerts.service;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.CommunityEmailByCityListDTO;
 import com.safetynet.alerts.repository.*;
-import lombok.Data;
+import lombok.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,12 @@ import java.util.ArrayList;
  * Dto Community Email Service
  */
 
-@Data
+// @Data
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Service
 public class DtoCommunityEmailService {
 

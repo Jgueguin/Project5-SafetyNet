@@ -4,7 +4,7 @@ import com.safetynet.alerts.model.MedicalRecords;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameListDTO;
 import com.safetynet.alerts.repository.*;
-import lombok.Data;
+import lombok.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,13 @@ import java.util.GregorianCalendar;
 /**
  * Person Info Service
  */
-
-@Data
+// @Data
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 @Service
-public class PersonInfoService {
+public class DtoPersonInfoService {
 
     @Autowired
     private MedicalRecordsRepository medicalRecordsRepository;

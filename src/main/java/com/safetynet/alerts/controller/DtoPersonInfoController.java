@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.PersonInfoByFirstNameAndLastNameListDTO;
-import com.safetynet.alerts.service.PersonInfoService;
+import com.safetynet.alerts.service.DtoPersonInfoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +20,9 @@ public class DtoPersonInfoController {
     private static final Logger logger = LogManager.getLogger("DtoPersonInfoController");
 
     /**
-     * @see PersonInfoService
+     * @see DtoPersonInfoService
      */
-    PersonInfoService personInfoService;
+    DtoPersonInfoService dtoPersonInfoService;
 
     String first;
     String last;
@@ -30,13 +30,13 @@ public class DtoPersonInfoController {
     /**
      * Instantiates a new PersonInfo controller.
      *
-     * @param personInfoService the person service
+     * @param dtoPersonInfoService the person service
      */
-    public DtoPersonInfoController(PersonInfoService personInfoService) {
+    public DtoPersonInfoController(DtoPersonInfoService dtoPersonInfoService) {
 
         logger.info("Instantiates a new controller");
 
-        this.personInfoService = personInfoService;
+        this.dtoPersonInfoService = dtoPersonInfoService;
     }
 
     // http://localhost:9090/personInfo?firstName=<firstName>&lastName=<lastName>
@@ -59,7 +59,7 @@ public class DtoPersonInfoController {
       first = firstName;
       last = lastName;
 
-        return ResponseEntity.ok(personInfoService.firstNameAndLastNameDTO(firstName,lastName));
+        return ResponseEntity.ok(dtoPersonInfoService.firstNameAndLastNameDTO(firstName,lastName));
     }
 
 

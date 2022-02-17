@@ -177,7 +177,7 @@ public class MedicalRecordsTest {
     }
 
     @Test
-    @DisplayName("Update a medicalRecord by its firstname and lastname")
+    @DisplayName("Update a medicalRecord by unknown firstname and lastname")
     public void updateMedicalRecordByFirstAndLastName_Test2() {
 
         when(medicalRecordsRepository.findByFirstNameAndLastName(any(),any())).thenReturn(null);

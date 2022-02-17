@@ -32,7 +32,7 @@ public class Dto3PhoneAlertTest {
 
     // Dto
     @InjectMocks
-    private PhoneAlertService phoneAlertService;
+    private DtoPhoneAlertService dtoPhoneAlertService;
 
     private static Persons person1 = new Persons(1L, "first_1", "Last_1", "Address_1", "City_1", 11111, "111-111-1111", "one@email.com");
     private static Persons person2 = new Persons(2L, "first_2", "Last_2", "Address_1", "City_2", 22222, "222-222-2222", "two@email.com");
@@ -99,7 +99,7 @@ public class Dto3PhoneAlertTest {
         when(dtoFireStationsRepository.findByStation(any())).thenReturn(fireStationsList);
         when(dtoPersonsRepository.findPersonByAddress(any())).thenReturn(personsList);
 
-        assertEquals(StringUtils.deleteWhitespace(phoneAlertListDTO.toString()), StringUtils.deleteWhitespace(phoneAlertService.phoneAlertDTO(2).toString()));
+        assertEquals(StringUtils.deleteWhitespace(phoneAlertListDTO.toString()), StringUtils.deleteWhitespace(dtoPhoneAlertService.phoneAlertDTO(2).toString()));
     }
 
   /*  @Test

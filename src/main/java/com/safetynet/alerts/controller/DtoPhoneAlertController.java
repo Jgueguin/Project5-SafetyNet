@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.PhoneAlertListDTO;
-import com.safetynet.alerts.service.PhoneAlertService;
+import com.safetynet.alerts.service.DtoPhoneAlertService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +20,21 @@ public class DtoPhoneAlertController  {
     private static final Logger logger = LogManager.getLogger("DtoPhoneAlertController");
 
     /**
-     * @see PhoneAlertService
+     * @see DtoPhoneAlertService
      */
-     PhoneAlertService phoneAlertService;
+     DtoPhoneAlertService dtoPhoneAlertService;
      Integer number;
 
     /**
      * Instantiates a new Phone Alert controller.
      *
-     * @param phoneAlertService the person service
+     * @param dtoPhoneAlertService the person service
      */
-    public DtoPhoneAlertController(PhoneAlertService phoneAlertService) {
+    public DtoPhoneAlertController(DtoPhoneAlertService dtoPhoneAlertService) {
 
         logger.info("Instantiates a new controller");
 
-        this.phoneAlertService = phoneAlertService;
+        this.dtoPhoneAlertService = dtoPhoneAlertService;
 
     }
 
@@ -58,7 +58,7 @@ public class DtoPhoneAlertController  {
 
       number = station;
 
-        return ResponseEntity.ok(phoneAlertService.phoneAlertDTO(station));
+        return ResponseEntity.ok(dtoPhoneAlertService.phoneAlertDTO(station));
     }
 
 } //END

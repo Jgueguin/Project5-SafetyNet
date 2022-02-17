@@ -37,7 +37,7 @@ public class Dto5FloodTest {
     // Dto
 
     @InjectMocks
-    private FloodService floodService;
+    private DtoFloodService dtoFloodService;
 
     private static Calendar adultBirth = new GregorianCalendar(2001, 9, 5, 1, 1);
     private static Calendar childBirth = new GregorianCalendar(2019, 9, 5, 1, 1);
@@ -162,7 +162,7 @@ public class Dto5FloodTest {
             when(medicalRecordsRepository.findByFirstNameAndLastName(mr.getFirstName(), mr.getLastName())).thenReturn(mr);
 
        }
-       assertEquals(StringUtils.deleteWhitespace(floodListDTO.toString()), StringUtils.deleteWhitespace(floodService.floodDTO(1).toString()));
+       assertEquals(StringUtils.deleteWhitespace(floodListDTO.toString()), StringUtils.deleteWhitespace(dtoFloodService.floodDTO(1).toString()));
 
     }
 

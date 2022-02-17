@@ -29,6 +29,10 @@ ArrayList<String> childAlertArray = new ArrayList<>();
     public ChildAlertListDTO() {
 
         childAlertArray =new ArrayList<>();
+
+
+
+
     }
 
 

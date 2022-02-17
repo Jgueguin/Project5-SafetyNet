@@ -2,7 +2,7 @@ package com.safetynet.alerts.service;
 
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.repository.*;
-import lombok.Data;
+import lombok.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +14,12 @@ import java.util.Optional;
 /**
  * Person Service
  */
+// @Data
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 
-@Data
 @Service
 public class PersonsService {
     @Autowired

@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.FloodListDTO;
-import com.safetynet.alerts.service.FloodService;
+import com.safetynet.alerts.service.DtoFloodService;
 import com.safetynet.alerts.service.PersonsService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,19 +23,19 @@ public class DtoFloodController {
     /**
      * @see PersonsService
      */
-     FloodService floodService;
+     DtoFloodService dtoFloodService;
      Integer number;
 
     /**
      * Instantiates a new Flood controller.
      *
-     * @param floodService the person service
+     * @param dtoFloodService the person service
      */
-    public DtoFloodController(FloodService floodService) {
+    public DtoFloodController(DtoFloodService dtoFloodService) {
 
         logger.info("Instantiates a new controller");
 
-        this.floodService = floodService;
+        this.dtoFloodService = dtoFloodService;
 
     }
 
@@ -54,7 +54,7 @@ public class DtoFloodController {
       logger.info("Get Mapping FloodList Dto Controller");
 
       number = station;
-        return ResponseEntity.ok(floodService.floodDTO(station));
+        return ResponseEntity.ok(dtoFloodService.floodDTO(station));
     }
 
 

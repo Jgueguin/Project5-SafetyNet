@@ -34,7 +34,7 @@ public class Dto6PersonInfoTest {
 
     // Dto
     @InjectMocks
-    private PersonInfoService personInfoService;
+    private DtoPersonInfoService dtoPersonInfoService;
 
     private static Calendar adultBirth = new GregorianCalendar(2001, 9, 5, 1, 1);
     private static Calendar childBirth = new GregorianCalendar(2019, 9, 5, 1, 1);
@@ -155,7 +155,7 @@ public class Dto6PersonInfoTest {
 
         }
 
-        assertEquals(StringUtils.deleteWhitespace(personInfoByFirstNameAndLastNameListDTO.toString()), StringUtils.deleteWhitespace(personInfoService.firstNameAndLastNameDTO(any(),any()).toString()));
+        assertEquals(StringUtils.deleteWhitespace(personInfoByFirstNameAndLastNameListDTO.toString()), StringUtils.deleteWhitespace(dtoPersonInfoService.firstNameAndLastNameDTO(any(),any()).toString()));
     }
 
 

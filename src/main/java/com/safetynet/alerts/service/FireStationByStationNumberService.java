@@ -4,7 +4,7 @@ import com.safetynet.alerts.model.FireStations;
 import com.safetynet.alerts.model.Persons;
 import com.safetynet.alerts.model.dto.FireStationByStationNumberDTO;
 import com.safetynet.alerts.repository.*;
-import lombok.Data;
+import lombok.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,12 @@ import java.util.GregorianCalendar;
  * FireStation By StationNumber Service
  */
 
-@Data
+// @Data
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+
 @Service
 public class FireStationByStationNumberService {
 /*    @Autowired

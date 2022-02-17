@@ -25,6 +25,8 @@ faire figurer leurs antécédents médicaux (médicaments, posologie et allergie
     public FloodListDTO(
     ) {
         floodArray = new ArrayList<>();
+
+
     }
 
 
