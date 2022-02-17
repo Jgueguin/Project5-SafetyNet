@@ -23,6 +23,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -48,11 +49,11 @@ public class Dto2ChildAlertControllerTest {
     @Test
     public void getDtoChildAlertTest() throws Exception {
 
-        //added
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup((dtoChildAlertController)).build();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/childAlert?address=1509 Culver St ")
                         .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
     }
 

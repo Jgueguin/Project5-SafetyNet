@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.FireStationByStationNumberDTO;
-import com.safetynet.alerts.service.FireStationByStationNumberService;
+import com.safetynet.alerts.service.DtoFireStationByStationNumberService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -21,22 +21,22 @@ public class DtoFireStationNumberController {
     private static final Logger logger = LogManager.getLogger("DtoFireStationNumberController");
 
     /**
-     * @see FireStationByStationNumberService
+     * @see DtoFireStationByStationNumberService
      */
-    FireStationByStationNumberService fireStationByStationNumberService;
+    DtoFireStationByStationNumberService dtoFireStationByStationNumberService;
 
     Integer number;
 
     /**
      * Instantiates a new Fire controller.
      *
-     * @param fireStationByStationNumberService the person service
+     * @param dtoFireStationByStationNumberService the person service
      */
-    public DtoFireStationNumberController(FireStationByStationNumberService fireStationByStationNumberService) {
+    public DtoFireStationNumberController(DtoFireStationByStationNumberService dtoFireStationByStationNumberService) {
 
         logger.info("Instantiates a new controller");
 
-        this.fireStationByStationNumberService = fireStationByStationNumberService;
+        this.dtoFireStationByStationNumberService = dtoFireStationByStationNumberService;
     }
 
 
@@ -55,7 +55,7 @@ public class DtoFireStationNumberController {
 
           number = stationNumber;
 
-        return ResponseEntity.ok(fireStationByStationNumberService.personByStationDTO(stationNumber));
+        return ResponseEntity.ok(dtoFireStationByStationNumberService.personByStationDTO(stationNumber));
     }
 
 

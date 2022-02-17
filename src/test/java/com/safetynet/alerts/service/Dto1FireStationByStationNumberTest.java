@@ -35,7 +35,7 @@ public class Dto1FireStationByStationNumberTest {
 
     // Dto
     @InjectMocks
-    private FireStationByStationNumberService fireStationByStationNumberService;
+    private DtoFireStationByStationNumberService dtoFireStationByStationNumberService;
 
     private static Calendar adultBirth = new GregorianCalendar(2001, 9, 5, 1, 1);
     private static Calendar childBirth = new GregorianCalendar(2019, 9, 5, 1, 1);
@@ -116,7 +116,7 @@ public class Dto1FireStationByStationNumberTest {
             when(medicalRecordsRepository.findByFirstNameAndLastName(mr.getFirstName(), mr.getLastName())).thenReturn(mr);
         }
 
-        assertEquals(fireStationByStationNumberDTO, fireStationByStationNumberService.personByStationDTO(0));
+        assertEquals(fireStationByStationNumberDTO, dtoFireStationByStationNumberService.personByStationDTO(0));
     }
 
 } //End

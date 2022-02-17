@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 @AutoConfigureMockMvc
-@WebMvcTest(controllers = FireStationsController.class)
+//@WebMvcTest(controllers = FireStationsController.class)
 
 public class FireStationControllerTest {
     @Mock
@@ -42,75 +42,16 @@ public class FireStationControllerTest {
 
     @Before
     public void setUp() throws Exception{
-        //added
+
         MockitoAnnotations.initMocks(this);
         fireStationsController = new FireStationsController(fireStationsService);
     }
-
-    // POST
-
-  /*  @Test
-    public void postPersons_Test() throws Exception {
-
-        this.mockMvc.perform(post("/persons")
-                        .contentType(MediaType.APPLICATION_JSON).
-                        .content("teste"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful());
-    }*/
-
-  /*  @Test
-    @DisplayName("Add a Person ")
-    public void postPersons2_Test() throws Exception {
-
-        mockMvc
-                .perform(
-                        post("/rest/tagmemberships/create")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content("{\"name\":\"testTag\"}"))
-                .andExpect(status().isOk());
-        }*/
-
-  /*  @Test
-    public void postPersons3_Test() throws Exception {
-
-        this.mockMvc.perform(post("/persons")
-                        .contentType(MediaType.APPLICATION_JSON).body(person1).
-
-                .content("teste"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful());
-    }*/
-
-
-  /*  @Test
-    public void postPersons_Test() throws Exception {
-
-        this.mockMvc.perform(post("/persons")
-                        .contentType(MediaType.APPLICATION_JSON).
-                .content("teste"))
-                .andDo(print())
-                .andExpect(status().is2xxSuccessful());
-    }*/
-
-/*    @Test
-    public void postPersons4_Test() throws Exception {
-        mockMvc
-                 .perform(
-                            post("/persons")
-                            .contentType(MediaType.APPLICATION_JSON)
-                            .content("{\"name\":\"testTag\"}"))
-                            .andExpect(status().isOk()
-
-                            );
-    }*/
 
 //Get
 
     @Test
     public void getFireStation1() throws Exception {
 
-        //added
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup((fireStationsController)).build();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/firestations/ ")
@@ -154,28 +95,25 @@ public class FireStationControllerTest {
     Expected :201
     Actual   :404*/
 
-  /*  @Test
+  @Test
     public void createMedicalRecordsTest() throws Exception
     {
         MockMvc mockMvc4 = MockMvcBuilders.standaloneSetup((fireStationsController)).build();
 
         mockMvc4.perform( MockMvcRequestBuilders
-                        .post("/firestations ")
+                        .post("/firestations")
                         .content(asJsonString(
                                 new FireStations(
-                                        null,
+                                        2L,
                                         2,
                                         "address2"
                                         )))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-
-                                .andExpect(status().isCreated())
-
-        //        .andExpect(MockMvcResultMatchers.jsonPath("$.firstname").exists())
+                                .andExpect(status().isOk())
         ;
     }
-*/
+
 
 
 
@@ -193,7 +131,6 @@ public class FireStationControllerTest {
                                 2,
                                 "address2"
                                 )))
-
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -214,8 +151,6 @@ public class FireStationControllerTest {
         mockMvc6.perform( MockMvcRequestBuilders.delete("/firestations/{id} ", 2) )
 
                 .andExpect(status().isOk())
-
-        // .andExpect(status().isAccepted())
         ;
     }
 
@@ -225,13 +160,12 @@ public class FireStationControllerTest {
     Expected :200
     Actual   :404*/
 
-
-    /*@Test
+/*    @Test
     public void deleteFireStationsAddressTest() throws Exception
     {
         MockMvc mockMvc6 = MockMvcBuilders.standaloneSetup((fireStationsController)).build();
 
-        mockMvc6.perform( MockMvcRequestBuilders.delete("/firestations/fire/{address} ", "address2") )
+        mockMvc6.perform( MockMvcRequestBuilders.delete("/firestations/fire/{address}", "address2") )
 
                 .andExpect(status().isOk())
 

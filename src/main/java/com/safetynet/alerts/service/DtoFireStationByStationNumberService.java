@@ -25,7 +25,7 @@ import java.util.GregorianCalendar;
 @NoArgsConstructor
 
 @Service
-public class FireStationByStationNumberService {
+public class DtoFireStationByStationNumberService {
 /*    @Autowired
     private PersonsRepository personsRepository;*/
     /*@Autowired

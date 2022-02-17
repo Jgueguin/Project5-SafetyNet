@@ -32,35 +32,37 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-
-@AutoConfigureMockMvc
-
-@WebMvcTest(controllers = MedicalRecordsController.class)
+//@AutoConfigureMockMvc
+//@WebMvcTest(controllers = MedicalRecordsController.class)
 
 public class MedicalRecordsControllerTest {
     @Mock
     private MedicalRecordsService medicalRecordsService;
 
-    // added
     MedicalRecordsController medicalRecordsController;
 
+    private static Persons person1 = new Persons(1L, "first_1", "Last_1", "Address_1", "City_1", 11111, "111-111-1111", "one@email.com");
     private static Calendar adultBirth = new GregorianCalendar(2001, 9, 5, 1, 1);
-
     private static String[] medications2 = {"hydrapermazol:300mg"};
     private static String[] allergies2 = {"brocoli"};
 
+    private static MedicalRecords medicalRecordsPerson1 = new MedicalRecords(1L, person1.getFirstName(), person1.getLastName(), adultBirth, medications2, allergies2);
+
+    List<MedicalRecords> medicalRecordsList = new ArrayList<>();
+
     @Before
     public void setUp() throws Exception{
-        //added
+
         MockitoAnnotations.initMocks(this);
+
         medicalRecordsController = new MedicalRecordsController(medicalRecordsService);
 
-        //MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        //Medical Records
+        medicalRecordsList.add(medicalRecordsPerson1);
 
     }
 
     //Get
-
     @Test
     public void getMedicalRecordsAll() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
@@ -73,32 +75,23 @@ public class MedicalRecordsControllerTest {
 
     @Test
     public void getMedicalRecordsId() throws Exception {
-        MockMvc mockMvc2 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc2.perform(MockMvcRequestBuilders.get("/medicalrecords/{id}",1 ))
+        mockMvc.perform(MockMvcRequestBuilders.get("/medicalrecords/{id}",1 ))
                 .andExpect(MockMvcResultMatchers.status().isOk())
         ;
     }
 
     @Test
     public void getMedicalRecordsName() throws Exception {
-        MockMvc mockMvc2 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc2.perform(MockMvcRequestBuilders.get("/medicalrecords/John/Boyd "))
+        mockMvc.perform(MockMvcRequestBuilders.get("/medicalrecords/John/Boyd "))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                ;
     }
 
-    @Test
-    public void getMedicalRecordsUnknownName() throws Exception {
-        //added
-        MockMvc mockMvc2 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc2.perform(MockMvcRequestBuilders.get("/medicalrecords/micha/Boyd "))
-
-                .andExpect(MockMvcResultMatchers.status().isOk())
-        ;
-    }
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
@@ -117,9 +110,9 @@ public class MedicalRecordsControllerTest {
     @Test
     public void createMedicalRecordsTest() throws Exception
     {
-        MockMvc mockMvc4 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc4.perform( MockMvcRequestBuilders
+        mockMvc.perform( MockMvcRequestBuilders
                         .post("/medicalrecords")
                         .content(asJsonString(
                                 new MedicalRecords(
@@ -131,8 +124,8 @@ public class MedicalRecordsControllerTest {
                                         allergies2)))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-        //        .andExpect(MockMvcResultMatchers.jsonPath("$.firstname").exists())
+                .andExpect(status().isOk())
+
         ;
     }
 
@@ -140,17 +133,12 @@ public class MedicalRecordsControllerTest {
 
 //Put
 
-/*    java.lang.AssertionError: JSON path "$.medications"
-    Expected :{hydrapermazol:300mg}
-    Actual   :hydrapermazol:300mg
-    <Click to see difference>*/
-
     @Test
     public void updateFireStationsIdTest() throws Exception
     {
-        MockMvc mockMvc5 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc5.perform( MockMvcRequestBuilders
+        mockMvc.perform( MockMvcRequestBuilders
                         .put("/medicalrecords/{id}", 2)
                         .content(asJsonString(new MedicalRecords(
                                 2L,
@@ -163,22 +151,15 @@ public class MedicalRecordsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("firstName"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("lastName"))
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.birthDate").value(adultBirth))
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.medications").value(medications2))
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.allergies").value(allergies2))
-
-        ;
+                      ;
     }
 
     @Test
     public void updateFireStationsFirstNameLastNameTest() throws Exception
     {
-        MockMvc mockMvc5 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc5.perform( MockMvcRequestBuilders
+        mockMvc.perform( MockMvcRequestBuilders
                         .put("/medicalrecords/{firstName}/{lastName}", "firstName","lastName")
                         .content(asJsonString(new MedicalRecords(
                                 2L,
@@ -191,16 +172,8 @@ public class MedicalRecordsControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                //.andExpect(MockMvcResultMatchers.jsonPath("$.id").value(2L))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.firstName").value("firstName"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.lastName").value("lastName"))
-        //.andExpect(MockMvcResultMatchers.jsonPath("$.birthDate").value(adultBirth))
-        //.andExpect(MockMvcResultMatchers.jsonPath("$.medications").value(medications2))
-        //.andExpect(MockMvcResultMatchers.jsonPath("$.allergies").value(allergies2))
-
         ;
     }
-
 
 
 
@@ -209,26 +182,23 @@ public class MedicalRecordsControllerTest {
     @Test
     public void deleteFireStationsIdTest() throws Exception
     {
-        MockMvc mockMvc6 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc6.perform( MockMvcRequestBuilders.delete("/medicalrecords/{id} ", 2) )
+        mockMvc.perform( MockMvcRequestBuilders.delete("/medicalrecords/{id} ", 2) )
 
                 .andExpect(status().isOk())
-
-        // .andExpect(status().isAccepted())
         ;
     }
 
     @Test
     public void deleteFireStationsFirstNameLastNameTest() throws Exception
     {
-        MockMvc mockMvc6 = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup((medicalRecordsController)).build();
 
-        mockMvc6.perform( MockMvcRequestBuilders.delete("/medicalrecords/{firstName}/{lastName} ","firstName","lastName") )
+        mockMvc.perform( MockMvcRequestBuilders.delete("/medicalrecords/{firstName}/{lastName} ","firstName","lastName") )
 
                 .andExpect(status().isOk())
 
-        // .andExpect(status().isAccepted())
         ;
     }
 

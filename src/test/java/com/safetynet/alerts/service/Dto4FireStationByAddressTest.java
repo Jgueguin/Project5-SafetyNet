@@ -36,7 +36,7 @@ public class Dto4FireStationByAddressTest {
     // Dto
 
     @InjectMocks
-    private FireStationByAddressService fireStationByAddressService;
+    private DtoFireStationByAddressService dtoFireStationByAddressService;
 
     private static Calendar adultBirth = new GregorianCalendar(2001, 9, 5, 1, 1);
     private static Calendar childBirth = new GregorianCalendar(2019, 9, 5, 1, 1);
@@ -160,7 +160,7 @@ public class Dto4FireStationByAddressTest {
 
         }
 
-        assertEquals(fireStationByAddressDTO, fireStationByAddressService.personsCoveredByAddress2("Address_1"));
+        assertEquals(fireStationByAddressDTO, dtoFireStationByAddressService.personsCoveredByAddress2("Address_1"));
 
     }
 

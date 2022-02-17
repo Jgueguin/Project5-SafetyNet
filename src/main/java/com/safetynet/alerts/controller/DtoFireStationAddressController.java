@@ -2,7 +2,7 @@
 package com.safetynet.alerts.controller;
 
 import com.safetynet.alerts.model.dto.FireStationByAddressDTO;
-import com.safetynet.alerts.service.FireStationByAddressService;
+import com.safetynet.alerts.service.DtoFireStationByAddressService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.ResponseEntity;
@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
     private static final Logger logger = LogManager.getLogger("DtoFireStationAddressController");
 
     /**
-     * @see FireStationByAddressService
+     * @see DtoFireStationByAddressService
      */
-    FireStationByAddressService fireStationByAddressService;
+    DtoFireStationByAddressService dtoFireStationByAddressService;
 
     String addr;
 
     /**
      * Instantiates a new Fire controller.
      *
-     * @param fireStationByAddressService
+     * @param dtoFireStationByAddressService
      */
-    public DtoFireStationAddressController(FireStationByAddressService fireStationByAddressService) {
+    public DtoFireStationAddressController(DtoFireStationByAddressService dtoFireStationByAddressService) {
 
         logger.info("Instantiates a new controller");
 
-        this.fireStationByAddressService = fireStationByAddressService;
+        this.dtoFireStationByAddressService = dtoFireStationByAddressService;
     }
 
     /*http://localhost:9090/fire?address=<address>
@@ -55,7 +55,7 @@ import org.springframework.web.bind.annotation.RestController;
 
         addr = address;
 
-        return ResponseEntity.ok(fireStationByAddressService.personsCoveredByAddress2(address));
+        return ResponseEntity.ok(dtoFireStationByAddressService.personsCoveredByAddress2(address));
     }
 
 
